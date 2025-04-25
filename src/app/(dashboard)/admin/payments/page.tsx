@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import Header from "../../_components/Header";
 import { PaymentsList } from "../../_components/PaymentsList";

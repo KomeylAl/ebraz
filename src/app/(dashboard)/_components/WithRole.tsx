@@ -33,7 +33,7 @@ const WithRole = ({ allowedRoles, children }: WithRoleProps) => {
   if (!allowedRoles.includes(role!)) {
     return (
       <div className="w-full h-full flex flex-col">
-        <Header pageTitle="داشبورد" />
+        <Header onSearchChange={() => {}} />
         <div className="w-full h-full flex items-center justify-center p-10">
           شما به این قسمت دسترسی ندرید.
         </div>

@@ -42,13 +42,15 @@ const Login = () => {
         toast.success("وارد شدید. لطفا کمی صبر کنید.");
         const data = await response.json();
         console.log(data.user);
-        dispatch(setUser({
-          name: data.user.name,
-          phone: data.user.phone,
-          role: data.user.role
-        }));
+        dispatch(
+          setUser({
+            name: data.user.name,
+            phone: data.user.phone,
+            role: data.user.role,
+          })
+        );
         console.log("user set");
-        // router.push("/admin");
+        router.push("/admin");
         setIsLoading(false);
       }
     }
