@@ -1,0 +1,46 @@
+import React from "react";
+import Link from "next/link";
+
+const Hero = () => {
+  return (
+    <section className="min-h-screen w-full hero">
+      <div className="w-full min-h-screen bg-black/75 flex flex-col items-center justify-between pt-24 pb-10 backdrop-blur-sm">
+        <p></p>
+        <div className="space-y-10">
+          <h1 className="text-white text-[70px] font-semibold text-center leading-14">
+            مرکز جامع مشاوره و رواندرمانی{" "}
+            <strong className="text-beige">ابراز</strong>
+          </h1>
+          <p className="text-center text-white text-xl">
+            با تاسیس و مدیریت{" "}
+            <span className="text-beige">دکتر علی محرابی</span>، متخصص روانشناسی
+            بالینی و عضو هیئت علمی دانشگاه اصفهان
+          </p>
+          <div className="flex items-center justify-center gap-10 w-full">
+            <Link
+              href="/"
+              className="text-center text-beige px-16 py-2 rounded-md border border-beige cursor-pointer hover:bg-beige hover:text-black transition duration-200"
+            >
+              دریافت نوبت
+            </Link>
+            <Link
+              href="/"
+              className="text-center text-beige px-16 py-2 rounded-md border border-beige cursor-pointer hover:bg-beige hover:text-black transition duration-200"
+            >
+              مشاوران
+            </Link>
+          </div>
+        </div>
+        <div className="w-full flex items-center justify-center">
+          <a href="#departments">
+            <div className="w-5 h-12 mt-32 md:mt-10 border border-shelfish text-shelfish rounded-full animate-bounce flex items-end justify-center">
+              .
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Hero;
