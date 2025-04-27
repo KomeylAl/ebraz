@@ -9,7 +9,7 @@ import { useUser } from "@/hooks/useUser";
 import Input from "@/components/ui/custom/Input";
 
 interface HeaderProps {
-  onSearchChange: () => void;
+  onSearchChange: (e: any) => void;
 }
 
 const Header = ({ onSearchChange }: HeaderProps) => {
@@ -28,7 +28,11 @@ const Header = ({ onSearchChange }: HeaderProps) => {
             className="text-gray-500"
           />
         </div>
-        <Input placeholder="جستجو" className="max-w-96 focus:ring-transparent" />
+        <Input
+          onChange={onSearchChange}
+          placeholder="جستجو"
+          className="max-w-96 focus:ring-transparent"
+        />
       </div>
 
       {userData && (

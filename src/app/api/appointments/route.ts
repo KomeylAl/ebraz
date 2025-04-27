@@ -3,16 +3,14 @@ import { NextRequest, NextResponse } from "next/server";
 export async function GET(req: NextRequest) {
   const token = req.cookies.get("token");
   const params = req.nextUrl.searchParams;
-  const date = params.get("date");
   const page = params.get("page") || 0;
   const pageSize = params.get("pageSize") || 10;
   const search = params.get("search") || "";
+  const date = params.get("date") || "";
 
   try {
     const response = await fetch(
-      date
-        ? `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/appointments/date/${date}`
-        : `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/appointments?page=${page}&per_page=${pageSize}&search=${search}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/appointments?page=${page}&per_page=${pageSize}&search=${search}&date=${date}`,
       {
         method: "GET",
         headers: {

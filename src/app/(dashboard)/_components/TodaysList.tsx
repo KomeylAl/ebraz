@@ -2,7 +2,7 @@
 
 import React from "react";
 import { PuffLoader } from "react-spinners";
-import { useAppointmentsByDate } from "@/hooks/useAppointments";
+import { useAppointments, useAppointmentsByDate } from "@/hooks/useAppointments";
 import Table from "@/components/common/Table";
 import { useModal } from "@/hooks/useModal";
 import { Modal } from "@/components/common/Modal";
@@ -10,7 +10,7 @@ import { appointmentColumns } from "@/lib/columns";
 
 const ToDaysList = () => {
   const date = new Date().toJSON().slice(0, 10);
-  const { data, isLoading } = useAppointmentsByDate(date);
+  const { data, isLoading } = useAppointments(0, 10, "", date);
   const { isOpen, openModal, closeModal } = useModal();
 
   console.log(data);
@@ -21,12 +21,12 @@ const ToDaysList = () => {
 
       {data && (
         <Table
-          data={data}
+          data={data.data}
           columns={appointmentColumns}
-          currentPage={1}
-          pageSize={10}
-          showActions
-          totalItems={117}
+          currentPage={data.meta.current_page}
+            pageSize={data.meta.per_page}
+            showActions
+            totalItems={data.meta.total}
           onDelete={openModal}
         />
       )}

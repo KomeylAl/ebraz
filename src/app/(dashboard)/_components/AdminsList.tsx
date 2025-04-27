@@ -7,138 +7,84 @@ import { useRouter } from "next/navigation";
 import { getCookie } from "cookies-next";
 import Link from "next/link";
 import { MdEditSquare } from "react-icons/md";
+import { useAdmins } from "@/hooks/useAdmins";
+import Table from "@/components/common/Table";
+import { adminColumns } from "@/lib/columns";
+import { useModal } from "@/hooks/useModal";
+import { Modal } from "@/components/common/Modal";
+import { Button } from "@/components/ui/button";
+import { useDeleteAppointment } from "@/hooks/useAppointments";
 
 export const AdminsList = () => {
-  const [admins, setAdmins]: any = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-
+  const { data, isLoading, error, refetch } = useAdmins();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [adminId, setAdminId] = useState(0);
 
-  const router = useRouter();
-  const token = getCookie("token")?.toString();
+  const { isOpen, openModal, closeModal } = useModal();
 
-  const getAdmins = async () => {
-    try {
-      const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/admins`,
-        {
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      console.log(response.data.code);
-
-      if (response.status === 401) {
-        router.push("/login");
-      }
-
-      if (response.status == 200) {
-        setAdmins(response.data);
-      } else {
-        console.log(response.data);
-      }
-    } catch (e: any) {
-      console.log(e.toString());
-    } finally {
-      setIsLoading(false);
+  const { mutate: deleteAppointment, isPending } = useDeleteAppointment(
+    adminId,
+    () => {
+      closeModal();
+      refetch();
     }
-  };
-
-  useEffect(() => {
-    setIsLoading(true);
-    getAdmins();
-  }, []);
-
-  const handleDelete = async (adminId: any) => {
-    try {
-      await axios.delete(
-        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/admins/${adminId}`
-      );
-    } catch (error: any) {
-      console.log(error.toString());
-    }
-    getAdmins();
-  };
-
-  function converRole(role: string) {
-    let output: string = "";
-    switch (role) {
-      case "receptionist":
-        output = "پذیرش";
-        break;
-      case "manager":
-        output = "مدیریت";
-        break;
-      case "author":
-        output = "نویسنده وب سایت";
-        break;
-      case "accountant":
-        output = "حسابداری";
-        break;
-      default:
-        output = "";
-        break;
-    }
-    return output;
-  }
-
-  if (admins.length === 0) {
-    return (
-      <div className="flex items-center justify-center w-full h-fit">
-        <PuffLoader
-          className="text-center mt-20 flex items-center justify-center"
-          color={"#3fb2f2"}
-          size={80}
-        />
-      </div>
-    );
-  }
+  );
 
   return (
-    <div className="w-full flex flex-col mt-6">
-      <div
-        className="w-full flex items-center 
-           justify-between py-4 border-b 
-           border-gray-200 md:gap-0 p-4"
+    <div className="w-full h-full flex items-center justify-center">
+      {isLoading && <PuffLoader size={60} color="#3e86fa" />}
+
+      {error && (
+        <div className="w-full h-full flex items-center justify-center">
+          <p className="text-rose-500">خطا در دریافت اطلاعات</p>
+        </div>
+      )}
+
+      {data && (
+        <Table
+          data={data}
+          columns={adminColumns}
+          currentPage={0}
+          pageSize={data.lenght}
+          showActions
+          totalItems={data.lenght}
+          onDelete={(item: any) => {
+            setAdminId(item.id);
+            openModal();
+          }}
+        />
+      )}
+
+      <Modal
+        showCloseButton={false}
+        isOpen={isOpen}
+        onClose={closeModal}
+        className="max-w-[700px] bg-white"
       >
-        <div className="hidden md:block w-1/6 text-right font-bold">#</div>
-        <div className="w-1/3 md:w-1/6 text-right font-bold">نام</div>
-        <div className="hidden md:block w-1/6 text-right font-bold">تلفن</div>
-        <div className="w-1/3 md:w-1/6 text-right font-bold">سِمت</div>
-        <div className="w-1/3 md:w-1/6 text-center font-bold">ویرایش</div>
-      </div>
-      <div className="">
-        {admins.map((admin: any, index: any) => (
-          <div
-            key={admin.id}
-            className="w-full flex items-center justify-between py-4 md:gap-0 p-4 bg-white/45 backdrop-blur-2xl border border-white rounded-sm mt-3"
-          >
-            <div className="hidden md:block w-1/6 text-right">{index + 1}</div>
-            <div className="w-1/4 md:w-1/6 text-right">{admin.name}</div>
-            <div className="hidden md:block w-1/6 text-right">
-              {admin.phone}
-            </div>
-            <div className="w-1/4 md:w-1/6 text-right">
-              {converRole(admin.role)}
-            </div>
-            <div className="w-1/4 md:w-1/6">
-              <Link
-                className="flex items-center justify-center"
-                href={`/admin/admins/edit/${admin.id}`}
-              >
-                <MdEditSquare
-                  size={25}
-                  className="text-amber-500 cursor-pointer"
-                />
-              </Link>
-            </div>
+        <div className="w-full h-40 flex flex-col items-start justify-between p-10">
+          <p className="text-lg">آیا از حذف این مورد اطمینان دارید؟</p>
+          <div className="w-full flex items-center justify-end gap-4">
+            <Button
+              variant="destructive"
+              size="lg"
+              className={`cursor-pointer ${
+                isPending ? "bg-rose-400" : "bg-rose-600"
+              }`}
+              onClick={() => deleteAppointment()}
+            >
+              {isPending ? "در حال حذف..." : "حذف"}
+            </Button>
+            <Button
+              variant="outline"
+              size="lg"
+              className="cursor-pointer"
+              onClick={closeModal}
+            >
+              بازگشت
+            </Button>
           </div>
-        ))}
-      </div>
+        </div>
+      </Modal>
     </div>
   );
 };

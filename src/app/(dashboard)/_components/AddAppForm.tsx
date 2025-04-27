@@ -46,7 +46,7 @@ const AddAppForm = ({ onCloseModal }: AddAppFormProps) => {
   } = useDoctors();
 
   const clientsOptions = clients ? apiOptions(clients) : [];
-  const doctorsOptions = doctors ? apiOptions(doctors) : [];
+  const doctorsOptions = doctors ? apiOptions(doctors.data) : [];
 
   const { mutate: addApp, isPending } = useAddAppointment(() => onCloseModal());
 

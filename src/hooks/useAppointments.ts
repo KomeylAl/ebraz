@@ -17,13 +17,14 @@ export function useAppointmentsByDate(date: string = "") {
 export function useAppointments(
   page: number = 0,
   pageSize: number = 10,
-  search: string = ""
+  search: string = "",
+  date: string = ""
 ) {
   return useQuery({
-    queryKey: ["appointments", page, pageSize, search],
+    queryKey: ["appointments", page, pageSize, search, date],
     queryFn: async () => {
       const res = await fetch(
-        `/api/appointments?page=${page}&size=${pageSize}&search=${search}`
+        `/api/appointments?page=${page}&size=${pageSize}&search=${search}&date=${date}`
       );
       if (res.status !== 200) {
         toast.error("خطا در دریافت اطلاعات");

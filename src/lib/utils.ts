@@ -29,3 +29,25 @@ export function convertBaseDate(date: DateObject): string {
     .replace("T", " ")
     .slice(0, 10);
 }
+
+export function converRole(role: string) {
+  let output: string = "";
+  switch (role) {
+    case "receptionist":
+      output = "پذیرش";
+      break;
+    case "manager":
+      output = "مدیریت";
+      break;
+    case "author":
+      output = "نویسنده وب سایت";
+      break;
+    case "accountant":
+      output = "حسابداری";
+      break;
+    default:
+      output = "";
+      break;
+  }
+  return output;
+}

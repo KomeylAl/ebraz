@@ -10,7 +10,7 @@ import { ClientsList } from "../_components/ClientsList";
 const AdminDashboard = () => {
   return (
     <div className="flex-1 h-screen overflow-y-auto flex flex-col">
-      <Header pageTitle="داشبورد" />
+      <Header onSearchChange={() => {}} />
 
       <div className="flex-1 p-8 flex flex-col">
         <div className="flex items-center justify-between">

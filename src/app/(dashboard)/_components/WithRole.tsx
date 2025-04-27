@@ -4,6 +4,7 @@ import { getCookie } from "cookies-next";
 import React, { useEffect, useState } from "react";
 import Header from "./Header";
 import { PuffLoader } from "react-spinners";
+import { useUser } from "@/hooks/useUser";
 
 interface WithRoleProps {
   allowedRoles: Array<String>;
@@ -11,14 +12,11 @@ interface WithRoleProps {
 }
 
 const WithRole = ({ allowedRoles, children }: WithRoleProps) => {
-  const [role, setRole] = useState<string | null>(null);
+  const { data } = useUser();
 
-  useEffect(() => {
-    const userRole = getCookie("role");
-    setRole(userRole ? String(userRole) : null);
-  }, []);
+  const userRole = data?.role ?? null;
 
-  if (!role) {
+  if (!userRole) {
     return (
       <div className="w-full h-full flex items-center justify-center">
         <PuffLoader
@@ -30,7 +28,7 @@ const WithRole = ({ allowedRoles, children }: WithRoleProps) => {
     );
   }
 
-  if (!allowedRoles.includes(role!)) {
+  if (!allowedRoles.includes(userRole!)) {
     return (
       <div className="w-full h-full flex flex-col">
         <Header onSearchChange={() => {}} />

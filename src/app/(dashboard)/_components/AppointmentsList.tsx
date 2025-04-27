@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { PuffLoader } from "react-spinners";
 import persian from "react-date-object/calendars/persian";
 import DatePicker, { DateObject } from "react-multi-date-picker";
@@ -18,10 +18,11 @@ import { BiPlus } from "react-icons/bi";
 import IconButton from "@/components/ui/custom/IconButton";
 import { Button } from "@/components/ui/button";
 import AddAppForm from "./AddAppForm";
+import { debounce } from "lodash";
 
 export const AppinmentsList = () => {
   const [value, setValue] = useState<DateObject>();
-  const [page, setPage] = useState(0); // API page از 0 شروع میشه
+  const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [search, setSearch] = useState("");
 
@@ -30,13 +31,13 @@ export const AppinmentsList = () => {
   const baseDate = value
     ? value.toDate().toISOString().slice(0, 19).replace("T", " ").slice(0, 10)
     : "";
-  const { data, isLoading, error, refetch } = useAppointmentsByDate(baseDate);
+
   const {
     data: baseData,
     isLoading: baseLoading,
     error: baseError,
     refetch: baseRefetch,
-  } = useAppointments(page, pageSize, search);
+  } = useAppointments(page, pageSize, search, baseDate);
 
   const { mutate: deleteAppointment, isPending } = useDeleteAppointment(
     appId,
@@ -74,8 +75,6 @@ export const AppinmentsList = () => {
             format="YYYY-MM-DD"
             onChange={(date: any) => {
               setValue(date);
-              console.log(baseDate);
-              refetch();
             }}
           />
         </div>
@@ -93,12 +92,12 @@ export const AppinmentsList = () => {
           <Table
             data={baseData.data}
             columns={appointmentColumns}
-            currentPage={baseData.meta.page + 1}
-            pageSize={baseData.meta.items_this_page}
+            currentPage={baseData.meta.current_page}
+            pageSize={baseData.meta.per_page}
             showActions
-            totalItems={baseData.meta.total_items}
+            totalItems={baseData.meta.total}
             onPageChange={(newPage) => {
-              setPage(newPage - 1);
+              setPage(newPage);
             }}
             onDelete={(item: any) => {
               setAppId(item.referral_id);

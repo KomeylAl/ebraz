@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export function middleware(request: NextRequest) {
   const token = request.cookies.get("token");
+  const role = request.cookies.get("role");
 
   if (request.nextUrl.pathname.startsWith("/auth/login") && token) {
     return NextResponse.redirect(new URL("/admin", request.url));
@@ -20,6 +21,10 @@ export function middleware(request: NextRequest) {
 
   if (!token) {
     return NextResponse.redirect(new URL("/auth/login", request.url));
+  }
+
+  if (role?.value === "author" && request.nextUrl.pathname.startsWith('/admin')) {
+    return NextResponse.redirect(new URL("/dashboard", request.url));
   }
 
   return NextResponse.next();
