@@ -35,7 +35,7 @@ export default async function Psychologists() {
           {!doctors && <PuffLoader color="#3b82f6" size={45} />}
 
           {doctors &&
-            doctors.map((item: any, index: any) => (
+            doctors.data.map((item: any, index: any) => (
               <PsyItem key={index} name={item.name} image="" />
             ))}
         </div>

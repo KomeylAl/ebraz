@@ -7,6 +7,8 @@ import Link from "next/link";
 import { BiLogOut } from "react-icons/bi";
 import { useUser } from "@/hooks/useUser";
 import Input from "@/components/ui/custom/Input";
+import { useLogout } from "@/hooks/useAuth";
+import { useRouter } from "next/navigation";
 
 interface HeaderProps {
   onSearchChange: (e: any) => void;
@@ -14,8 +16,14 @@ interface HeaderProps {
 
 const Header = ({ onSearchChange }: HeaderProps) => {
   const { data: userData } = useUser();
+  const {
+    data: logoutData,
+    isLoading: logoutLoading,
+    refetch: logout,
+  } = useLogout();
 
-  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -37,13 +45,17 @@ const Header = ({ onSearchChange }: HeaderProps) => {
 
       {userData && (
         <div className="w-full flex items-center justify-end gap-3">
-          <div
+          <button
+            onClick={() => {
+              logout();
+              router.refresh();
+            }}
             className={`${
-              isLoading ? "text-rose-300" : "text-rose-500"
+              logoutLoading ? "text-rose-300" : "text-rose-500"
             } cursor-pointer`}
           >
             <BiLogOut className="" size={20} />
-          </div>
+          </button>
           <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center">
             {userData.role === "boss" ? (
               <Link href={"/admin/profile"}>

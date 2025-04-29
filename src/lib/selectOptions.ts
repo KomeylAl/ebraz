@@ -18,3 +18,10 @@ export const apiOptions = (list: any): Array<Object> => {
   });
   return options;
 };
+
+export const roleOptions = [
+  { value: "receptionist", label: "پذیرش" },
+  { value: "manager", label: "مدیریت" },
+  { value: "author", label: "نویسنده وب سایت" },
+  { value: "accountant", label: "حسابداری" },
+];

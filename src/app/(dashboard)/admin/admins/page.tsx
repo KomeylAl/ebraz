@@ -5,8 +5,12 @@ import Header from "@/app/(dashboard)/_components/Header";
 import { useRouter } from "next/navigation";
 import React from "react";
 import WithRole from "@/app/(dashboard)/_components/WithRole";
+import { useModal } from "@/hooks/useModal";
+import { Modal } from "@/components/common/Modal";
+import AddAdminForm from "../../_components/AddAdminForm";
 
 const Admins = () => {
+  const { isOpen, openModal, closeModal } = useModal();
   const router = useRouter();
   return (
     <WithRole allowedRoles={["boss"]}>
@@ -17,7 +21,7 @@ const Admins = () => {
             <div className="flex items-center justify-between">
               <h2 className="font-bold text-2xl">مدیران</h2>
               <div
-                onClick={() => router.push("/admin/admins/add")}
+                onClick={openModal}
                 className="px-12 py-2 bg-blue-600 rounded-md text-white text-center cursor-pointer"
               >
                 افزودن مدیر
@@ -26,6 +30,19 @@ const Admins = () => {
             <AdminsList />
           </div>
         </div>
+        <Modal
+          isOpen={isOpen}
+          onClose={closeModal}
+          showCloseButton={false}
+          className="max-w-[700px] bg-white"
+        >
+          <AddAdminForm
+            onCloseModal={closeModal}
+            onAddedAdmin={() => {
+              closeModal();
+            }}
+          />
+        </Modal>
       </div>
     </WithRole>
   );

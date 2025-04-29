@@ -6,8 +6,8 @@ import Sidebar from "../_components/SideBar";
 import "../../globals.css";
 
 export const metadata: Metadata = {
-  title: "پنل مدیریت - کلینیک ابراز",
-  description: "پنل مدیریت - کلینیک ابراز",
+  title: "داشبورد وب سایت - کلینیک ابراز",
+  description: "داشبورد وب سایت - کلینیک ابراز",
 };
 
 export default function AdminLayout({
@@ -22,7 +22,7 @@ export default function AdminLayout({
         <div className="h-screen flex bg-gray-100">
           <Sidebar />
 
-          <main className="flex-1 lg:mr-80 overflow-y-auto h-screen">
+          <main className="flex-1 mr-80 overflow-y-auto h-screen">
             {children}
           </main>
 

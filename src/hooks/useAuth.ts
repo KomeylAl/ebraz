@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
 export function useLogin(onLogedIn: () => void) {
@@ -25,5 +25,19 @@ export function useLogin(onLogedIn: () => void) {
       toast.success("با موفقیت وارد شدید. لطفا کمی صبر کنید.");
       onLogedIn();
     },
+  });
+}
+
+export function useLogout() {
+  return useQuery({
+    queryKey: ["logout"],
+    queryFn: async () => {
+      const res = await fetch("/api/auth/logout");
+      if (res.status !== 200) {
+        toast.error("خطا در فرایند خروج، لطفا دوباره تلاش کنید.");
+      }
+      return res.json();
+    },
+    enabled: false,
   });
 }

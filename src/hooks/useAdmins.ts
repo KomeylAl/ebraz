@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
 export function useAdmins(search: string = "") {
@@ -10,6 +10,27 @@ export function useAdmins(search: string = "") {
         toast.error("خطا در دریافت اطلاعات");
       }
       return res.json();
+    },
+  });
+}
+
+export function useAddAdmin(onAddedAdmin: () => void) {
+  return useMutation({
+    mutationFn: async (data: any) => {
+      const res = await fetch(`/api/admins/`, {
+        method: "POST",
+        body: JSON.stringify(data),
+      });
+      if (!res.ok) {
+        throw new Error("مشکلی در افزودن مدیر پیش آمده!");
+      }
+    },
+    onError(error) {
+      toast.error(error.message);
+    },
+    onSuccess: () => {
+      toast.success("مدیر با موفقت افزودن شد");
+      onAddedAdmin();
     },
   });
 }

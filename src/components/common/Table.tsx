@@ -1,6 +1,5 @@
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight, Pencil, Trash2 } from "lucide-react";
+import { Pencil, Trash2 } from "lucide-react";
 import { useModal } from "@/hooks/useModal";
 import { cn } from "@/lib/utils";
 
@@ -134,7 +133,7 @@ function Table<T>({
       </table>
 
       {totalPages > 1 && (
-        <div className="flex items-center justify-between px-4 bg-white py-6">
+        <div className="w-full flex items-center justify-between px-4 bg-white py-6">
           <Button
             variant="outline"
             size="lg"
