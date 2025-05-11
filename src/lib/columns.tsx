@@ -44,3 +44,17 @@ export const doctorColumns = [
     ),
   },
 ];
+
+export const workshopColumns = [
+  { header: "عنوان", accessor: "title" },
+  { header: "روز های برگزاری", accessor: "week_days" },
+  { header: "زمان برگزاری", accessor: "time" },
+  {
+    header: "پنل کارگاه",
+    accessor: (row: any) => (
+      <Link href={`/admin/workshops/panel/${row.id}`}>
+        <MdInsertChart size={25} className="text-blue-500" />
+      </Link>
+    ),
+  },
+];

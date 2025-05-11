@@ -81,31 +81,31 @@ function Table<T>({
   return (
     <div className="w-full overflow-x-auto rounded-2xl shadow-md">
       <table className="w-full table-auto border-collapse">
-        <thead className="bg-white text-left border-b">
+        <thead className="bg-white dark:bg-gray-700 text-left border-b dark:border-gray-800">
           <tr>
             {columns.map((col, i) => (
               <th
                 key={i}
-                className="px-6 py-6 text-sm font-medium text-gray-700 text-right"
+                className="px-6 py-6 text-sm font-medium text-gray-700 dark:text-white text-right"
               >
                 {col.header}
               </th>
             ))}
             {showActions && (
-              <th className="px-6 py-3 text-sm font-medium text-gray-700 text-right">
+              <th className="px-6 py-3 text-sm font-medium text-gray-700 dark:text-white text-right">
                 اقدامات
               </th>
             )}
           </tr>
         </thead>
-        <tbody className="bg-white">
+        <tbody className="bg-white dark:bg-gray-700">
           {data.map((row, rowIndex) => (
-            <tr key={rowIndex} className="border-b hover:bg-gray-50">
+            <tr key={rowIndex} className="border-b dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
               {columns.map((col, colIndex) => (
                 <td
                   key={colIndex}
                   className={`px-6 py-4 text-sm text-right ${
-                    col.cellClassName ? col.cellClassName(row) : "text-gray-800"
+                    col.cellClassName ? col.cellClassName(row) : "text-gray-800 dark:text-shelfish"
                   }`}
                 >
                   {typeof col.accessor === "function"

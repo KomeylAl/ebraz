@@ -33,3 +33,46 @@ export async function GET(req: NextRequest) {
     );
   }
 }
+
+export async function POST(req: NextRequest) {
+  const token = req.cookies.get("token");
+
+  const { name, phone, role, birth_date, password } = await req.json();
+
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/admins`,
+      {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${token?.value}`,
+        },
+        body: JSON.stringify({
+          name,
+          phone,
+          role,
+          birth_date,
+          password,
+        }),
+      }
+    );
+    if (!response.ok) {
+      const data = await response.json();
+      return NextResponse.json(
+        { message: `Error adding admins: ${data}` },
+        { status: response.status }
+      );
+    }
+
+    return NextResponse.json(
+      { message: "Admin added successfuly" },
+      { status: 201 }
+    );
+  } catch (error: any) {
+    return NextResponse.json(
+      { message: `Something went wrong: ${error.message}` },
+      { status: 500 }
+    );
+  }
+}
