@@ -4,10 +4,10 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --color-primary: #2DAA9E;
-  --color-secodary: #66D2CE;
-  --color-shelfish: #EAEAEA;
-  --color-beige: #E3D2C3;
+  --color-primary: #2daa9e;
+  --color-secodary: #66d2ce;
+  --color-shelfish: #eaeaea;
+  --color-beige: #e3d2c3;
 }
 
 @layer base {
@@ -44,6 +44,15 @@ footer {
   background: url(../../public/images/workshop.jpg);
   background-position: center;
   background-size: cover;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 @theme inline {

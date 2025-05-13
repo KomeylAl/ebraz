@@ -19,7 +19,7 @@ export default function AdminLayout({
   return (
     <div className="">
       <ThemeProvider>
-        <Toaster />
+        <Toaster toastOptions={{className: "z-[10000]"}}/>
         <Providers>
           <div className="h-screen flex bg-gray-100">
             <Sidebar />

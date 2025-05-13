@@ -65,37 +65,31 @@ const Navbar = () => {
     {
       title: "دپارتمان ها",
       link: "/dashboard/departments",
-      access: ["author"],
+      access: ["author", "boss"],
       icon: <FiList />,
-    },
-    {
-      title: "مشاوران",
-      link: "/dashboard/psycologists",
-      access: ["manager"],
-      icon: <IoPerson />,
     },
     {
       title: "وبلاگ",
       link: "/dashboard/blog",
-      access: ["author"],
+      access: ["author", "boss"],
       icon: <GrArticle />,
     },
     {
       title: "نوبت دهی",
       link: "/dashboard/appointment",
-      access: ["manager"],
+      access: ["manager", "boss"],
       icon: <SlCalender />,
     },
     {
       title: "کلاس ها و کارگاه ها",
       link: "/admin/workshops",
-      access: ["manager"],
+      access: ["manager", "boss"],
       icon: <MdClass />,
     },
     {
       title: "درباره",
       link: "/dashboard/about",
-      access: ["author"],
+      access: ["author", "boss"],
       icon: <LuCircleHelp />,
     },
   ];

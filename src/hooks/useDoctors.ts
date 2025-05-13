@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
 export function useDoctors(
@@ -17,7 +17,7 @@ export function useDoctors(
       }
       return res.json();
     },
-    placeholderData: (prev) => prev,
+    // placeholderData: (prev) => prev,
   });
 }
 
@@ -73,7 +73,7 @@ export function useSendTodaySms(doctorId: string) {
         toast.error("خطا در ارسال پیامک");
         console.log(data);
       }
-      toast.success("پیامک با موفقت ارسال شد");
+      toast.success("پیامک با موفقیت ارسال شد");
       return res.json();
     },
     enabled: false,
@@ -90,9 +90,77 @@ export function useSendTomorrowSms(doctorId: string) {
         toast.error("خطا در ارسال پیامک");
         console.log(data);
       }
-      toast.success("پیامک با موفقت ارسال شد");
+      toast.success("پیامک با موفقیت ارسال شد");
       return res.json();
     },
     enabled: false,
+  });
+}
+
+export function useAddDoctor(onDoctorAdded: () => void) {
+  return useMutation({
+    mutationFn: async (data: any) => {
+      const res = await fetch(`/api/doctors/`, {
+        method: "POST",
+        body: JSON.stringify(data),
+      });
+      if (!res.ok) {
+        const data = await res.json();
+        // console.log(data.errors);
+        const errors = Object.entries(data.errors).map((error) => error[1]);
+        console.log(errors);
+        // toast.error("مشکلی در افزودن مشاور پیش آمده!");
+        errors.map((error: any) => toast.error(error[0]));
+        throw new Error(data.errors);
+      }
+    },
+    onError(error) {
+      // toast.error(error.message);
+    },
+    onSuccess: () => {
+      toast.success("مشاور با موفقیت افزوده شد");
+      onDoctorAdded();
+    },
+  });
+}
+
+export function useEditDoctor(doctorId: number, onDoctorEditted: () => void) {
+  return useMutation({
+    mutationFn: async (data: any) => {
+      const res = await fetch(`/api/doctors/${doctorId}`, {
+        method: "POST",
+        body: JSON.stringify(data),
+      });
+      if (!res.ok) {
+        throw new Error("مشکلی در ویرایش مشاور پیش آمده!");
+      }
+    },
+    onError(error) {
+      toast.error(error.message);
+    },
+    onSuccess: () => {
+      toast.success("مشاور با موفقیت ویرایش شد");
+      onDoctorEditted();
+    },
+  });
+}
+
+export function useDeleteDoctor(onDeletedTenant: () => void) {
+  return useMutation({
+    mutationFn: async (doctorId: number) => {
+      const res = await fetch(`/api/doctors/${doctorId}`, {
+        method: "DELETE",
+      });
+      if (!res.ok) {
+        throw new Error("مشکلی در حذف مشاور پیش آمده!");
+      }
+    },
+    onError(error) {
+      toast.error(error.message);
+    },
+    onSuccess: () => {
+      toast.success("مشاور با موفقیت حذف شد");
+      onDeletedTenant();
+    },
   });
 }

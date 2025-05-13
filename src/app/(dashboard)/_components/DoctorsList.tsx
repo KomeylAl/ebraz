@@ -1,25 +1,50 @@
 "use client";
 
+import DeleteModal from "@/components/common/DeleteModal";
 import { Modal } from "@/components/common/Modal";
 import Table from "@/components/common/Table";
 import { Button } from "@/components/ui/button";
-import { useDoctors } from "@/hooks/useDoctors";
+import { useDeleteDoctor, useDoctors, useEditDoctor } from "@/hooks/useDoctors";
 import { useModal } from "@/hooks/useModal";
 import { doctorColumns } from "@/lib/columns";
 import { useState } from "react";
 import { BeatLoader, PuffLoader } from "react-spinners";
+import EditDoctorForm from "./EditDoctorForm";
 
 export const DoctorsList = () => {
-  const [page, setPage] = useState(1); // API page از 0 شروع میشه
+  const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [search, setSearch] = useState("");
+
+  const [doctorId, setDoctorId] = useState(0);
+  const [doctor, setDoctor] = useState<any>({});
 
   const { data, isLoading, error, refetch } = useDoctors(
     page,
     pageSize,
     search
   );
-  const { isOpen, openModal, closeModal } = useModal();
+
+  const { mutate: deleteDoctor, isPending: isDeleting } = useDeleteDoctor(() =>
+    refetch()
+  );
+
+  const { mutate: editDoctor, isPending: isEditting } = useEditDoctor(
+    doctorId,
+    refetch
+  );
+
+  const {
+    isOpen: deleteOpen,
+    openModal: openDelete,
+    closeModal: closeDelete,
+  } = useModal();
+
+  const {
+    isOpen: editOpen,
+    openModal: openEdit,
+    closeModal: closeEdit,
+  } = useModal();
 
   return (
     <div className="w-full h-full flex items-center justify-center">
@@ -40,40 +65,50 @@ export const DoctorsList = () => {
           showActions
           totalItems={data.meta.total}
           onPageChange={(newPage) => {
-            setPage(newPage );
+            setPage(newPage);
+          }}
+          onDelete={(item: any) => {
+            setDoctorId(item.id);
+            openDelete();
+          }}
+          onEdit={(item: any) => {
+            setDoctorId(item.id);
+            setDoctor(item);
+            openEdit();
           }}
         />
       )}
 
       <Modal
         showCloseButton={false}
-        isOpen={isOpen}
-        onClose={closeModal}
+        isOpen={deleteOpen}
+        onClose={closeDelete}
         className="max-w-[700px] bg-white"
       >
-        <div className="w-full h-40 flex flex-col items-start justify-between p-10">
-          <p className="text-lg">آیا از حذف این مورد اطمینان دارید؟</p>
-          <div className="w-full flex items-center justify-end gap-4">
-            <Button
-              variant="destructive"
-              size="lg"
-              // className={`cursor-pointer ${
-              //   isPending ? "bg-rose-400" : "bg-rose-600"
-              // }`}
-              // onClick={() => deleteAppointment()}
-            >
-              {/* {isPending ? "در حال حذف..." : "حذف"} */}
-            </Button>
-            <Button
-              variant="outline"
-              size="lg"
-              className="cursor-pointer"
-              onClick={closeModal}
-            >
-              بازگشت
-            </Button>
-          </div>
-        </div>
+        <DeleteModal
+          deleteFn={() => {
+            deleteDoctor(doctorId);
+            closeDelete();
+          }}
+          isDeleting={isDeleting}
+          onCancel={closeDelete}
+        />
+      </Modal>
+
+      <Modal
+        showCloseButton={false}
+        isOpen={editOpen}
+        onClose={closeEdit}
+        className="max-w-[700px] bg-white"
+      >
+        <EditDoctorForm
+          doctor={doctor}
+          onCloseModal={closeEdit}
+          onDoctorEditted={() => {
+            closeEdit();
+            refetch();
+          }}
+        />
       </Modal>
     </div>
   );

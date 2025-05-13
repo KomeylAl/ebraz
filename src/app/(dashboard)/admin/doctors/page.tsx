@@ -1,11 +1,14 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import Header from "../../_components/Header";
 import { DoctorsList } from "../../_components/DoctorsList";
+import { useModal } from "@/hooks/useModal";
+import { Modal } from "@/components/common/Modal";
+import AddDoctorForm from "../../_components/AddDoctorForm";
 
 const Doctors = () => {
-  const router = useRouter();
+  const { isOpen, openModal, closeModal } = useModal();
+
   return (
     <div className="w-full h-full flex flex-col">
       <Header onSearchChange={() => {}} />
@@ -14,7 +17,7 @@ const Doctors = () => {
           <div className="flex items-center justify-between">
             <h2 className="font-bold text-2xl">مشاورین</h2>
             <div
-              onClick={() => router.push("/admin/doctors/add")}
+              onClick={openModal}
               className="px-12 py-2 bg-blue-600 rounded-md text-white text-center cursor-pointer"
             >
               افزودن مشاور
@@ -23,6 +26,19 @@ const Doctors = () => {
           <DoctorsList />
         </div>
       </div>
+      <Modal
+        isOpen={isOpen}
+        onClose={closeModal}
+        className="max-w-[700px] bg-white"
+        showCloseButton={false}
+      >
+        <AddDoctorForm
+          onCloseModal={closeModal}
+          onDoctorAdded={() => {
+            closeModal();
+          }}
+        />
+      </Modal>
     </div>
   );
 };

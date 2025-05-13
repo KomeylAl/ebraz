@@ -34,7 +34,6 @@ function Table<T>({
 }: TableProps<T>) {
   const safePageSize = pageSize || 10;
   const totalPages = Math.ceil(totalItems / safePageSize);
-  const { isOpen, openModal, closeModal } = useModal();
 
   const renderPageNumbers = () => {
     const pages: (number | string)[] = [];
@@ -68,8 +67,8 @@ function Table<T>({
           className={cn(
             "px-4 py-1 rounded-md text-lg",
             currentPage === page
-              ? "bg-indigo-100 text-blue-600"
-              : "text-gray-700 hover:bg-gray-200"
+              ? "bg-indigo-100 dark:bg-gray-900 dark:text-white text-blue-600"
+              : "text-gray-700 dark:text-gray-500 dark:hover:bg-gray-900 hover:bg-gray-200"
           )}
         >
           {page}
@@ -100,12 +99,17 @@ function Table<T>({
         </thead>
         <tbody className="bg-white dark:bg-gray-700">
           {data.map((row, rowIndex) => (
-            <tr key={rowIndex} className="border-b dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
+            <tr
+              key={rowIndex}
+              className="border-b dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600"
+            >
               {columns.map((col, colIndex) => (
                 <td
                   key={colIndex}
                   className={`px-6 py-4 text-sm text-right ${
-                    col.cellClassName ? col.cellClassName(row) : "text-gray-800 dark:text-shelfish"
+                    col.cellClassName
+                      ? col.cellClassName(row)
+                      : "text-gray-800 dark:text-shelfish"
                   }`}
                 >
                   {typeof col.accessor === "function"
@@ -115,7 +119,7 @@ function Table<T>({
               ))}
               {showActions && (
                 <td className="px-6 py-4 text-sm text-gray-800 space-x-2">
-                  <Button variant="ghost" size="sm" onClick={() => openModal()}>
+                  <Button variant="ghost" size="sm" onClick={() => onEdit(row)}>
                     <Pencil className="w-4 h-4 text-blue-500" />
                   </Button>
                   <Button
@@ -133,7 +137,7 @@ function Table<T>({
       </table>
 
       {totalPages > 1 && (
-        <div className="w-full flex items-center justify-between px-4 bg-white py-6">
+        <div className="w-full flex items-center justify-between px-4 bg-white dark:bg-gray-800 py-6">
           <Button
             variant="outline"
             size="lg"
