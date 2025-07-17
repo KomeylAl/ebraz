@@ -6,7 +6,7 @@ import { getCookie } from "cookies-next";
 import toast from "react-hot-toast";
 import { BeatLoader } from "react-spinners";
 import Link from "next/link";
-import Header from "../../_components/Header";
+import Header from "../../_components/layout/Header";
 import InvoiceItem from "../../_components/InvoiceItem";
 
 const Invoices = () => {

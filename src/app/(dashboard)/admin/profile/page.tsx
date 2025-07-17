@@ -7,7 +7,7 @@ import axios from "axios";
 import { getCookie } from "cookies-next";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import Header from "../../_components/Header";
+import Header from "../../_components/layout/Header";
 
 const Profile = () => {
   const [user, setUser]: any = useState({});

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useCallback, useState } from "react";
-import Header from "../../_components/Header";
+import Header from "../../_components/layout/Header";
 import IconButton from "@/components/ui/custom/IconButton";
 import { BiPlus } from "react-icons/bi";
 import persian from "react-date-object/calendars/persian";
@@ -65,7 +65,7 @@ const Appinments = () => {
 
   return (
     <div className="w-full h-full flex flex-col">
-      <Header onSearchChange={onSearchChange} />
+      <Header searchFn={onSearchChange} isShowSearch/>
       <div className="w-full flex flex-col p-12">
         <div className="flex flex-col lg:flex-row gap-4 lg:gap-0 lg:items-center lg:justify-between">
           <h2 className="font-bold text-2xl">نوبت ها</h2>

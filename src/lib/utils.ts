@@ -30,7 +30,7 @@ export function convertBaseDate(date: DateObject): string {
     .slice(0, 10);
 }
 
-export function converRole(role: string) {
+export function convertRole(role: string) {
   let output: string = "";
   switch (role) {
     case "receptionist":
@@ -44,6 +44,9 @@ export function converRole(role: string) {
       break;
     case "accountant":
       output = "حسابداری";
+      break;
+    case "boss":
+      output = "رئیس";
       break;
     default:
       output = "";

@@ -1,10 +1,10 @@
 "use client";
 
 import React from "react";
-import Header from "../../_components/Header";
+import Header from "../../_components/layout/Header";
 import { Tab, Tabs } from "../../_components/Tabs";
 import ClassesList from "../../_components/ClassesList";
-import WorkShopsList from "../../_components/WorkShopsList";
+import WorkShopsList from "../../_components/dashboard/lists/WorkShopsList";
 
 const Classes = () => {
   return (

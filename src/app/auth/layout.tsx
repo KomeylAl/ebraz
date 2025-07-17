@@ -1,6 +1,7 @@
 import { Toaster } from "react-hot-toast";
 import "../../app/globals.css";
 import { Providers } from "@/store/provider";
+import { UserProvider } from "@/context/UserContext";
 
 export const metadata = {
   title: "کلینیک ابراز - ورود",
@@ -13,9 +14,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="bg-gray-200/40">
-      <Toaster />
-      {children}
-    </div>
+    <UserProvider>
+      <div className="bg-gray-200/40">
+        <Toaster />
+        {children}
+      </div>
+    </UserProvider>
   );
 }

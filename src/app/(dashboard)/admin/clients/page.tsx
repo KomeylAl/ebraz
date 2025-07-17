@@ -1,7 +1,7 @@
 "use client";
 
 import { ClientsList } from "../../_components/ClientsList";
-import Header from "../../_components/Header";
+import Header from "../../_components/layout/Header";
 
 const Clients = () => {
   return (

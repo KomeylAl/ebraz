@@ -1,3 +1,5 @@
+"use client";
+
 import Navbar from "./Navbar";
 
 export default function Sidebar() {
@@ -6,7 +8,6 @@ export default function Sidebar() {
       <h1 className="text-2xl font-bold text-right">کلینیک ابراز</h1>
       <div className="overflow-y-auto space-y-8 pb-8 no-scrollbar">
         <Navbar />
-        <p className="text-center">ebraz-admin</p>
       </div>
     </div>
   );

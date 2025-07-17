@@ -9,8 +9,8 @@ import { IoPerson } from "react-icons/io5";
 import { BiEnvelope } from "react-icons/bi";
 import { LuCircleHelp } from "react-icons/lu";
 import { GrArticle } from "react-icons/gr";
-import { useUser } from "@/hooks/useUser";
 import { PuffLoader } from "react-spinners";
+import { useUser } from "@/context/UserContext";
 
 const Navbar = () => {
   const links = [
@@ -18,6 +18,12 @@ const Navbar = () => {
       title: "داشبورد",
       link: "/admin",
       access: ["manager", "boss"],
+      icon: <MdDashboard />,
+    },
+    {
+      title: "داشبورد محتوا",
+      link: "/dashboard",
+      access: ["author"],
       icon: <MdDashboard />,
     },
     {
@@ -57,61 +63,52 @@ const Navbar = () => {
       icon: <FiList />,
     },
     {
-      title: "داشبورد",
-      link: "/dashboard",
-      access: ["author"],
-      icon: <MdDashboard />,
-    },
-    {
       title: "دپارتمان ها",
       link: "/dashboard/departments",
-      access: ["author", "boss"],
+      access: ["author"],
       icon: <FiList />,
+    },
+    {
+      title: "مشاورین",
+      link: "/dashboard/psychologists",
+      access: ["author"],
+      icon: <IoPerson />,
     },
     {
       title: "وبلاگ",
       link: "/dashboard/blog",
-      access: ["author", "boss"],
+      access: ["author"],
       icon: <GrArticle />,
     },
     {
-      title: "نوبت دهی",
-      link: "/dashboard/appointment",
-      access: ["manager", "boss"],
-      icon: <SlCalender />,
-    },
-    {
       title: "کلاس ها و کارگاه ها",
-      link: "/admin/workshops",
-      access: ["manager", "boss"],
+      link: "/dashboard/workshops",
+      access: ["author"],
       icon: <MdClass />,
     },
     {
       title: "درباره",
       link: "/dashboard/about",
-      access: ["author", "boss"],
+      access: ["author"],
       icon: <LuCircleHelp />,
     },
   ];
 
   const pathName = usePathname();
-
-  const { data, isLoading, error } = useUser();
+  const { user } = useUser();
 
   return (
     <div className="flex flex-col gap-4 w-full">
-      {isLoading && (
+      {!user && (
         <div className="w-full h-full flex items-center justify-center">
           <PuffLoader color="#3b82f6" size={45} />
         </div>
       )}
 
-      {error && <p>خطا در دریافت اطلاعات</p>}
-
-      {data &&
+      {user &&
         links.map(
           (link) =>
-            link.access.includes(data.role) && (
+            link.access.includes(user.role) && (
               <Link
                 key={link.link}
                 href={link.link}

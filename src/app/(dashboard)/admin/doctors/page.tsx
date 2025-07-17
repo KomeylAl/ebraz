@@ -1,6 +1,6 @@
 "use client";
 
-import Header from "../../_components/Header";
+import Header from "../../_components/layout/Header";
 import { DoctorsList } from "../../_components/DoctorsList";
 import { useModal } from "@/hooks/useModal";
 import { Modal } from "@/components/common/Modal";

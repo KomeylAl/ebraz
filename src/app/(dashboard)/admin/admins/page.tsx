@@ -1,7 +1,7 @@
 "use client";
 
 import { AdminsList } from "@/app/(dashboard)/_components/AdminsList";
-import Header from "@/app/(dashboard)/_components/Header";
+import Header from "@/app/(dashboard)/_components/layout/Header";
 import { useRouter } from "next/navigation";
 import React from "react";
 import WithRole from "@/app/(dashboard)/_components/WithRole";
@@ -15,7 +15,7 @@ const Admins = () => {
   return (
     <WithRole allowedRoles={["boss"]}>
       <div className="w-full h-full flex flex-col">
-        <Header onSearchChange={() => {}} />
+        <Header searchFn={() => {}} isShowSearch/>
         <div className="w-full flex flex-col p-12">
           <div className="w-full h-full space-y-6">
             <div className="flex items-center justify-between">

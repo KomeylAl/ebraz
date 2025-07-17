@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { converRole, dateConvert } from "./utils";
+import { convertRole, dateConvert } from "./utils";
 import { MdInsertChart } from "react-icons/md";
 
 export const appointmentColumns = [
@@ -28,7 +28,7 @@ export const adminColumns = [
   { header: "نام", accessor: "name" },
   { header: "تلفن", accessor: "phone" },
   { header: "تاریخ تولد", accessor: (row: any) => dateConvert(row.birth_date) },
-  { header: "نقش", accessor: (row: any) => converRole(row.role) },
+  { header: "نقش", accessor: (row: any) => convertRole(row.role) },
 ];
 
 export const doctorColumns = [
@@ -47,12 +47,12 @@ export const doctorColumns = [
 
 export const workshopColumns = [
   { header: "عنوان", accessor: "title" },
-  { header: "روز های برگزاری", accessor: "week_days" },
+  { header: "روز های برگزاری", accessor: "week_day" },
   { header: "زمان برگزاری", accessor: "time" },
   {
     header: "پنل کارگاه",
     accessor: (row: any) => (
-      <Link href={`/admin/workshops/panel/${row.id}`}>
+      <Link href={`/dashboard/workshops/${row.id}`}>
         <MdInsertChart size={25} className="text-blue-500" />
       </Link>
     ),

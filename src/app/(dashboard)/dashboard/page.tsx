@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import Header from "../_components/Header";
+import Header from "../_components/layout/Header";
 import { Calendar } from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
@@ -14,7 +14,7 @@ const Dashboard = () => {
   const today = Date.now();
   return (
     <div className="flex-1 h-screen overflow-y-auto flex flex-col">
-      <Header onSearchChange={() => {}} />
+      <Header searchFn={() => {}} isShowSearch={false} />
       <div className="p-12 w-full h-full">
         <Calendar
           disabled

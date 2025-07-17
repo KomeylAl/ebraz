@@ -1,5 +1,6 @@
 "use client";
 
+import { useUser } from "@/context/UserContext";
 import { AppDispatch } from "@/store";
 import { setUser } from "@/store/userSlice";
 import { useRouter } from "next/navigation";
@@ -9,6 +10,7 @@ import { useDispatch } from "react-redux";
 
 const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const { setUser } = useUser();
 
   const [formData, setFormData] = useState({
     phone: "",
@@ -41,14 +43,7 @@ const Login = () => {
       if (response.status === 200) {
         toast.success("وارد شدید. لطفا کمی صبر کنید.");
         const data = await response.json();
-        console.log(data.user);
-        dispatch(
-          setUser({
-            name: data.user.name,
-            phone: data.user.phone,
-            role: data.user.role,
-          })
-        );
+        setUser(data.user);
         console.log("user set");
         router.push("/admin");
         setIsLoading(false);

@@ -1,10 +1,8 @@
 "use client";
 
-import { getCookie } from "cookies-next";
-import React, { useEffect, useState } from "react";
-import Header from "./Header";
+import Header from "./layout/Header";
 import { PuffLoader } from "react-spinners";
-import { useUser } from "@/hooks/useUser";
+import { useUser } from "@/context/UserContext";
 
 interface WithRoleProps {
   allowedRoles: Array<String>;
@@ -12,9 +10,9 @@ interface WithRoleProps {
 }
 
 const WithRole = ({ allowedRoles, children }: WithRoleProps) => {
-  const { data } = useUser();
+  const { user } = useUser();
 
-  const userRole = data?.role ?? null;
+  const userRole = user?.role ?? null;
 
   if (!userRole) {
     return (
@@ -31,7 +29,7 @@ const WithRole = ({ allowedRoles, children }: WithRoleProps) => {
   if (!allowedRoles.includes(userRole!)) {
     return (
       <div className="w-full h-full flex flex-col">
-        <Header onSearchChange={() => {}} />
+        <Header searchFn={() => {}} isShowSearch />
         <div className="w-full h-full flex items-center justify-center p-10">
           شما به این قسمت دسترسی ندرید.
         </div>

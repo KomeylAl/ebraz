@@ -5,7 +5,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { getCookie } from "cookies-next";
 import WithRole from "../../_components/WithRole";
-import Header from "../../_components/Header";
+import Header from "../../_components/layout/Header";
 
 const SmsPanel = () => {
   const token = getCookie("token")?.toString();

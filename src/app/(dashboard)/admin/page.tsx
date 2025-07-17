@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import Header from "../_components/Header";
+import Header from "../_components/layout/Header";
 import Link from "next/link";
 import { Tab, Tabs } from "../_components/Tabs";
 import ToDaysList from "../_components/TodaysList";

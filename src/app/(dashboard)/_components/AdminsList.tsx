@@ -1,12 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { PuffLoader } from "react-spinners";
-import { useRouter } from "next/navigation";
-import { getCookie } from "cookies-next";
-import Link from "next/link";
-import { MdEditSquare } from "react-icons/md";
 import { useAdmins } from "@/hooks/useAdmins";
 import Table from "@/components/common/Table";
 import { adminColumns } from "@/lib/columns";
@@ -14,10 +7,11 @@ import { useModal } from "@/hooks/useModal";
 import { Modal } from "@/components/common/Modal";
 import { Button } from "@/components/ui/button";
 import { useDeleteAppointment } from "@/hooks/useAppointments";
+import { useState } from "react";
+import { PuffLoader } from "react-spinners";
 
 export const AdminsList = () => {
   const { data, isLoading, error, refetch } = useAdmins();
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [adminId, setAdminId] = useState(0);
 
   const { isOpen, openModal, closeModal } = useModal();

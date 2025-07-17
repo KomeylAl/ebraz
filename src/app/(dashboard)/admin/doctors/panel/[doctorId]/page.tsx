@@ -2,7 +2,7 @@
 
 import DoctorSevenDays from "@/app/(dashboard)/_components/DoctorSevenDays";
 import DoctorThirtyDays from "@/app/(dashboard)/_components/DoctorThirtyDays";
-import Header from "@/app/(dashboard)/_components/Header";
+import Header from "@/app/(dashboard)/_components/layout/Header";
 import { Tab, Tabs } from "@/app/(dashboard)/_components/Tabs";
 import WithRole from "@/app/(dashboard)/_components/WithRole";
 import { useSendTodaySms, useSendTomorrowSms } from "@/hooks/useDoctors";
@@ -31,7 +31,7 @@ const DoctorPanel = ({ params }: PageProps) => {
 
   return (
     <div className="w-full h-full flex flex-col">
-      <Header onSearchChange={() => {}} />
+      <Header searchFn={() => {}} isShowSearch={false} />
       <WithRole allowedRoles={["boss", "manager"]}>
         <div className="w-full p-12">
           <div className="w-full h-full space-y-6">
@@ -70,6 +70,11 @@ const DoctorPanel = ({ params }: PageProps) => {
                 <Tab label="نوبت های سی روز گذشته" defaultTab={false}>
                   <div className="py-4">
                     <DoctorThirtyDays doctorId={doctorId} />
+                  </div>
+                </Tab>
+                <Tab label="اطلاعات" defaultTab={false}>
+                  <div className="py-4">
+                    
                   </div>
                 </Tab>
               </Tabs>

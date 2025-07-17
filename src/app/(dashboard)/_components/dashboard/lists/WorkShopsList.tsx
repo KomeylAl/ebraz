@@ -1,25 +1,43 @@
 "use client";
 
+import DeleteModal from "@/components/common/DeleteModal";
 import { Modal } from "@/components/common/Modal";
 import Table from "@/components/common/Table";
 import { Button } from "@/components/ui/button";
 import { useModal } from "@/hooks/useModal";
-import { useWorksops } from "@/hooks/useWorkshops";
+import { useDeleteWorkshop, useWorksops } from "@/hooks/useWorkshops";
 import { workshopColumns } from "@/lib/columns";
 import { useState } from "react";
 import { PuffLoader } from "react-spinners";
+import EditWorkshopForm from "../forms/EditWorshopForm";
 
 const WorkShopsList = () => {
   const [page, setPage] = useState(1); // API page از 0 شروع میشه
   const [pageSize, setPageSize] = useState(10);
   const [search, setSearch] = useState("");
 
+  const [item, setItem] = useState();
+  const [id, setId] = useState("");
+
   const { data, isLoading, error, refetch } = useWorksops(
     page,
     pageSize,
     search
   );
-  const { isOpen, openModal, closeModal } = useModal();
+  const { mutate: deleteWorkshop, isPending } = useDeleteWorkshop(id, () => {
+    closeDelete();
+    refetch();
+  });
+  const {
+    isOpen: deleteOpen,
+    openModal: openDelete,
+    closeModal: closeDelete,
+  } = useModal();
+  const {
+    isOpen: editOpen,
+    openModal: openEdit,
+    closeModal: closeEdit,
+  } = useModal();
 
   return (
     <div className="w-full h-full flex items-center justify-center">
@@ -42,38 +60,43 @@ const WorkShopsList = () => {
           onPageChange={(newPage) => {
             setPage(newPage);
           }}
+          onDelete={(item: any) => {
+            setId(item.id);
+            openDelete();
+          }}
+          onEdit={(item: any) => {
+            setItem(item);
+            openEdit();
+          }}
         />
       )}
 
       <Modal
         showCloseButton={false}
-        isOpen={isOpen}
-        onClose={closeModal}
+        isOpen={deleteOpen}
+        onClose={closeDelete}
         className="max-w-[700px] bg-white"
       >
-        <div className="w-full h-40 flex flex-col items-start justify-between p-10">
-          <p className="text-lg">آیا از حذف این مورد اطمینان دارید؟</p>
-          <div className="w-full flex items-center justify-end gap-4">
-            <Button
-              variant="destructive"
-              size="lg"
-              // className={`cursor-pointer ${
-              //   isPending ? "bg-rose-400" : "bg-rose-600"
-              // }`}
-              // onClick={() => deleteAppointment()}
-            >
-              {/* {isPending ? "در حال حذف..." : "حذف"} */}
-            </Button>
-            <Button
-              variant="outline"
-              size="lg"
-              className="cursor-pointer"
-              onClick={closeModal}
-            >
-              بازگشت
-            </Button>
-          </div>
-        </div>
+        <DeleteModal
+          deleteFn={() => {}}
+          isDeleting={false}
+          onCancel={() => {
+            closeDelete();
+          }}
+          description="با حذف کارگاه تمامی اطلاعات، جلسات و مشترکین حذف خواهند شد."
+        />
+      </Modal>
+
+      <Modal
+        showCloseButton={false}
+        isOpen={editOpen}
+        onClose={closeEdit}
+        className="max-w-[700px] bg-white max-h-[80%] overflow-y-auto"
+      >
+        <EditWorkshopForm 
+          onCloseModal={() => closeEdit()}
+          workshop={item}
+        />
       </Modal>
     </div>
   );

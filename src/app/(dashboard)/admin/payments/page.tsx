@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import Header from "../../_components/Header";
+import Header from "../../_components/layout/Header";
 import { PaymentsList } from "../../_components/PaymentsList";
 
 const Payments = () => {

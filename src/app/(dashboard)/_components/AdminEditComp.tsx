@@ -8,7 +8,7 @@ import axios from "axios";
 import ReactSelect from "react-select";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import Header from "./Header";
+import Header from "./layout/Header";
 import { dateConvert } from "@/lib/utils";
 
 interface AdminEditCompProps {

@@ -139,7 +139,7 @@ const EditDoctorForm = ({
           <DatePicker
             value={dateConvert(formData.birth_date)}
             calendarPosition="bottom-right"
-            inputClass="w-full bg-white py-[9px] rounded-md border border-gray-300 px-2 mt-2"
+            inputClass="w-full bg-white py-[9px] rounded-md border border-gray-300 px-2 mt-2 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800 dark:border-ray-700"
             containerClassName="w-full"
             onChange={(value: any) =>
               setFormData((prev) => ({
