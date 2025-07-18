@@ -56,7 +56,7 @@ const items = [
 const WorkShops = () => {
   return (
     <div className="w-full h-[630px] mt-10 workshop">
-      <div className="w-full h-full px-5 md:px-24 lg:px-48 py-12 space-y-6 text-center bg-black/80 text-white">
+      <div className="w-full h-full px-5 md:px-24 lg:px-32 py-12 space-y-6 text-center bg-black/80 text-white">
         <h2 className="text-3xl font-semibold">کلاس ها و کارگاه ها</h2>
         <p className="text-xl">لیست کلاس ها و کارگاهی های جاری در مرکز ابراز</p>
         <Carousel
@@ -69,7 +69,7 @@ const WorkShops = () => {
         >
           <CarouselContent className="text-black">
             {items.map((item: any, index: any) => (
-              <CarouselItem className="basis-1/4" key={index}>
+              <CarouselItem className="lg:basis-1/2 xl:basis-1/4" key={index}>
                 <WorkshopItem
                   title={item.title}
                   description={item.description}
@@ -78,8 +78,8 @@ const WorkShops = () => {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselNext className="text-black" />
-          <CarouselPrevious className="text-black" />
+          <CarouselNext className="text-black hidden md:block" />
+          <CarouselPrevious className="text-black hidden md:block" />
         </Carousel>
       </div>
     </div>

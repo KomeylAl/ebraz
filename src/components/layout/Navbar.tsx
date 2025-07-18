@@ -20,12 +20,16 @@ const items = [
     link: "/appointment",
   },
   {
+    title: "دپارتمان ها",
+    link: "/departments",
+  },
+  {
     title: "کارگاه ها",
     link: "/workshops",
   },
   {
     title: "وبلاگ",
-    link: "/blog",
+    link: "/posts",
   },
   {
     title: "مشاوران",
@@ -57,11 +61,11 @@ const Navbar = () => {
 
   return (
     <div
-      className={`w-full flex items-center lg:justify-between gap-6 p-4 lg:px-48 lg:py-4 ${
+      className={`w-full flex items-center lg:justify-between gap-6 p-4 lg:px-32 lg:py-4 ${
         isScrolled ? "bg-black/35 backdrop-blur-xl" : ""
       } transition-colors duration-200`}
     >
-      <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="md:hidden">
+      <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="lg:hidden">
         <HiMenuAlt4 className="text-shelfish" size={30} />
       </button>
       <div
@@ -94,7 +98,7 @@ const Navbar = () => {
         <p className="font-semibold text-white text-xl">مرکز ابراز</p>
       </div>
       <nav>
-        <ul className={`w-full hidden md:flex items-center gap-16 text-white`}>
+        <ul className={`w-full hidden lg:flex items-center gap-16 text-white`}>
           {items.map((item: NavItem) => (
             <li
               className={`${

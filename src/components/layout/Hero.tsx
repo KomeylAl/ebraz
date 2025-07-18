@@ -6,26 +6,26 @@ const Hero = () => {
     <section className="min-h-screen w-full hero">
       <div className="w-full min-h-screen bg-black/75 flex flex-col items-center justify-between pt-24 pb-10 backdrop-blur-sm">
         <p></p>
-        <div className="space-y-10">
-          <h1 className="text-white text-[70px] font-semibold text-center leading-14">
+        <div className="space-y-10 px-8">
+          <h1 className="text-white text-2xl lg:text-[70px] font-semibold text-center leading-14">
             مرکز جامع مشاوره و رواندرمانی{" "}
             <strong className="text-beige">ابراز</strong>
           </h1>
-          <p className="text-center text-white text-xl">
+          <p className="text-center text-white lg:text-xl">
             با تاسیس و مدیریت{" "}
             <span className="text-beige">دکتر علی محرابی</span>، متخصص روانشناسی
             بالینی و عضو هیئت علمی دانشگاه اصفهان
           </p>
           <div className="flex items-center justify-center gap-10 w-full">
             <Link
-              href="/"
-              className="text-center text-beige px-16 py-2 rounded-md border border-beige cursor-pointer hover:bg-beige hover:text-black transition duration-200"
+              href="/appointment"
+              className="text-center text-beige py-2 rounded-md border border-beige cursor-pointer hover:bg-beige hover:text-black transition duration-200 w-40"
             >
               دریافت نوبت
             </Link>
             <Link
-              href="/"
-              className="text-center text-beige px-16 py-2 rounded-md border border-beige cursor-pointer hover:bg-beige hover:text-black transition duration-200"
+              href="/psychologists"
+              className="text-center text-beige py-2 rounded-md border border-beige cursor-pointer hover:bg-beige hover:text-black transition duration-200 w-40"
             >
               مشاوران
             </Link>
