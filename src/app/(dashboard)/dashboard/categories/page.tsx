@@ -1,31 +1,31 @@
 "use client";
 
-import { Modal } from "@/components/common/Modal";
-import { useDeleteDepartment, useDepartments } from "@/hooks/useDepartments";
+import { useCategories, useDeleteCategory } from "@/hooks/useCategories";
 import { useModal } from "@/hooks/useModal";
 import React, { useState } from "react";
-import AddDepartmentForm from "../../_components/dashboard/forms/AddDepartmentForm";
-import EditDepartmentForm from "../../_components/dashboard/forms/EditDepartmentForm";
-import DeleteModal from "@/components/common/DeleteModal";
-import Table from "@/components/common/Table";
-import { departmentColumns } from "@/lib/columns";
-import { PuffLoader } from "react-spinners";
 import Header from "../../_components/layout/Header";
+import { PuffLoader } from "react-spinners";
+import Table from "@/components/common/Table";
+import { categoryColumns } from "@/lib/columns";
+import { Modal } from "@/components/common/Modal";
+import DeleteModal from "@/components/common/DeleteModal";
+import AddCategoryForm from "../../_components/dashboard/forms/AddCategoryForm";
+import EditCategoryForm from "../../_components/dashboard/forms/EditCategoryForm";
 
-const Departments = () => {
+const Categories = () => {
   const [page, setPage] = useState(1); // API page از 0 شروع میشه
   const [pageSize, setPageSize] = useState(10);
   const [search, setSearch] = useState("");
   const [item, setItem] = useState();
-  const [slug, setSlug] = useState("");
+  const [id, setId] = useState("");
 
-  const { data, isLoading, error, refetch } = useDepartments(
+  const { data, isLoading, error, refetch } = useCategories(
     page,
     pageSize,
     search
   );
   console.log(data);
-  const { mutate: deleteDepartment, isPending } = useDeleteDepartment(() => {
+  const { mutate: deleteCategory, isPending } = useDeleteCategory(() => {
     closeDelete();
     refetch();
   });
@@ -46,12 +46,12 @@ const Departments = () => {
       <div className="w-full flex flex-col p-12">
         <div className="w-full h-full space-y-6">
           <div className="flex items-center justify-between">
-            <h2 className="font-bold text-2xl">دپارتمان ها</h2>
+            <h2 className="font-bold text-2xl">دسته بندی ها</h2>
             <div
               onClick={openModal}
               className="px-12 py-2 bg-blue-600 rounded-md text-white text-center cursor-pointer"
             >
-              افزودن دپارتمان
+              افزودن دسته بندی
             </div>
           </div>
 
@@ -67,7 +67,7 @@ const Departments = () => {
             {data && (
               <Table
                 data={data.data}
-                columns={departmentColumns}
+                columns={categoryColumns}
                 currentPage={data.meta.current_page}
                 pageSize={data.meta.per_page}
                 showActions
@@ -76,7 +76,7 @@ const Departments = () => {
                   setPage(newPage);
                 }}
                 onDelete={(item: any) => {
-                  setSlug(item.slug);
+                  setId(item.id);
                   openDelete();
                 }}
                 onEdit={(item: any) => {
@@ -96,11 +96,12 @@ const Departments = () => {
               className="max-w-[700px] bg-white"
             >
               <DeleteModal
-                deleteFn={() => deleteDepartment(slug)}
+                deleteFn={() => deleteCategory(id)}
                 isDeleting={isPending}
                 onCancel={() => {
                   closeDelete();
                 }}
+                description="با حذف دسته بندی تمامی پست های مربوطه نیز حذف خواهند شد."
               />
             </Modal>
 
@@ -110,8 +111,8 @@ const Departments = () => {
               onClose={closeEdit}
               className="max-w-[700px] bg-white max-h-[80%] overflow-y-auto"
             >
-              <EditDepartmentForm
-                department={item}
+              <EditCategoryForm
+                category={item}
                 onCloseModal={() => {
                   closeEdit();
                   refetch();
@@ -124,7 +125,7 @@ const Departments = () => {
               showCloseButton={false}
               className="max-w-[700px] bg-white"
             >
-              <AddDepartmentForm
+              <AddCategoryForm
                 onCloseModal={() => {
                   closeModal();
                   refetch();
@@ -138,4 +139,4 @@ const Departments = () => {
   );
 };
 
-export default Departments;
+export default Categories;

@@ -54,3 +54,22 @@ export function convertRole(role: string) {
   }
   return output;
 }
+
+export function convertPostStatus(status: string) {
+  let output: string = "";
+  switch (status) {
+    case "draft":
+      output = "پیش نویس";
+      break;
+    case "published":
+      output = "منتشر شده";
+      break;
+    case "archived":
+      output = "آرشیو شده";
+      break;
+    default:
+      output = "";
+      break;
+  }
+  return output;
+}

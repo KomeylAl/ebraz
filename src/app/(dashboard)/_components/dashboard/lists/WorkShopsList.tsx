@@ -9,7 +9,7 @@ import { useDeleteWorkshop, useWorksops } from "@/hooks/useWorkshops";
 import { workshopColumns } from "@/lib/columns";
 import { useState } from "react";
 import { PuffLoader } from "react-spinners";
-import EditWorkshopForm from "../forms/EditWorshopForm";
+import EditWorkshopForm from "../forms/EditWorkshopForm";
 
 const WorkShopsList = () => {
   const [page, setPage] = useState(1); // API page از 0 شروع میشه

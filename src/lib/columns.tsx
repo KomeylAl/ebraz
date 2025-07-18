@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { convertRole, dateConvert } from "./utils";
+import { convertPostStatus, convertRole, dateConvert } from "./utils";
 import { MdInsertChart } from "react-icons/md";
 
 export const appointmentColumns = [
@@ -57,4 +57,26 @@ export const workshopColumns = [
       </Link>
     ),
   },
+];
+
+export const categoryColumns = [
+  { header: "عنوان", accessor: "name" },
+  { header: "اسلاگ", accessor: "slug" },
+];
+
+export const tagColumns = [
+  { header: "عنوان", accessor: "name" },
+  { header: "اسلاگ", accessor: "slug" },
+];
+
+export const postColumns = [
+  { header: "عنوان", accessor: (item: any) => <Link href={`/dashboard/posts/${item.slug}`} className="hover:text-blue-500">{item.title}</Link> },
+  { header: "نویسنده", accessor: (item: any) => item.author.name },
+  { header: "دسته بندی", accessor: (item: any) => item.category.name },
+  { header: "وضعیت", accessor: (item: any) => convertPostStatus(item.status) },
+];
+
+export const departmentColumns = [
+  { header: "عنوان", accessor: "title" },
+  { header: "اسلاگ", accessor: "slug" },
 ];

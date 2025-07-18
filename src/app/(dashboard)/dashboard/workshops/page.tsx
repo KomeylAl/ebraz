@@ -6,7 +6,7 @@ import { useModal } from "@/hooks/useModal";
 import { Modal } from "@/components/common/Modal";
 import AddWorkshopForm from "../../_components/dashboard/forms/AddWorkshopForm";
 import WorkShopsList from "../../_components/dashboard/lists/WorkShopsList";
-import EditWorkshopForm from "../../_components/dashboard/forms/EditWorshopForm";
+import EditWorkshopForm from "../../_components/dashboard/forms/EditWorkshopForm";
 import DeleteModal from "@/components/common/DeleteModal";
 import Table from "@/components/common/Table";
 import { PuffLoader } from "react-spinners";

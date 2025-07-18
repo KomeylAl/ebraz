@@ -11,6 +11,8 @@ import { LuCircleHelp } from "react-icons/lu";
 import { GrArticle } from "react-icons/gr";
 import { PuffLoader } from "react-spinners";
 import { useUser } from "@/context/UserContext";
+import { TbCategory2 } from "react-icons/tb";
+import { IoPricetagOutline } from "react-icons/io5";
 
 const Navbar = () => {
   const links = [
@@ -69,16 +71,22 @@ const Navbar = () => {
       icon: <FiList />,
     },
     {
-      title: "مشاورین",
-      link: "/dashboard/psychologists",
-      access: ["author"],
-      icon: <IoPerson />,
-    },
-    {
-      title: "وبلاگ",
-      link: "/dashboard/blog",
+      title: "پست ها",
+      link: "/dashboard/posts",
       access: ["author"],
       icon: <GrArticle />,
+    },
+    {
+      title: "دسته بندی ها ها",
+      link: "/dashboard/categories",
+      access: ["author"],
+      icon: <TbCategory2 />,
+    },
+    {
+      title: "برچسب ها",
+      link: "/dashboard/tags",
+      access: ["author"],
+      icon: <IoPricetagOutline />,
     },
     {
       title: "کلاس ها و کارگاه ها",

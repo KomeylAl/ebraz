@@ -28,7 +28,7 @@ export default function AdminLayout({
               <div className="h-screen flex bg-gray-100 dark:bg-gray-900">
                 <Sidebar />
 
-                <main className="flex-1 mr-80 overflow-y-auto h-screen">
+                <main className="flex-1 lg:mr-80 overflow-y-auto h-screen">
                   {children}
                 </main>
 
