@@ -1,14 +1,17 @@
 "use client";
 
-import Input from "@/components/common/Input";
 import { useEditDoctor } from "@/hooks/useDoctors";
-import React, { useState } from "react";
 import DatePicker from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import fa from "react-date-object/locales/persian_fa";
 import { convertBaseDate, dateConvert } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import toast from "react-hot-toast";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { doctorSchema } from "@/validation";
+import { useEffect, useState } from "react";
+import { Input } from "@/components/ui/input";
+import Image from "next/image";
 
 interface EditDoctorFormProps {
   doctor: any;
@@ -21,159 +24,209 @@ const EditDoctorForm = ({
   onDoctorEditted,
   onCloseModal,
 }: EditDoctorFormProps) => {
-  console.log(doctor);
-
-  const [formData, setFormData] = useState({
-    name: doctor.name,
-    phone: doctor.phone,
-    card_number: doctor.card_number,
-    birth_date: doctor.birth_date,
-    national_code: doctor.national_code,
-    medical_number: doctor.medical_number,
-    email: doctor.email,
-  });
-
-  const { mutate: editDoctor, isPending } = useEditDoctor(
+  const { mutate: updateDoctor, isPending } = useEditDoctor(
     doctor.id,
     onDoctorEditted
   );
 
-  const handleSubmit = () => {
-    if (
-      !formData.name ||
-      !formData.phone ||
-      !formData.card_number ||
-      !formData.birth_date ||
-      !formData.national_code ||
-      !formData.medical_number ||
-      !formData.email
-    ) {
-      toast.error("لطفا همه فیلد هارا پر کنید");
+  const [imagePreview, setImagePreview] = useState<string | null>(
+    doctor.avatar || null
+  );
+  const [birthDate, setBirhtDate] = useState<any>(null);
+
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    watch,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(doctorSchema),
+    defaultValues: {
+      name: doctor.name,
+      phone: doctor.phone,
+      national_code: doctor.national_code,
+      card_number: doctor.card_number,
+      medical_number: doctor.medical_number,
+      birth_date: doctor.birth_date,
+      email: doctor.email,
+      avatar: null,
+      resume: null,
+    },
+  });
+
+  const watchImage: any = watch("avatar");
+
+  useEffect(() => {
+    if (watchImage && watchImage.length > 0) {
+      const file = watchImage[0];
+      setImagePreview(URL.createObjectURL(file));
     } else {
-      editDoctor(formData);
+      setImagePreview(doctor.avatar || null);
     }
+  }, [watchImage, doctor.avatar]);
+
+  const onSubmit = (data: any) => {
+    updateDoctor(data);
   };
 
   return (
-    <div className="w-full h-full p-8 space-y-7">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="w-full h-full p-8 space-y-7"
+    >
       <h2 className="text-xl font-semibold">ویرایش مشاور</h2>
-      <div className="w-full flex gap-3 mt-9">
+
+      <div className="w-full flex items-center gap-4">
         <div className="w-full">
           <label>نام و نام خانوادگی</label>
           <Input
-            defaultValue={formData.name}
-            onChange={(e) =>
-              setFormData((prev) => ({ ...prev, name: e.target.value }))
-            }
-            type="text"
-            className="mt-2"
+            {...register("name")}
+            className="w-full bg-white py-2 rounded-md  px-2 mt-2"
           />
+          {errors.name && (
+            <p className="text-red-500 text-sm">{errors.name.message}</p>
+          )}
+        </div>
+        <div className="w-full">
+          <label>تلفن</label>
+          <Input
+            {...register("phone")}
+            type="number"
+            className="w-full bg-white py-2 rounded-md  px-2 mt-2"
+          />
+          {errors.phone && (
+            <p className="text-red-500 text-sm">{errors.phone.message}</p>
+          )}
         </div>
         <div className="w-full">
           <label>کد ملی</label>
           <Input
-            defaultValue={formData.national_code}
-            onChange={(e) =>
-              setFormData((prev) => ({
-                ...prev,
-                national_code: e.target.value,
-              }))
-            }
+            {...register("national_code")}
             type="number"
-            className="mt-2"
+            className="w-full bg-white py-2 rounded-md  px-2 mt-2"
           />
-        </div>
-        <div className="w-full">
-          <label>شماره تلفن</label>
-          <Input
-            defaultValue={formData.phone}
-            onChange={(e) =>
-              setFormData((prev) => ({ ...prev, phone: e.target.value }))
-            }
-            type="number"
-            className="mt-2"
-          />
+          {errors.national_code && (
+            <p className="text-red-500 text-sm">
+              {errors.national_code.message}
+            </p>
+          )}
         </div>
       </div>
-      <div className="w-full flex gap-3 mt-9">
+
+      <div className="w-full flex items-center gap-4">
         <div className="w-full">
           <label>شماره نظام روانشناسی</label>
           <Input
-            defaultValue={formData.medical_number}
-            onChange={(e) =>
-              setFormData((prev) => ({
-                ...prev,
-                medical_number: e.target.value,
-              }))
-            }
+            {...register("medical_number")}
             type="number"
-            className="mt-2"
+            className="w-full bg-white py-2 rounded-md  px-2 mt-2"
           />
+          {errors.medical_number && (
+            <p className="text-red-500 text-sm">
+              {errors.medical_number.message}
+            </p>
+          )}
         </div>
         <div className="w-full">
           <label>شماره کارت</label>
           <Input
-            defaultValue={formData.card_number}
-            onChange={(e) =>
-              setFormData((prev) => ({ ...prev, card_number: e.target.value }))
-            }
+            {...register("card_number")}
             type="number"
-            className="mt-2"
+            className="w-full bg-white py-2 rounded-md  px-2 mt-2"
           />
+          {errors.card_number && (
+            <p className="text-red-500 text-sm">{errors.card_number.message}</p>
+          )}
         </div>
       </div>
-      <div className="w-full flex gap-3 mt-9">
+
+      <div className="w-full flex items-center gap-4">
+        <div className="w-full">
+          <div className="w-full flex flex-col">
+            <label>تاریخ تولد</label>
+            <DatePicker
+              calendar={persian}
+              locale={fa}
+              format="YYYY-MM-DD"
+              value={dateConvert(doctor.birth_date)}
+              onChange={(date: any) => {
+                setBirhtDate(doctor.birth_date);
+                setValue("birth_date", convertBaseDate(date));
+              }}
+              inputClass="w-full bg-white py-1 shadow-sm rounded-md border border-gray-200 dark:border-gray-700 dark:bg-gray-800 px-2 mt-2"
+            />
+          </div>
+          {errors.medical_number && (
+            <p className="text-red-500 text-sm">
+              {errors.medical_number.message}
+            </p>
+          )}
+        </div>
         <div className="w-full">
           <label>ایمیل</label>
           <Input
-            defaultValue={formData.email}
-            onChange={(e) =>
-              setFormData((prev) => ({ ...prev, email: e.target.value }))
-            }
+            {...register("email")}
             type="email"
-            className="mt-2"
+            className="w-full bg-white py-2 rounded-md  px-2 mt-2"
           />
-        </div>
-        <div className="w-full">
-          <label>تاریخ تولد</label>
-          <DatePicker
-            value={dateConvert(formData.birth_date)}
-            calendarPosition="bottom-right"
-            inputClass="w-full bg-white py-[9px] rounded-md border border-gray-300 px-2 mt-2 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800 dark:border-ray-700"
-            containerClassName="w-full"
-            onChange={(value: any) =>
-              setFormData((prev) => ({
-                ...prev,
-                birth_date: convertBaseDate(value),
-              }))
-            }
-            calendar={persian}
-            locale={fa}
-            format="YYYY-MM-DD"
-          />
+          {errors.email && (
+            <p className="text-red-500 text-sm">{errors.email.message}</p>
+          )}
         </div>
       </div>
-      <div className="w-full flex items-center justify-end gap-3">
-        <Button
-          variant="outline"
-          size="lg"
-          className="cursor-pointer"
-          onClick={onCloseModal}
-        >
+
+      <div className="w-full flex items-start gap-4">
+        <div className="w-full">
+          <label>آواتار</label>
+          <Input
+            type="file"
+            accept="image/*"
+            {...register("avatar")}
+            className="w-full bg-white py-2 rounded-md  px-2 mt-2"
+          />
+          {errors.avatar && (
+            <p className="text-red-500 text-sm">{errors.avatar.message}</p>
+          )}
+          {imagePreview && (
+            <div className="mt-3">
+              <Image
+                src={imagePreview}
+                alt="Category Preview"
+                width={200}
+                height={200}
+                className="rounded-md object-cover"
+              />
+            </div>
+          )}
+        </div>
+        <div className="w-full">
+          <label>رزومه</label>
+          <Input
+            type="file"
+            accept="pdf/*"
+            {...register("resume")}
+            className="w-full bg-white py-2 rounded-md  px-2 mt-2"
+          />
+          {errors.resume && (
+            <p className="text-red-500 text-sm">{errors.resume.message}</p>
+          )}
+        </div>
+      </div>
+
+      <div className="flex justify-end gap-3 mt-5">
+        <Button variant="outline" onClick={onCloseModal} type="button">
           بازگشت
         </Button>
         <Button
-          variant="default"
-          size="lg"
-          className={`cursor-pointer ${
-            isPending ? "bg-blue-400" : "bg-blue-600"
-          }`}
-          onClick={handleSubmit}
+          type="submit"
+          className={`${isPending ? "bg-blue-400" : "bg-blue-600"}`}
+          disabled={isPending}
         >
-          {isPending ? "در حال ویرایش..." : "ویرایش مشاور"}
+          {isPending ? "در حال ثبت..." : "ویرایش مشاور"}
         </Button>
       </div>
-    </div>
+    </form>
   );
 };
 

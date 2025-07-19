@@ -9,13 +9,15 @@ import Input from "../common/Input";
 import Button from "../ui/custom/Button";
 import { CiTimer } from "react-icons/ci";
 import { PiNewspaperThin } from "react-icons/pi";
+import Image from "next/image";
 
 interface PsyItemProps {
   name: string;
   image: string;
+  resume: string;
 }
 
-const PsyItem = ({ name, image }: PsyItemProps) => {
+const PsyItem = ({ name, image, resume }: PsyItemProps) => {
   const { isOpen, openModal, closeModal } = useModal();
   const {
     isOpen: timesOpen,
@@ -35,8 +37,12 @@ const PsyItem = ({ name, image }: PsyItemProps) => {
 
   return (
     <div className="w-80 h-96 bg-white shadow-lg rounded-md border border-gray-100 p-8 flex flex-col items-center justify-around">
-      <div className="w-32 h-32 rounded-full bg-gray-100 border-2 border-white shadow-lg flex items-center justify-center">
-        <MdOutlinePerson size={60} className="text-gray-500" />
+      <div className="w-32 h-32 rounded-full bg-gray-100 border-2 border-white shadow-lg flex items-center justify-center overflow-hidden">
+        {image ? (
+          <Image src={image} alt="" width={300} height={300} className="object-cover w-32 h-32"/>
+        ) : (
+          <MdOutlinePerson size={60} className="text-gray-500" />
+        )}
       </div>
       <p className="text-xl font-semibold">{name}</p>
       <p className="">دپارتمان ...</p>
@@ -170,6 +176,12 @@ const PsyItem = ({ name, image }: PsyItemProps) => {
           <h4 className="mb-2 text-2xl font-semibold text-gray-800 dark:text-white/90">
             رزومه {name}
           </h4>
+          <iframe
+            src={resume}
+            width="100%"
+            height="600px"
+            className="border rounded-lg"
+          />
         </div>
       </Modal>
     </div>

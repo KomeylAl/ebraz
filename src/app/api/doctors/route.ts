@@ -41,41 +41,25 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
-  const token = req.cookies.get("token");
-
-  const {
-    name,
-    phone,
-    card_number,
-    birth_date,
-    national_code,
-    medical_number,
-    email,
-  } = await req.json();
-
+  
   try {
+    const token = req.cookies.get("token");
+    const formData = await req.formData();
+    console.log(formData)
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/doctors`,
       {
         method: "POST",
         headers: {
           Accept: "application/json",
-          "Content-type": "application/json",
           Authorization: `Bearer ${token?.value}`,
         },
-        body: JSON.stringify({
-          name,
-          phone,
-          card_number,
-          birth_date,
-          national_code,
-          medical_number,
-          email,
-        }),
+        body: formData,
       }
     );
     if (!response.ok) {
       const data = await response.json();
+      console.log(data);
       return NextResponse.json(
         data,
         { status: response.status }

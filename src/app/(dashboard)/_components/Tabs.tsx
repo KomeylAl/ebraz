@@ -13,7 +13,7 @@ const Tabs = ({ children }: { children: any }) => {
 
   return (
     <div className="w-full mx-auto">
-      <div className="flex w-full">
+      <div className="flex w-96">
         {children.map((child: any) => (
           <button
             key={child.props.label}

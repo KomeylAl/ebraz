@@ -97,50 +97,86 @@ export function useSendTomorrowSms(doctorId: string) {
   });
 }
 
-export function useAddDoctor(onDoctorAdded: () => void) {
+export function useAddDoctor(onDuccess: () => void) {
   return useMutation({
-    mutationFn: async (data: any) => {
+    mutationFn: async (formData: any) => {
+      const newData = new FormData();
+      newData.append("name", formData.name);
+      newData.append("phone", formData.phone);
+      newData.append("national_code", formData.national_code);
+      newData.append("medical_number", formData.medical_number);
+      newData.append("card_number", formData.card_number);
+      newData.append("birth_date", formData.birth_date);
+      newData.append("email", formData.email);
+
+      if (formData.avatar && formData.avatar.length > 0) {
+        newData.append("avatar", formData.avatar[0]);
+      }
+
+      if (formData.resume && formData.resume.length > 0) {
+        newData.append("resume", formData.resume[0]);
+      }
+
       const res = await fetch(`/api/doctors/`, {
         method: "POST",
-        body: JSON.stringify(data),
+        body: newData,
       });
+      const json = await res.json();
+
       if (!res.ok) {
-        const data = await res.json();
-        // console.log(data.errors);
-        const errors = Object.entries(data.errors).map((error) => error[1]);
-        console.log(errors);
-        // toast.error("مشکلی در افزودن مشاور پیش آمده!");
-        errors.map((error: any) => toast.error(error[0]));
-        throw new Error(data.errors);
+        throw new Error(json?.message || "خطا در افزودن مشاور");
       }
+
+      return json;
     },
-    onError(error) {
-      // toast.error(error.message);
+    onError() {
+      toast.error("خطا در افزودن مشاور");
     },
     onSuccess: () => {
       toast.success("مشاور با موفقیت افزوده شد");
-      onDoctorAdded();
+      onDuccess();
     },
   });
 }
 
-export function useEditDoctor(doctorId: number, onDoctorEditted: () => void) {
+export function useEditDoctor(doctorId: number, onSuccess: () => void) {
   return useMutation({
-    mutationFn: async (data: any) => {
+    mutationFn: async (formData: any) => {
+      const newData = new FormData();
+      newData.append("name", formData.name);
+      newData.append("phone", formData.phone);
+      newData.append("national_code", formData.national_code);
+      newData.append("medical_number", formData.medical_number);
+      newData.append("card_number", formData.card_number);
+      newData.append("birth_date", formData.birth_date);
+      newData.append("email", formData.email);
+
+      if (formData.avatar && formData.avatar.length > 0) {
+        newData.append("avatar", formData.avatar[0]);
+      }
+
+      if (formData.resume && formData.resume.length > 0) {
+        newData.append("resume", formData.resume[0]);
+      }
+
       const res = await fetch(`/api/doctors/${doctorId}`, {
         method: "POST",
-        body: JSON.stringify(data),
+        body: newData,
       });
+      const json = await res.json();
+
       if (!res.ok) {
-        throw new Error("مشکلی در ویرایش مشاور پیش آمده!");
+        throw new Error(json?.message || "خطا در ویرایش مشاور");
       }
+
+      return json;
     },
-    onError(error) {
-      toast.error(error.message);
+    onError() {
+      toast.error("خطا در ویرایش مشاور");
     },
     onSuccess: () => {
       toast.success("مشاور با موفقیت ویرایش شد");
-      onDoctorEditted();
+      onSuccess();
     },
   });
 }

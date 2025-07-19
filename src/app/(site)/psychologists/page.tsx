@@ -6,8 +6,7 @@ import React from "react";
 
 export const metadata: Metadata = {
   title: "مشاوران - مرکز جامع مشاوره و رواندرمانی ابراز",
-  description:
-    "بهترین مشاوران و متخصصن حوزه روانشناسی و روانشناسی بالینی",
+  description: "بهترین مشاوران و متخصصن حوزه روانشناسی و روانشناسی بالینی",
 };
 
 export default async function Psychologists() {
@@ -16,7 +15,8 @@ export default async function Psychologists() {
 
   // اگر fullUrl رو از هدر x-url بگیریم یا دستی بسازیم
   const fullUrl =
-    headersList.get("x-url") || `http://localhost:3000${referer?.replace(/^.*:\/\/[^/]+/, "")}`;
+    headersList.get("x-url") ||
+    `http://localhost:3000${referer?.replace(/^.*:\/\/[^/]+/, "")}`;
 
   const url = new URL(fullUrl);
   const search = url.searchParams.get("search") || "";
@@ -32,7 +32,9 @@ export default async function Psychologists() {
     <div>
       <Header pageTitle="مشاوران" />
       <div className="w-full px-5 md:px-24 lg:px-48 py-12 space-y-6 flex flex-col items-center">
-        <h2 className="text-3xl font-semibold">مشاوران مرکز رواندرمانی ابراز</h2>
+        <h2 className="text-3xl font-semibold">
+          مشاوران مرکز رواندرمانی ابراز
+        </h2>
         <p>بهترین متخصصان و رواندرمانگران در مسیر درمان همراه شما هستند.</p>
         <PsyList initialData={data} initialSearch={search} />
       </div>

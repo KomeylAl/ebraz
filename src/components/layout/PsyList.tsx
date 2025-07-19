@@ -57,10 +57,14 @@ export default function PsyList({
 
   return (
     <div className="w-full flex flex-col items-center gap-6">
-
       <div className="w-full flex flex-wrap items-center justify-center gap-6">
         {doctors.map((item: any) => (
-          <PsyItem key={item.id} name={item.name} image="" />
+          <PsyItem
+            key={item.id}
+            name={item.name}
+            image={item.avatar}
+            resume={item.resume}
+          />
         ))}
       </div>
 

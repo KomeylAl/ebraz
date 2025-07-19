@@ -20,12 +20,10 @@ const DoctorPanel = ({ params }: PageProps) => {
   const { doctorId } = React.use<Params>(params);
   const {
     isLoading: todaySmsLoading,
-    error: todaySmsError,
     refetch: sendTodaySms,
   } = useSendTodaySms(doctorId);
   const {
     isLoading: tomorrowSmsLoading,
-    error: tomorrowSmsError,
     refetch: sendTomorrowSms,
   } = useSendTomorrowSms(doctorId);
 
@@ -70,11 +68,6 @@ const DoctorPanel = ({ params }: PageProps) => {
                 <Tab label="نوبت های سی روز گذشته" defaultTab={false}>
                   <div className="py-4">
                     <DoctorThirtyDays doctorId={doctorId} />
-                  </div>
-                </Tab>
-                <Tab label="اطلاعات" defaultTab={false}>
-                  <div className="py-4">
-                    
                   </div>
                 </Tab>
               </Tabs>
