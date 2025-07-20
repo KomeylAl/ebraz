@@ -24,8 +24,15 @@ export const workshopSessionSchema = yup.object().shape({
 export const workshopParticipantSchema = yup.object().shape({
   name: yup.string().required("نام الزامی است"),
   name_en: yup.string().required("نام انگلیسی الزامی است"),
-  phone: yup.string().required("تلفن الزامی است"),
-  national_code: yup.string().required("کد ملی الزامی است"),
+  phone: yup
+    .string()
+    .required("تلفن الزامی است")
+    .max(15, "تلفن نمیتواند بیشتر از 15 رقم باشد"),
+  national_code: yup
+    .string()
+    .required("کد ملی الزامی است")
+    .min(10, "کد ملی حدقا باید 10 رقم باشد")
+    .max(10, "کد ملی نمیتواند بیشتر از 10 رقم باشد."),
   gender: yup.string().required("جنسیت الزامی است"),
   approved: yup.boolean().nullable(),
 });
@@ -74,6 +81,8 @@ export const doctorSchema = yup.object().shape({
   national_code: yup.string().required("کد ملی الزامی است"),
   medical_number: yup.string().required("شماره نظام روانشناسی الزامی است"),
   email: yup.string().email().required("ایمیل الزامی است"),
+  days: yup.string().nullable(),
+  department_ids: yup.array().nullable(),
   avatar: yup.mixed().nullable(),
   resume: yup.mixed().nullable(),
 });

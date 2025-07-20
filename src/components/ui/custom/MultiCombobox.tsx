@@ -60,9 +60,9 @@ export function MultiCombobox({
   const selectedItems = data.filter((item) => dValue.includes(item.value));
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-2 w-full mt-2">
       <Popover open={open} onOpenChange={setOpen}>
-        <PopoverTrigger asChild>
+        <PopoverTrigger asChild className="w-full">
           <Button
             variant="outline"
             role="combobox"
@@ -77,7 +77,7 @@ export function MultiCombobox({
             <ChevronsUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-full p-0">
+        <PopoverContent className="w-full p-0 z-1000">
           <Command>
             <CommandInput placeholder={searchPlaceholder} />
             <CommandList>

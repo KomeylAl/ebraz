@@ -6,12 +6,16 @@ import persian from "react-date-object/calendars/persian";
 import fa from "react-date-object/locales/persian_fa";
 import { convertBaseDate, dateConvert } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { doctorSchema } from "@/validation";
 import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
+import { MultiCombobox } from "@/components/ui/custom/MultiCombobox";
+import { EntityType } from "@/lib/types";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 interface EditDoctorFormProps {
   doctor: any;
@@ -33,12 +37,31 @@ const EditDoctorForm = ({
     doctor.avatar || null
   );
   const [birthDate, setBirhtDate] = useState<any>(null);
+  const [departments, setDepartments] = useState<EntityType[]>([]);
+
+  useEffect(() => {
+    const fetchDepartments = async () => {
+      try {
+        const response = await axios.get(`/api/departments`);
+        const entities = response.data.data.map((item: any) => ({
+          label: item.title,
+          value: item.id.toString(),
+        }));
+        setDepartments(entities);
+      } catch (err: any) {
+        toast.error(err.message);
+      }
+    };
+
+    fetchDepartments();
+  }, []);
 
   const {
     register,
     handleSubmit,
     setValue,
     watch,
+    control,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(doctorSchema),
@@ -50,6 +73,8 @@ const EditDoctorForm = ({
       medical_number: doctor.medical_number,
       birth_date: doctor.birth_date,
       email: doctor.email,
+      days: doctor.days,
+      department_ids: doctor.departments.map((item: any) => item.id.toString()),
       avatar: null,
       resume: null,
     },
@@ -67,6 +92,7 @@ const EditDoctorForm = ({
   }, [watchImage, doctor.avatar]);
 
   const onSubmit = (data: any) => {
+    // console.log(data);
     updateDoctor(data);
   };
 
@@ -172,6 +198,41 @@ const EditDoctorForm = ({
           />
           {errors.email && (
             <p className="text-red-500 text-sm">{errors.email.message}</p>
+          )}
+        </div>
+      </div>
+
+      <div className="w-full flex items-start gap-4">
+        <div className="space-y-2 w-full">
+          <label className="">دپارتمان</label>
+          <Controller
+            name="department_ids"
+            control={control}
+            render={({ field }) => (
+              <MultiCombobox
+                data={departments}
+                placeholder="انتخاب دپارتمان"
+                searchPlaceholder="جستجو..."
+                dValue={field.value || []}
+                onChange={field.onChange}
+                isMulti
+              />
+            )}
+          />
+          {errors.department_ids && (
+            <p className="text-sm text-red-500 mt-1">
+              {errors.department_ids.message}
+            </p>
+          )}
+        </div>
+        <div className="w-full">
+          <label>روزها و ساعات حضور</label>
+          <Input
+            {...register("days")}
+            className="w-full bg-white py-2 rounded-md  px-2 mt-2"
+          />
+          {errors.days && (
+            <p className="text-red-500 text-sm">{errors.days.message}</p>
           )}
         </div>
       </div>

@@ -108,6 +108,10 @@ export function useAddDoctor(onDuccess: () => void) {
       newData.append("card_number", formData.card_number);
       newData.append("birth_date", formData.birth_date);
       newData.append("email", formData.email);
+      newData.append("days", formData.days);
+      formData.department_ids.forEach((id: number) => {
+        newData.append("department_ids[]", id.toString());
+      });
 
       if (formData.avatar && formData.avatar.length > 0) {
         newData.append("avatar", formData.avatar[0]);
@@ -150,6 +154,10 @@ export function useEditDoctor(doctorId: number, onSuccess: () => void) {
       newData.append("card_number", formData.card_number);
       newData.append("birth_date", formData.birth_date);
       newData.append("email", formData.email);
+      newData.append("days", formData.days);
+      formData.department_ids.forEach((id: number) => {
+        newData.append("department_ids[]", id.toString());
+      });
 
       if (formData.avatar && formData.avatar.length > 0) {
         newData.append("avatar", formData.avatar[0]);

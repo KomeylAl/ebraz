@@ -15,9 +15,11 @@ interface PsyItemProps {
   name: string;
   image: string;
   resume: string;
+  departments: any;
+  days: string;
 }
 
-const PsyItem = ({ name, image, resume }: PsyItemProps) => {
+const PsyItem = ({ name, image, resume, departments, days }: PsyItemProps) => {
   const { isOpen, openModal, closeModal } = useModal();
   const {
     isOpen: timesOpen,
@@ -39,13 +41,26 @@ const PsyItem = ({ name, image, resume }: PsyItemProps) => {
     <div className="w-80 h-96 bg-white shadow-lg rounded-md border border-gray-100 p-8 flex flex-col items-center justify-around">
       <div className="w-32 h-32 rounded-full bg-gray-100 border-2 border-white shadow-lg flex items-center justify-center overflow-hidden">
         {image ? (
-          <Image src={image} alt="" width={300} height={300} className="object-cover w-32 h-32"/>
+          <Image
+            src={image}
+            alt=""
+            width={300}
+            height={300}
+            className="object-cover w-32 h-32"
+          />
         ) : (
           <MdOutlinePerson size={60} className="text-gray-500" />
         )}
       </div>
       <p className="text-xl font-semibold">{name}</p>
-      <p className="">دپارتمان ...</p>
+      <p className="">دپارتمان ها:</p>
+      <div className="w-full flex flex-wrap justify-center">
+        {departments.map((item: any) => (
+          <p key={item.id} className="text-sm">
+            {item.title}
+          </p>
+        ))}
+      </div>
       <div className="w-full flex items-center gap-2">
         <button
           onClick={resumeOpenModal}
@@ -78,80 +93,15 @@ const PsyItem = ({ name, image, resume }: PsyItemProps) => {
             <h4 className="mb-2 text-2xl font-semibold text-gray-800 dark:text-white/90">
               دریافت نوبت {name}
             </h4>
-            <p className="mb-6 text-sm text-gray-500 dark:text-gray-400 lg:mb-7">
-              لطفا روز و ساعت مدنظر را انتخاب کرده و اطلاعات خود را تکمیل کنید.
-            </p>
+            <p>برای دریافت نویت میتوانید تماس بگیرید.</p>
+            <div className="w-full text-right flex flex-col items-center justify-center gap-4 mt-8">
+              <p className="text-lg">تماس با یکی از شماره های:</p>
+              <p className="text-xl">
+                03191095184 - 03191093136 - 03136680262 - 03136680290
+              </p>
+              <p className="text-lg">و دریافت نوبت به صورت تلفنی.</p>
+            </div>
           </div>
-          <form className="flex flex-col">
-            <div className="custom-scrollbar h-[450px] overflow-y-auto px-2 pb-3">
-              <div>
-                <h5 className="mb-5 text-lg font-medium text-gray-800 dark:text-white/90 lg:mb-6">
-                  روز ها و ساعات حضور مشاور
-                </h5>
-
-                {/* <div className="grid grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2">
-                  <div>
-                    <Label>Facebook</Label>
-                    <Input
-                      type="text"
-                      defaultValue="https://www.facebook.com/PimjoHQ"
-                    />
-                  </div>
-
-                  <div>
-                    <Label>X.com</Label>
-                    <Input type="text" defaultValue="https://x.com/PimjoHQ" />
-                  </div>
-
-                  <div>
-                    <Label>Linkedin</Label>
-                    <Input
-                      type="text"
-                      defaultValue="https://www.linkedin.com/company/pimjo"
-                    />
-                  </div>
-
-                  <div>
-                    <Label>Instagram</Label>
-                    <Input
-                      type="text"
-                      defaultValue="https://instagram.com/PimjoHQ"
-                    />
-                  </div>
-                </div> */}
-              </div>
-              <div className="mt-7">
-                <h5 className="mb-5 text-lg font-medium text-gray-800 dark:text-white/90 lg:mb-6">
-                  اطلاعات شخصی
-                </h5>
-
-                <div className="grid grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2">
-                  <div className="col-span-2 lg:col-span-1">
-                    <Label>نام ونام خانوادگی</Label>
-                    <Input type="text" defaultValue="" />
-                  </div>
-
-                  <div className="col-span-2 lg:col-span-1">
-                    <Label>شماره موبایل</Label>
-                    <Input type="number" defaultValue="" />
-                  </div>
-
-                  <div className="col-span-2">
-                    <Label>توضیحات</Label>
-                    <Input type="text" />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="flex items-center gap-3 px-2 mt-6 lg:justify-end">
-              <Button size="sm" variant="outline" onClick={closeModal}>
-                خروج
-              </Button>
-              <Button size="sm" variant="primary" onClick={handleSave}>
-                ثبت نوبت
-              </Button>
-            </div>
-          </form>
         </div>
       </Modal>
       <Modal
@@ -164,6 +114,7 @@ const PsyItem = ({ name, image, resume }: PsyItemProps) => {
           <h4 className="mb-2 text-2xl font-semibold text-gray-800 dark:text-white/90">
             روز های حضور {name}
           </h4>
+          <p>{days}</p>
         </div>
       </Modal>
       <Modal

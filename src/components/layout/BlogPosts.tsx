@@ -51,6 +51,7 @@ const BlogPosts = async () => {
                 image={post.thumbnail}
                 date={post.published_at}
                 slug={post.slug}
+                category={post.category}
               />
             );
           }

@@ -30,7 +30,6 @@ const EditTagForm = ({
     handleSubmit,
     setValue,
     watch,
-    reset,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(tagSchema),

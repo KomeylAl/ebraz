@@ -1,18 +1,18 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import PsyItem from "@/components/layout/PsyItem";
+import React, { useEffect, useState } from "react";
 import { PuffLoader } from "react-spinners";
+import BlogPostItem from "./BlogPostItem";
 
-export default function PsyList({
+export default function PostsList({
   initialData,
   initialSearch,
 }: {
   initialData: any;
   initialSearch: string;
 }) {
-  const [doctors, setDoctors] = useState(initialData.data || []);
+  const [posts, setPosts] = useState(initialData.data || []);
   const [search, setSearch] = useState(initialSearch);
   const [page, setPage] = useState(initialData.meta.current_page);
   const [lastPage, setLastPage] = useState(initialData.meta.last_page);
@@ -24,12 +24,12 @@ export default function PsyList({
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    router.push(`/psychologists?search=${encodeURIComponent(search)}`);
+    router.push(`/posts?search=${encodeURIComponent(search)}`);
     setLoading(false);
   };
 
   useEffect(() => {
-    setDoctors(initialData.data);
+    setPosts(initialData.data);
     setPage(initialData.meta.current_page);
     setLastPage(initialData.meta.last_page);
     setLoading(false);
@@ -40,10 +40,10 @@ export default function PsyList({
     try {
       const nextPage = page + 1;
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/doctors?page=${nextPage}&search=${search}`
+        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/posts?page=${nextPage}&search=${search}`
       );
       const data = await res.json();
-      setDoctors((prev: any[]) => [...prev, ...data.data]);
+      setPosts((prev: any[]) => [...prev, ...data.data]);
       setPage(data.meta.current_page);
       setLastPage(data.meta.last_page);
     } catch (err) {
@@ -52,18 +52,18 @@ export default function PsyList({
       setLoading(false);
     }
   };
-
   return (
     <div className="w-full flex flex-col items-center gap-6">
-      <div className="w-full flex flex-wrap items-center justify-center gap-6">
-        {doctors.map((item: any) => (
-          <PsyItem
+      <div className="w-full flex flex-wrap items-center justify-center gap-16">
+        {posts.map((item: any) => (
+          <BlogPostItem
             key={item.id}
-            name={item.name}
-            image={item.avatar}
-            resume={item.resume}
-            departments={item.departments}
-            days={item.days}
+            image={item.thumbnail}
+            title={item.title}
+            description={item.excerpt}
+            date={item.published_at}
+            slug={item.slug}
+            category={item.category}
           />
         ))}
       </div>
