@@ -72,7 +72,7 @@ export const tagColumns = [
 export const postColumns = [
   { header: "عنوان", accessor: (item: any) => <Link href={`/dashboard/posts/${item.slug}`} className="hover:text-blue-500">{item.title}</Link> },
   { header: "نویسنده", accessor: (item: any) => item.author.name },
-  { header: "دسته بندی", accessor: (item: any) => item.category.name },
+  { header: "دسته بندی", accessor: (item: any) => item.category?.name ?? "" },
   { header: "وضعیت", accessor: (item: any) => convertPostStatus(item.status) },
 ];
 

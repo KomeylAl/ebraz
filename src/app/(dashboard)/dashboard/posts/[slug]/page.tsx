@@ -63,7 +63,7 @@ const Post = ({ params }: PageProps) => {
         const entities = response.data.data.map((item: any) => ({
           label: item.name,
           value: item.id.toString(),
-        }));
+        })) || [];
         setCategories(entities);
       } catch (err: any) {
         toast.error(err.message);
@@ -109,7 +109,7 @@ const Post = ({ params }: PageProps) => {
         excerpt: post.data.excerpt,
         content: post.data.content,
         status: post.data.status,
-        category_id: post.data.category.id.toString(),
+        category_id: post.data.category?.id.toString() ?? "",
         published_at: post.data.published_at,
         tag_ids: post.data.tags.map((tag: any) => tag.id.toString()),
         thumbnail: null,
@@ -193,7 +193,7 @@ const Post = ({ params }: PageProps) => {
                 control={control}
                 render={({ field }) => (
                   <Combobox
-                    data={categories}
+                    data={categories || []}
                     placeholder="انتخاب دسته‌بندی"
                     searchPlaceholder="جستجو..."
                     value={field.value}

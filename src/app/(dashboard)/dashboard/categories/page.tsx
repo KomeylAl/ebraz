@@ -123,7 +123,7 @@ const Categories = () => {
               isOpen={isOpen}
               onClose={closeModal}
               showCloseButton={false}
-              className="max-w-[700px] bg-white"
+              className="max-w-[700px] bg-white max-h-[90%] overflow-y-auto"
             >
               <AddCategoryForm
                 onCloseModal={() => {
