@@ -10,6 +10,7 @@ import persian from "react-date-object/calendars/persian";
 import fa from "react-date-object/locales/persian_fa";
 import { Button } from "@/components/ui/button";
 import { useAddWorkshopSession } from "@/hooks/useWorkshops";
+import { convertBaseDate, dateConvert } from "@/lib/utils";
 
 interface AddWorkshopSessionFormProps {
   onCloseModal: () => void;
@@ -32,6 +33,8 @@ const AddWorkshopSessionForm = ({
   } = useForm({
     resolver: yupResolver(workshopSessionSchema),
   });
+  
+  console.log(errors);
 
   const onSubmit = (data: any) => {
     addSession(data);
@@ -77,7 +80,7 @@ const AddWorkshopSessionForm = ({
             value={sessionDate}
             onChange={(date: any) => {
               setSessionDate(date);
-              setValue("session_date", sessionDate);
+              setValue("session_date", convertBaseDate(date));
             }}
             inputClass="w-full bg-white py-1 shadow-sm rounded-md border border-gray-200 dark:border-gray-700 dark:bg-gray-800 px-2 mt-2"
           />

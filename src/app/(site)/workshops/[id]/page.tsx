@@ -18,7 +18,7 @@ const Workshop = async ({ params }: WorkshopPageProps) => {
   );
 
   const data = await res.json();
-  console.log(data)
+  console.log(data.data.participants)
   return (
     <div>
       <Header

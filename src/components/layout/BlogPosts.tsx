@@ -2,33 +2,6 @@ import React from "react";
 import BlogPostItem from "./BlogPostItem";
 import Link from "next/link";
 
-// const blogPosts = [
-//   {
-//     title: "اولین مقاله وب سایت",
-//     description:
-//       "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها ...",
-//     image: "",
-//   },
-//   {
-//     title: "اولین مقاله وب سایت",
-//     description:
-//       "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها ...",
-//     image: "",
-//   },
-//   {
-//     title: "اولین مقاله وب سایت",
-//     description:
-//       "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها ...",
-//     image: "",
-//   },
-//   {
-//     title: "اولین مقاله وب سایت",
-//     description:
-//       "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها ...",
-//     image: "",
-//   }
-// ];
-
 const BlogPosts = async () => {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/posts?page=0&per_page=4`,

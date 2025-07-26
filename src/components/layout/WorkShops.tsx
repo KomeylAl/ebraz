@@ -7,80 +7,54 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import WorkshopItem from "./WorkshopItem";
+import { WorkshopType } from "@/lib/types";
 
-const items = [
-  {
-    title: "کارگاه سلامت فردی",
-    description:
-      "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و ...",
-    image: "",
-  },
-  {
-    title: "کارگاه سلامت فردی",
-    description:
-      "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و ...",
-    image: "",
-  },
-  {
-    title: "کارگاه سلامت فردی",
-    description:
-      "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و ...",
-    image: "",
-  },
-  {
-    title: "کارگاه سلامت فردی",
-    description:
-      "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و ...",
-    image: "",
-  },
-  {
-    title: "کارگاه سلامت فردی",
-    description:
-      "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و ...",
-    image: "",
-  },
-  {
-    title: "کارگاه سلامت فردی",
-    description:
-      "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و ...",
-    image: "",
-  },
-  {
-    title: "کارگاه سلامت فردی",
-    description:
-      "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و ...",
-    image: "",
-  },
-];
+const WorkShops = async () => {
+  let workshops: WorkshopType[] = [];
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/workshops?page=0&per_page=10`,
+    { next: { revalidate: 5 } }
+  );
 
-const WorkShops = () => {
+  const data = await response.json();
+  workshops = data.data;
+  console.log(workshops);
   return (
     <div className="w-full h-[630px] mt-10 workshop">
       <div className="w-full h-full px-5 md:px-24 lg:px-32 py-12 space-y-6 text-center bg-black/80 text-white">
         <h2 className="text-3xl font-semibold">کلاس ها و کارگاه ها</h2>
         <p className="text-xl">لیست کلاس ها و کارگاهی های جاری در مرکز ابراز</p>
-        <Carousel
-          className="mt-16"
-          opts={{
-            align: "end",
-            axis: "x",
-            direction: "rtl",
-          }}
-        >
-          <CarouselContent className="text-black">
-            {items.map((item: any, index: any) => (
-              <CarouselItem className="lg:basis-1/2 xl:basis-1/4" key={index}>
-                <WorkshopItem
-                  title={item.title}
-                  description={item.description}
-                  image={item.image}
-                />
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselNext className="text-black hidden md:block" />
-          <CarouselPrevious className="text-black hidden md:block" />
-        </Carousel>
+
+        {workshops.length === 0 && (
+          <p>هنوز کارگاهی اضافه نشده است!</p>
+        )}
+
+        {workshops.length !== 0 && (
+          <Carousel
+            className="mt-16"
+            opts={{
+              align: "end",
+              axis: "x",
+              direction: "rtl",
+            }}
+          >
+            <CarouselContent className="text-black">
+              {workshops.map((item: any, index: any) => (
+                <CarouselItem className="lg:basis-1/2 xl:basis-1/4" key={index}>
+                  <WorkshopItem
+                    title={item.title}
+                    image={item.image}
+                    day={item.day}
+                    id={item.id}
+                    organizers={item.organizers}
+                  />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselNext className="text-black hidden md:block" />
+            <CarouselPrevious className="text-black hidden md:block" />
+          </Carousel>
+        )}
       </div>
     </div>
   );

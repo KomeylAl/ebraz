@@ -6,7 +6,7 @@ import WorkShops from "@/components/layout/WorkShops";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "خانه - مرکز جامع مشاوره و رواندرمانی ابراز",
+  title: "خانه - مرکز تخصصی مشاوره و رواندرمانی ابراز",
   description:
     "با تاسیس و مدیریت دکتر علی محرابی، متخصص روانشناسی بالینی و عضو هیئت علمی دانشگاه اصفهان",
 };

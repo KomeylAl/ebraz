@@ -25,7 +25,6 @@ const WorkShops = () => {
     pageSize,
     search
   );
-  console.log(data);
   const { mutate: deleteWorkshop, isPending } = useDeleteWorkshop(id, () => {
     closeDelete();
     refetch();
