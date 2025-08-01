@@ -108,10 +108,12 @@ export function useAddDoctor(onDuccess: () => void) {
       newData.append("card_number", formData.card_number);
       newData.append("birth_date", formData.birth_date);
       newData.append("email", formData.email);
-      newData.append("days", formData.days);
-      formData.department_ids.forEach((id: number) => {
-        newData.append("department_ids[]", id.toString());
-      });
+      newData.append("days", formData?.days ?? "");
+      if (formData.department_ids) {
+        formData.department_ids.forEach((id: number) => {
+          newData.append("department_ids[]", id.toString());
+        });
+      }
 
       if (formData.avatar && formData.avatar.length > 0) {
         newData.append("avatar", formData.avatar[0]);
@@ -133,7 +135,8 @@ export function useAddDoctor(onDuccess: () => void) {
 
       return json;
     },
-    onError() {
+    onError(error) {
+      console.log(error);
       toast.error("خطا در افزودن مشاور");
     },
     onSuccess: () => {

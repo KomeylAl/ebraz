@@ -54,7 +54,7 @@ const BlogPostItem = ({
       </div>
       <div className="w-full h-full flex-1 flex flex-col items-start justify-between">
         <div className="w-full p-4 flex flex-col items-start space-y-2">
-          <p className="font-semibold">{title}</p>
+          <p className="font-semibold text-right">{title}</p>
           <p className="text-sm text-[#2daa9e]">
             <Link href={`/categories/${category.slug}`}>{category.name}</Link>
           </p>

@@ -9,6 +9,7 @@ import { HiMenuAlt4 } from "react-icons/hi";
 import logo from "../../../public/images/logo-w.png";
 import { BiArrowToRight } from "react-icons/bi";
 import { NavItem } from "@/lib/types";
+import TransitionLink from "../ui/TransitionLink";
 
 const items = [
   {
@@ -87,7 +88,7 @@ const Navbar = () => {
                 } text-lg font-semibold hover:text-gray-800 transition-all duration-200`}
                 key={item.link}
               >
-                <Link href={item.link}>{item.title}</Link>
+                <TransitionLink href={item.link}>{item.title}</TransitionLink>
               </li>
             ))}
           </ul>
@@ -108,7 +109,7 @@ const Navbar = () => {
               } text-xl hover:text-beige transition-all duration-200`}
               key={item.link}
             >
-              <Link href={item.link}>{item.title}</Link>
+              <TransitionLink href={item.link}>{item.title}</TransitionLink>
             </li>
           ))}
         </ul>

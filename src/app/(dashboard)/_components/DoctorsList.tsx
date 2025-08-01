@@ -99,7 +99,7 @@ export const DoctorsList = () => {
         showCloseButton={false}
         isOpen={editOpen}
         onClose={closeEdit}
-        className="max-w-[700px] bg-white"
+        className="max-w-[700px] bg-white max-h-[90%] overflow-y-auto"
       >
         <EditDoctorForm
           doctor={doctor}

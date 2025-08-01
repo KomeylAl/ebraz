@@ -22,7 +22,7 @@ export default async function Psychologists() {
   const search = url.searchParams.get("search") || "";
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/doctors?page=1&search=${search}`,
+    `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/doctors?page=1&search=${search}&sort_direction=asc`,
     { next: { revalidate: 5 } }
   );
 

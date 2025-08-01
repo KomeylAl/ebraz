@@ -13,6 +13,7 @@ import { PuffLoader } from "react-spinners";
 import { useUser } from "@/context/UserContext";
 import { TbCategory2 } from "react-icons/tb";
 import { IoPricetagOutline } from "react-icons/io5";
+import TransitionLink from "@/components/ui/TransitionLink";
 
 const Navbar = () => {
   const links = [
@@ -117,7 +118,7 @@ const Navbar = () => {
         links.map(
           (link) =>
             link.access.includes(user.role) && (
-              <Link
+              <TransitionLink
                 key={link.link}
                 href={link.link}
                 className={`flex items-center gap-2 text-lg w-full px-4 py-2 ${
@@ -127,7 +128,7 @@ const Navbar = () => {
                 }`}
               >
                 {link.icon} {link.title}
-              </Link>
+              </TransitionLink>
             )
         )}
     </div>

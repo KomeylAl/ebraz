@@ -40,7 +40,7 @@ export default function PsyList({
     try {
       const nextPage = page + 1;
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/doctors?page=${nextPage}&search=${search}`
+        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/doctors?page=${nextPage}&search=${search}&sort_direction=asc`
       );
       const data = await res.json();
       setDoctors((prev: any[]) => [...prev, ...data.data]);

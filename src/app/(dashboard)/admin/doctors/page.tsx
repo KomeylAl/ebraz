@@ -1,17 +1,17 @@
 "use client";
 
-import Header from "../../_components/layout/Header";
 import { DoctorsList } from "../../_components/DoctorsList";
 import { useModal } from "@/hooks/useModal";
 import { Modal } from "@/components/common/Modal";
 import AddDoctorForm from "../../_components/AddDoctorForm";
+import Header from "../../_components/layout/Header";
 
 const Doctors = () => {
   const { isOpen, openModal, closeModal } = useModal();
 
   return (
     <div className="w-full h-full flex flex-col">
-      <Header onSearchChange={() => {}} />
+      <Header searchFn={() => {}} isShowSearch/>
       <div className="w-full flex flex-col p-12">
         <div className="w-full h-full space-y-6">
           <div className="flex items-center justify-between">
