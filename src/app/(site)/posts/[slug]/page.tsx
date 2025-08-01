@@ -13,7 +13,7 @@ interface PostPageProps {
 }
 
 const PostPage = async ({ params }: PostPageProps) => {
-  const { slug } = params;
+  const { slug } = await params;
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/posts/${slug}`,
     { next: { revalidate: 5 } }
