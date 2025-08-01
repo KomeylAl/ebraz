@@ -181,3 +181,7 @@ footer {
     @apply text-lg font-bold;
   }
 }
+
+.calendar {
+  z-index: 0 !important;
+}

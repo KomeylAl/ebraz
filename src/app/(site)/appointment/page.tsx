@@ -48,7 +48,7 @@ const Appointment = () => {
                     onClick: () => alert("آخر هفته ها غیر فعال هستند"),
                   };
               }}
-              className="text-lg"
+              className="calendar"
               shadow={false}
             />
           </div>

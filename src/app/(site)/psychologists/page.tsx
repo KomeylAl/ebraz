@@ -27,7 +27,6 @@ export default async function Psychologists() {
   );
 
   const data = await res.json();
-  console.log(data);
   return (
     <div>
       <Header pageTitle="مشاوران" />

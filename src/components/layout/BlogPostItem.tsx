@@ -3,6 +3,7 @@ import React from "react";
 import imagess from "../../../public/images/hero2.webp";
 import { dateConvert } from "@/lib/utils";
 import Link from "next/link";
+import TransitionLink from "../ui/TransitionLink";
 
 interface BlogPostItemProps {
   title: string;
@@ -56,16 +57,18 @@ const BlogPostItem = ({
         <div className="w-full p-4 flex flex-col items-start space-y-2">
           <p className="font-semibold text-right">{title}</p>
           <p className="text-sm text-[#2daa9e]">
-            <Link href={`/categories/${category.slug}`}>{category.name}</Link>
+            <TransitionLink href={`/categories/${category.slug}`}>
+              {category.name}
+            </TransitionLink>
           </p>
           <p className="text-right">{previewText(description, 100)}</p>
         </div>
         <div className="w-full p-4">
-          <Link href={`/posts/${slug}`}>
+          <TransitionLink href={`/posts/${slug}`}>
             <div className="w-full px-4 py-2 rounded-md border border-beige text-beige text-center group-hover:bg-black/85 transition-all duration-300">
               اطلاعات بیشتر
             </div>
-          </Link>
+          </TransitionLink>
         </div>
       </div>
     </div>
