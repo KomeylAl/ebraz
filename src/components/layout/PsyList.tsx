@@ -21,13 +21,6 @@ export default function PsyList({
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const handleSearch = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    router.push(`/psychologists?search=${encodeURIComponent(search)}`);
-    setLoading(false);
-  };
-
   useEffect(() => {
     setDoctors(initialData.data);
     setPage(initialData.meta.current_page);
@@ -56,6 +49,10 @@ export default function PsyList({
   return (
     <div className="w-full flex flex-col items-center gap-6">
       <div className="w-full flex flex-wrap items-center justify-center gap-6">
+        {Array.isArray(doctors) && doctors.length === 0 && (
+          <p className="text-gray-500">هیچ مشاوری پیدا نشد.</p>
+        )}
+
         {doctors.map((item: any) => (
           <PsyItem
             key={item.id}

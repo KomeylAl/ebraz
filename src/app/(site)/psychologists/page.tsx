@@ -1,5 +1,6 @@
 import Header from "@/components/layout/Header";
 import PsyList from "@/components/layout/PsyList"; // این میشه کامپوننت کلاینتی
+import SearchBar from "@/components/layout/SearchBar";
 import { Metadata } from "next";
 import { headers } from "next/headers";
 import React from "react";
@@ -9,7 +10,13 @@ export const metadata: Metadata = {
   description: "بهترین مشاوران و متخصصن حوزه روانشناسی و روانشناسی بالینی",
 };
 
-export default async function Psychologists() {
+export default async function Psychologists({
+  searchParams
+}: {
+  searchParams: {
+    query: string;
+  };
+}) {
   const headersList = await headers();
   const referer = headersList.get("referer") || "";
 
@@ -19,10 +26,10 @@ export default async function Psychologists() {
     `http://localhost:3000${referer?.replace(/^.*:\/\/[^/]+/, "")}`;
 
   const url = new URL(fullUrl);
-  const search = url.searchParams.get("search") || "";
+  const query = searchParams.query || "";
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/doctors?page=1&search=${search}&sort_direction=asc`,
+    `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/doctors?page=1&search=${query}&sort_direction=asc`,
     { next: { revalidate: 5 } }
   );
 
@@ -35,7 +42,8 @@ export default async function Psychologists() {
           مشاوران مرکز رواندرمانی ابراز
         </h2>
         <p>بهترین متخصصان و رواندرمانگران در مسیر درمان همراه شما هستند.</p>
-        <PsyList initialData={data} initialSearch={search} />
+        <SearchBar />
+        <PsyList initialData={data} initialSearch={query} />
       </div>
     </div>
   );
