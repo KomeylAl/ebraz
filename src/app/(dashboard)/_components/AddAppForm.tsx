@@ -43,7 +43,7 @@ const AddAppForm = ({ onCloseModal }: AddAppFormProps) => {
     data: doctors,
     isLoading: doctorsLoading,
     error: doctorsError,
-  } = useDoctors();
+  } = useDoctors(0, 100);
 
   const clientsOptions = clients ? apiOptions(clients) : [];
   const doctorsOptions = doctors ? apiOptions(doctors.data) : [];

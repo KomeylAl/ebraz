@@ -10,7 +10,7 @@ export function useDoctors(
     queryKey: ["doctors", page, pageSize, search],
     queryFn: async () => {
       const res = await fetch(
-        `/api/doctors?page=${page}&size=${pageSize}&search=${search}`
+        `/api/doctors?page=${page}&pageSize=${pageSize}&search=${search}`
       );
       if (res.status !== 200) {
         toast.error("خطا در دریافت اطلاعات");
