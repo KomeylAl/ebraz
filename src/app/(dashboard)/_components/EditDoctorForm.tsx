@@ -253,7 +253,7 @@ const EditDoctorForm = ({
             <div className="mt-3">
               <Image
                 src={imagePreview}
-                alt="Category Preview"
+                alt="Avatar Preview"
                 width={200}
                 height={200}
                 className="rounded-md object-cover"
@@ -272,6 +272,18 @@ const EditDoctorForm = ({
           {errors.resume && (
             <p className="text-red-500 text-sm">{errors.resume.message}</p>
           )}
+          <div className="mt-3">
+            {doctor.resume ? (
+              <iframe
+                src={doctor.resume}
+                width="100%"
+                height="300px"
+                className="border rounded-lg"
+              />
+            ) : (
+              <p>رزومه بارگذاری نشده است.</p>
+            )}
+          </div>
         </div>
       </div>
 

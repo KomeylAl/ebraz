@@ -19,13 +19,7 @@ export default async function Psychologists({
 }) {
   const headersList = await headers();
   const referer = headersList.get("referer") || "";
-
-  // اگر fullUrl رو از هدر x-url بگیریم یا دستی بسازیم
-  const fullUrl =
-    headersList.get("x-url") ||
-    `http://localhost:3000${referer?.replace(/^.*:\/\/[^/]+/, "")}`;
-
-  const url = new URL(fullUrl);
+  
   const query = searchParams.query || "";
 
   const res = await fetch(
