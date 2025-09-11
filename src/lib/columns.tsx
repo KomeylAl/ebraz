@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { convertPostStatus, convertRole, dateConvert } from "./utils";
 import { MdInsertChart } from "react-icons/md";
+import { IoDocument } from "react-icons/io5";
 
 export const appointmentColumns = [
   { header: "مراجع", accessor: "client" },
@@ -40,6 +41,20 @@ export const doctorColumns = [
     accessor: (row: any) => (
       <Link href={`/admin/doctors/panel/${row.id}`}>
         <MdInsertChart size={25} className="text-blue-500" />
+      </Link>
+    ),
+  },
+];
+
+export const clientColumns = [
+  { header: "نام", accessor: "name" },
+  { header: "تلفن", accessor: "phone" },
+  { header: "تاریخ تولد", accessor: (row: any) => dateConvert(row.birth_date) },
+  {
+    header: "پرونده پزشکی",
+    accessor: (row: any) => (
+      <Link href={`/admin/doctors/panel/${row.id}`}>
+        <IoDocument size={25} className="text-blue-500" />
       </Link>
     ),
   },

@@ -104,7 +104,7 @@ const AddAdminForm = ({ onCloseModal }: AddAdminFormProps) => {
               setFormData((prev) => ({ ...prev, password: e.target.value }))
             }
             type="text"
-            className="w-full bg-white py-2 rounded-md shadow-sm px-2 mt-2"
+            className="w-full bg-white py-2 rounded-md shadow-sm px-2 mt-2 text-left"
           />
         </div>
       </div>

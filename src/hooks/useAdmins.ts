@@ -1,11 +1,17 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
-export function useAdmins(search: string = "") {
+export function useAdmins(
+  page: number = 1,
+  pageSize: number = 10,
+  search: string = ""
+) {
   return useQuery({
-    queryKey: ["admins", search],
+    queryKey: ["admins", page, pageSize, search],
     queryFn: async () => {
-      const res = await fetch(`/api/admins?search=${search}`);
+      const res = await fetch(
+        `/api/admins?page=${page}&pageSize=${pageSize}&search=${search}`
+      );
       if (res.status !== 200) {
         toast.error("خطا در دریافت اطلاعات");
       }
@@ -31,6 +37,26 @@ export function useAddAdmin(onAddedAdmin: () => void) {
     onSuccess: () => {
       toast.success("مدیر با موفقت افزودن شد");
       onAddedAdmin();
+    },
+  });
+}
+
+export function useDeleteAdmin(onDeletedTenant: () => void) {
+  return useMutation({
+    mutationFn: async (adminId: string) => {
+      const res = await fetch(`/api/admins/${adminId}`, {
+        method: "DELETE",
+      });
+      if (!res.ok) {
+        throw new Error("مشکلی در حذف مدیر پیش آمده!");
+      }
+    },
+    onError(error) {
+      toast.error(error.message);
+    },
+    onSuccess: () => {
+      toast.success("مدیر با موفقیت حذف شد");
+      onDeletedTenant();
     },
   });
 }

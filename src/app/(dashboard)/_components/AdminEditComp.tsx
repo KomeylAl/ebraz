@@ -96,7 +96,7 @@ const AdminEditComp = ({ data, token }: AdminEditCompProps) => {
 
   return (
     <div className="w-full h-full flex flex-col">
-      <Header pageTitle="ویرایش اطلاعات ادمین" />
+      <Header isShowSearch={false} searchFn={() => {}} />
       <div className="w-full h-full flex flex-col p-8 mt-6 rounded-sm">
         <div className="w-full flex gap-3 mt-9 ">
           <div className="w-full">

@@ -21,7 +21,7 @@ export async function GET(req: NextRequest) {
     );
     if (!response.ok) {
       return NextResponse.json(
-        { message: "Error getting clients" },
+        { message: await response.json() },
         { status: response.status }
       );
     }
