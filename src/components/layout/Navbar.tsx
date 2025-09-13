@@ -62,7 +62,7 @@ const Navbar = () => {
 
   return (
     <div
-      className={`w-full flex items-center lg:justify-between gap-6 p-4 lg:px-32 lg:py-4 ${
+      className={`w-full flex items-center lg:justify-between gap-6 p-4 xl:px-32 lg:py-4 ${
         isScrolled ? "bg-black/35 backdrop-blur-xl" : ""
       } transition-colors duration-200`}
     >

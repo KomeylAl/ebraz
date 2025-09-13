@@ -1,9 +1,9 @@
 "use client";
 
-import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { PuffLoader } from "react-spinners";
 import BlogPostItem from "./BlogPostItem";
+import { Button } from "../ui/button";
 
 export default function PostsList({
   initialData,
@@ -17,16 +17,6 @@ export default function PostsList({
   const [page, setPage] = useState(initialData.meta.current_page);
   const [lastPage, setLastPage] = useState(initialData.meta.last_page);
   const [loading, setLoading] = useState(false);
-
-  const router = useRouter();
-  const searchParams = useSearchParams();
-
-  const handleSearch = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    router.push(`/posts?search=${encodeURIComponent(search)}`);
-    setLoading(false);
-  };
 
   useEffect(() => {
     setPosts(initialData.data);
@@ -54,7 +44,11 @@ export default function PostsList({
   };
   return (
     <div className="w-full flex flex-col items-center gap-6">
-      <div className="w-full flex flex-wrap items-center justify-center gap-16">
+      <div className="w-full flex flex-wrap items-center justify-start gap-16">
+        {Array.isArray(posts) && posts.length === 0 && (
+          <p className="text-gray-500">هیچ مطلبی پیدا نشد.</p>
+        )}
+
         {posts.map((item: any) => (
           <BlogPostItem
             key={item.id}
@@ -69,13 +63,9 @@ export default function PostsList({
       </div>
 
       {page < lastPage && (
-        <button
-          onClick={loadMore}
-          disabled={loading}
-          className="mt-6 px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition disabled:opacity-50"
-        >
+        <Button onClick={loadMore} disabled={loading}>
           {loading ? "در حال بارگذاری..." : "بارگذاری موارد بیشتر"}
-        </button>
+        </Button>
       )}
 
       {loading && <PuffLoader color="#3b82f6" size={45} />}

@@ -31,7 +31,7 @@ const BlogPostItem = ({
 }: BlogPostItemProps) => {
   const cDate = dateConvert(date);
   return (
-    <div className="w-80 min-h-[440px] group rounded-md space-y-3 relative bg-white shadow-lg flex flex-col">
+    <div className="w-80 h-[440px] min-h-[440px] group rounded-md space-y-3 relative bg-white shadow-lg flex flex-col">
       <Image
         src={image || imagess}
         alt=""

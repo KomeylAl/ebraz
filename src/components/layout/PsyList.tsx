@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
 import PsyItem from "@/components/layout/PsyItem";
 import { PuffLoader } from "react-spinners";
+import { Button } from "../ui/button";
 
 export default function PsyList({
   initialData,
@@ -17,9 +17,6 @@ export default function PsyList({
   const [page, setPage] = useState(initialData.meta.current_page);
   const [lastPage, setLastPage] = useState(initialData.meta.last_page);
   const [loading, setLoading] = useState(false);
-
-  const router = useRouter();
-  const searchParams = useSearchParams();
 
   useEffect(() => {
     setDoctors(initialData.data);
@@ -66,13 +63,12 @@ export default function PsyList({
       </div>
 
       {page < lastPage && (
-        <button
+        <Button
           onClick={loadMore}
           disabled={loading}
-          className="mt-6 px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition disabled:opacity-50"
         >
           {loading ? "در حال بارگذاری..." : "بارگذاری موارد بیشتر"}
-        </button>
+        </Button>
       )}
 
       {loading && <PuffLoader color="#3b82f6" size={45} />}

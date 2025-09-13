@@ -16,7 +16,7 @@ const Hero = () => {
             <span className="text-beige">دکتر علی محرابی</span>، متخصص روانشناسی
             بالینی و عضو هیئت علمی دانشگاه اصفهان
           </p>
-          <div className="flex items-center justify-center gap-10 w-full">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-10 w-full">
             <Link
               href="/appointment"
               className="text-center text-beige py-3 rounded-md border border-beige cursor-pointer hover:bg-beige hover:text-black transition duration-200 w-46"

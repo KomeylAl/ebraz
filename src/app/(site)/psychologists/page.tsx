@@ -2,7 +2,6 @@ import Header from "@/components/layout/Header";
 import PsyList from "@/components/layout/PsyList"; // این میشه کامپوننت کلاینتی
 import SearchBar from "@/components/layout/SearchBar";
 import { Metadata } from "next";
-import { headers } from "next/headers";
 import React from "react";
 
 export const metadata: Metadata = {
@@ -17,13 +16,10 @@ export default async function Psychologists({
     query: string;
   };
 }) {
-  const headersList = await headers();
-  const referer = headersList.get("referer") || "";
-  
-  const query = searchParams.query || "";
+  const { query } = await searchParams;
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/doctors?page=1&search=${query}&sort_direction=asc`,
+    `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/doctors?page=1&search=${query || ""}&sort_direction=asc`,
     { next: { revalidate: 5 } }
   );
 
