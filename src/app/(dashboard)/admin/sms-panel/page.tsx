@@ -6,51 +6,27 @@ import toast from "react-hot-toast";
 import { getCookie } from "cookies-next";
 import WithRole from "../../_components/WithRole";
 import Header from "../../_components/layout/Header";
+import { useSendMultiSms, useSendSingleSms } from "@/hooks/useSms";
 
 const SmsPanel = () => {
-  const token = getCookie("token")?.toString();
-  const [isSingleSending, setIsSingleSending] = useState(false);
-  const [isMultiSending, setIsMultiSending] = useState(false);
-
   const [singlePhone, setSinglePhone] = useState("");
   const [singleText, setSingleText] = useState("");
 
   const [multiPhone, setMultiPhone] = useState("");
   const [multiText, setMultiText] = useState("");
 
-  const sendSingleSms = async () => {
+  const { mutate: sendSingle, isPending: isSendingSingle } = useSendSingleSms(
+    () => {}
+  );
+  const { mutate: sendMulti, isPending: isSendingMulti } = useSendMultiSms(
+    () => {}
+  );
+
+  const sendSingleSms = () => {
     if (!singlePhone || !singleText) {
       toast.error("لطفا همه فیلد ها را پر کنید");
     } else {
-      setIsSingleSending(true);
-      await axios
-        .post(
-          `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/sms/single`,
-          {
-            phone: singlePhone,
-            text: singleText,
-          },
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        )
-        .then(function (response) {
-          if (response.status === 200) {
-            console.log(response);
-            toast.success("پیامک با موفقیت ارسال شد");
-          } else {
-            toast.error("خطا در ارسال پیامک");
-          }
-          console.log(response.data);
-        })
-        .catch(function (error) {
-          toast.error("خطا در ارسال پیامک");
-          console.log(error);
-        })
-        .finally(() => setIsSingleSending(false));
+      sendSingle({ phone: singlePhone, text: singleText });
     }
   };
 
@@ -66,43 +42,14 @@ const SmsPanel = () => {
     if (!multiPhone || !multiText) {
       toast.error("لطفا همه فیلد ها را پر کنید");
     } else {
-      setIsMultiSending(true);
-      await axios
-        .post(
-          `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/sms/multi`,
-          {
-            phones: phones,
-            text: multiText,
-          },
-          {
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        )
-        .then(function (response) {
-          if (response.status === 200) {
-            console.log(response.data);
-            toast.success("پیامک با موفقیت ارسال شد");
-          } else {
-            toast.error("خطا در ارسال پیامک");
-          }
-          console.log(response.data);
-        })
-        .catch(function (error) {
-          toast.error("خطا در ارسال پیامک");
-          console.log(error);
-        })
-        .finally(() => setIsMultiSending(false));
+      sendMulti({ phones, text: multiText });
     }
   };
 
   return (
     <WithRole allowedRoles={["boss", "manager"]}>
       <div className="w-full h-full flex flex-col">
-        <Header onSearchChange={() => {}} />
+        <Header isShowSearch={false} searchFn={() => {}} />
         <div className="flex flex-col lg:flex-row gap-6 p-8">
           <div className="flex flex-col items-start gap-3 w-full lg:w-[40%]">
             <p className="font-semibold">ارسال پیامک تکی</p>
@@ -121,12 +68,12 @@ const SmsPanel = () => {
                 placeholder="شماره تلفن"
               />
               <button
-                onClick={() => sendSingleSms()}
-                disabled={isSingleSending}
+                onClick={sendSingleSms}
+                disabled={isSendingSingle}
                 className="px-12 py-2 bg-blue-500 rounded-sm mt-3 w-72
                text-white text-center cursor-pointer disabled:cursor-not-allowed disabled:bg-blue-400"
               >
-                {isSingleSending ? "در حال ارسال" : "ارسال پیامک"}
+                {isSendingSingle ? "در حال ارسال" : "ارسال پیامک"}
               </button>
             </div>
           </div>
@@ -152,11 +99,11 @@ const SmsPanel = () => {
               />
               <button
                 onClick={() => sendMultiSms()}
-                disabled={isMultiSending}
+                disabled={isSendingMulti}
                 className="px-12 py-2 bg-blue-500 rounded-sm mt-3 w-72
                text-white text-center cursor-pointer disabled:cursor-not-allowed disabled:bg-blue-400"
               >
-                {isMultiSending ? "در حال ارسال" : "ارسال پیامک"}
+                {isSendingMulti ? "در حال ارسال" : "ارسال پیامک"}
               </button>
             </div>
           </div>

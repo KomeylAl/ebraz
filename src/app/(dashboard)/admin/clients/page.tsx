@@ -17,8 +17,8 @@ const Clients = () => {
   const [pageSize, setPageSize] = useState(10);
   const [search, setSearch] = useState("");
 
-  const [doctorId, setDoctorId] = useState(0);
-  const [doctor, setDoctor] = useState<any>({});
+  const [clientId, setClientId] = useState(0);
+  const [client, setClient] = useState<any>({});
 
   const { data, isLoading, error, refetch } = useClients(
     page,
@@ -86,13 +86,13 @@ const Clients = () => {
                 }}
                 onDelete={(item: any) => {
                   console.log(item)
-                  setDoctorId(item.id);
+                  setClientId(item.id);
                   openDelete();
                 }}
                 onEdit={(item: any) => {
                   console.log(item)
-                  setDoctorId(item.id);
-                  setDoctor(item);
+                  setClientId(item.id);
+                  setClient(item);
                   openEdit();
                 }}
               />
@@ -114,7 +114,7 @@ const Clients = () => {
               className="max-w-[700px] bg-white max-h-[90%] overflow-y-auto"
             >
               <AdminEditComp 
-                data={doctor}
+                data={client}
                 token=""
               />
             </Modal>

@@ -85,7 +85,17 @@ export const tagColumns = [
 ];
 
 export const postColumns = [
-  { header: "عنوان", accessor: (item: any) => <Link href={`/dashboard/posts/${item.slug}`} className="hover:text-blue-500">{item.title}</Link> },
+  {
+    header: "عنوان",
+    accessor: (item: any) => (
+      <Link
+        href={`/dashboard/posts/${item.slug}`}
+        className="hover:text-blue-500"
+      >
+        {item.title}
+      </Link>
+    ),
+  },
   { header: "نویسنده", accessor: (item: any) => item.author.name },
   { header: "دسته بندی", accessor: (item: any) => item.category?.name ?? "" },
   { header: "وضعیت", accessor: (item: any) => convertPostStatus(item.status) },
@@ -94,4 +104,26 @@ export const postColumns = [
 export const departmentColumns = [
   { header: "عنوان", accessor: "title" },
   { header: "اسلاگ", accessor: "slug" },
+];
+
+export const paymentColumns = [
+  { header: "مراجع", accessor: (item: any) => item.referral.client },
+  { header: "مشاور", accessor: (item: any) => item.referral.doctor },
+  {
+    header: "تاریخ مراجعه",
+    accessor: (item: any) => dateConvert(item.referral.date),
+  },
+  {
+    header: "مبلغ",
+    accessor: (item: any) => item.referral.amount,
+    cellClassName: (item: any) =>
+      item.status === "unpaid" ? "text-amber-500" : "text-sky-600",
+  },
+  {
+    header: "وضعیت",
+    accessor: (item: any) =>
+      item.status === "paid" ? "پرداخت شده" : "پرداخت نشده",
+    cellClassName: (item: any) =>
+      item.status === "unpaid" ? "text-rose-500" : "text-green-500",
+  },
 ];

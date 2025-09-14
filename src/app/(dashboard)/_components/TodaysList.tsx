@@ -13,8 +13,6 @@ const ToDaysList = () => {
   const { data, isLoading } = useAppointments(0, 10, "", date);
   const { isOpen, openModal, closeModal } = useModal();
 
-  console.log(data);
-
   return (
     <div className="w-full h-full flex items-center justify-center">
       {isLoading && <PuffLoader size={60} color="#3e86fa" />}

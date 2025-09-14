@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
 export function useClients(
@@ -10,7 +10,7 @@ export function useClients(
     queryKey: ["clients", page, pageSize, search],
     queryFn: async () => {
       const res = await fetch(
-        `/api/clients?page=${page}&size=${pageSize}&search=${search}`
+        `/api/clients?page=${page}&pageSize=${pageSize}&search=${search}`
       );
       if (res.status !== 200) {
         toast.error("خطا در دریافت اطلاعات");
@@ -18,5 +18,25 @@ export function useClients(
       return res.json();
     },
     placeholderData: (prev) => prev,
+  });
+}
+
+export function useDeleteClient(onSuccess: () => void) {
+  return useMutation({
+    mutationFn: async (clientId: string) => {
+      const res = await fetch(`/api/clients/${clientId}`, {
+        method: "DELETE",
+      });
+      if (!res.ok) {
+        throw new Error("مشکلی در حذف مراجع پیش آمده!");
+      }
+    },
+    onError(error) {
+      toast.error(error.message);
+    },
+    onSuccess: () => {
+      toast.success("مراجع با موفقیت حذف شد");
+      onSuccess();
+    },
   });
 }
