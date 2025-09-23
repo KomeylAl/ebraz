@@ -2,8 +2,10 @@ import * as yup from "yup";
 
 export const workshopSchema = yup.object().shape({
   title: yup.string().required("عنوان الزامی است"),
+  slug: yup.string().required("اسلاگ الزامی است"),
   organizers: yup.string().required("برگزار کنندگان الزامی است"),
-  description: yup.string().required("توضیحات الزامی است"),
+  excerpt: yup.string().required("خلاصه الزامی است"),
+  content: yup.string().required("محتوا الزامی است"),
   start_date: yup.string().nullable(),
   end_date: yup.string().nullable(),
   week_day: yup.string().nullable(),

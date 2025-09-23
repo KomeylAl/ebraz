@@ -13,6 +13,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { convertBaseDate, dateConvert } from "@/lib/utils";
 import Image from "next/image";
 import { useUpdateWorkshop } from "@/hooks/useWorkshops";
+import RichTextEditor from "@/components/common/rich-text-editor";
 
 export default function EditWorkshopForm({
   onCloseModal,
@@ -31,6 +32,7 @@ export default function EditWorkshopForm({
   const [imagePreview, setImagePreview] = useState<string | null>(
     workshop.img_path || null
   );
+  const [content, setContent] = useState("");
 
   const {
     register,
@@ -42,7 +44,9 @@ export default function EditWorkshopForm({
     resolver: yupResolver(workshopSchema),
     defaultValues: {
       title: workshop.title,
-      description: workshop.description,
+      slug: workshop.slug,
+      excerpt: workshop.excerpt,
+      content: workshop.content,
       organizers: workshop.organizers,
       week_day: workshop.week_day,
       time: workshop.time,
@@ -99,14 +103,36 @@ export default function EditWorkshopForm({
       </div>
 
       <div className="w-full">
-        <label>توضیحات</label>
+        <label>اسلاگ</label>
+        <Input
+          {...register("slug")}
+          className="w-full bg-white py-2 rounded-md  px-2 mt-2"
+        />
+        {errors.slug && (
+          <p className="text-red-500 text-sm">{errors.slug.message}</p>
+        )}
+      </div>
+
+      <div className="w-full">
+        <label>خلاصه</label>
         <Textarea
-          {...register("description")}
+          {...register("excerpt")}
           className="w-full bg-white py-2 rounded-md px-2 mt-2"
         />
-        {errors.description && (
-          <p className="text-red-500 text-sm">{errors.description.message}</p>
+        {errors.excerpt && (
+          <p className="text-red-500 text-sm">{errors.excerpt.message}</p>
         )}
+      </div>
+
+      <div className="w-full">
+        <label>محتوا</label>
+        <RichTextEditor
+          content={workshop.content}
+          onChange={(content: string) => {
+            setContent(content);
+            setValue("content", content);
+          }}
+        />
       </div>
 
       <div className="flex gap-3">

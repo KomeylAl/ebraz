@@ -40,7 +40,9 @@ export function useAddWorkshop(onSuccess: () => void) {
     mutationFn: async (formData: any) => {
       const newData = new FormData();
       newData.append("title", formData.title);
-      newData.append("description", formData.description);
+      newData.append("slug", formData.slug);
+      newData.append("excerpt", formData.excerpt);
+      newData.append("content", formData.content);
       newData.append("organizers", formData.organizers);
       newData.append("week_day", formData.week_day);
       newData.append("time", formData.time);
@@ -51,10 +53,18 @@ export function useAddWorkshop(onSuccess: () => void) {
         newData.append("image", formData.image[0]);
       }
 
-      return fetch("/api/workshops", {
+      const res = await fetch("/api/workshops/", {
         method: "POST",
         body: newData,
       });
+
+      const json = await res.json();
+
+      if (!res.ok) {
+        throw new Error(json?.message || "خطا در افزودن کارگاه");
+      }
+
+      return json;
     },
     onSuccess: () => {
       toast.success("کارگاه با موفقیت ثبت شد");
@@ -71,7 +81,9 @@ export function useUpdateWorkshop(id: string, onSuccess: () => void) {
     mutationFn: async (data: any) => {
       const newData = new FormData();
       newData.append("title", data.title);
-      newData.append("description", data.description);
+      newData.append("slug", data.slug);
+      newData.append("excerpt", data.excerpt);
+      newData.append("content", data.content);
       newData.append("organizers", data.organizers);
       newData.append("week_day", data.week_day);
       newData.append("time", data.time);
@@ -240,7 +252,6 @@ export function useDeleteParticipant(
     },
   });
 }
-
 
 export function useAddWorkshopParticipant(
   workshopId: string,

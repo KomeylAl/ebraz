@@ -63,6 +63,7 @@ const WorkshopsList = ({
             organizers={item.organizers}
             id={item.id}
             day={item.week_day}
+            endDate={item.end_date}
           />
         ))}
       </div>

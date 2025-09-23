@@ -18,7 +18,6 @@ const WorkShops = async () => {
 
   const data = await response.json();
   workshops = data.data;
-  console.log(workshops);
   return (
     <div className="w-full h-[630px] mt-10 workshop">
       <div className="w-full h-full px-5 md:px-24 lg:px-32 py-12 space-y-6 text-center bg-black/80 text-white">
@@ -43,10 +42,11 @@ const WorkShops = async () => {
                 <CarouselItem className="lg:basis-1/2 xl:basis-1/4" key={index}>
                   <WorkshopItem
                     title={item.title}
-                    image={item.image}
+                    image={item.img_path}
                     day={item.day}
                     id={item.id}
                     organizers={item.organizers}
+                    endDate={item.end_date}
                   />
                 </CarouselItem>
               ))}

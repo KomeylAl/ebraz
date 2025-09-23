@@ -1,17 +1,10 @@
 "use client";
 
 import React from "react";
-import { Calendar } from "react-multi-date-picker";
-import persian from "react-date-object/calendars/persian";
-import persian_fa from "react-date-object/locales/persian_fa";
-import AnalogTimePicker from "react-multi-date-picker/plugins/analog_time_picker";
-import TimePicker from "react-multi-date-picker/plugins/time_picker";
-import weekends from "react-multi-date-picker/plugins/highlight_weekends";
 import Header from "@/components/layout/Header";
+import OnlineAppointment from "@/components/layout/OnlineAppointment";
 
 const Appointment = () => {
-  const today = Date.now();
-
   return (
     <div>
       <Header pageTitle="دریافت نوبت" />
@@ -31,27 +24,7 @@ const Appointment = () => {
             2
           </div>
           <p className="text-lg">دریافت نوبت به صورت آنلاین</p>
-          <div className="w-full flex items-start justify-center gap-6">
-            <Calendar
-              disabled
-              calendar={persian}
-              locale={persian_fa}
-              minDate={today}
-              plugins={[<TimePicker />, weekends()]}
-              mapDays={({ date }) => {
-                let isWeekend = [6].includes(date.weekDay.index);
-
-                if (isWeekend)
-                  return {
-                    disabled: true,
-                    style: { color: "#ccc" },
-                    onClick: () => alert("آخر هفته ها غیر فعال هستند"),
-                  };
-              }}
-              className="calendar"
-              shadow={false}
-            />
-          </div>
+          <OnlineAppointment />
         </div>
       </div>
     </div>

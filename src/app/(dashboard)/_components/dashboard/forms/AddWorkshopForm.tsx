@@ -12,6 +12,7 @@ import { workshopSchema } from "@/validation";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { convertBaseDate } from "@/lib/utils";
+import RichTextEditor from "@/components/common/rich-text-editor";
 
 export default function AddWorkshopForm({
   onCloseModal,
@@ -31,6 +32,7 @@ export default function AddWorkshopForm({
 
   const [startDate, setStartDate] = useState<any>(null);
   const [endDate, setEndDate] = useState<any>(null);
+  const [content, setContent] = useState("");
 
   const onSubmit = (data: any) => {
     addWorkshop(data);
@@ -67,14 +69,36 @@ export default function AddWorkshopForm({
       </div>
 
       <div className="w-full">
-        <label>توضیحات</label>
-        <Textarea
-          {...register("description")}
+        <label>اسلاگ</label>
+        <Input
+          {...register("slug")}
           className="w-full bg-white py-2 rounded-md  px-2 mt-2"
         />
-        {errors.description && (
-          <p className="text-red-500 text-sm">{errors.description.message}</p>
+        {errors.slug && (
+          <p className="text-red-500 text-sm">{errors.slug.message}</p>
         )}
+      </div>
+
+      <div className="w-full">
+        <label>خلاصه</label>
+        <Textarea
+          {...register("excerpt")}
+          className="w-full bg-white py-2 rounded-md  px-2 mt-2"
+        />
+        {errors.excerpt && (
+          <p className="text-red-500 text-sm">{errors.excerpt.message}</p>
+        )}
+      </div>
+
+      <div className="w-full">
+        <label>محتوا</label>
+        <RichTextEditor
+          content={content}
+          onChange={(content: string) => {
+            setContent(content);
+            setValue("content", content);
+          }}
+        />
       </div>
 
       <div className="flex gap-3">
