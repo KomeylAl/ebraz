@@ -1,5 +1,8 @@
+import DepartmentsModal from "@/components/layout/DepartmentsModal";
 import DepsList from "@/components/layout/DepsList";
 import Header from "@/components/layout/Header";
+import { Button } from "@/components/ui/button";
+import { useModal } from "@/hooks/useModal";
 import { headers } from "next/headers";
 import React from "react";
 
@@ -21,12 +24,15 @@ const Departments = async () => {
   );
 
   const data = await res.json();
+
+  
   return (
     <div>
       <Header pageTitle="دپارتمان ها" />
       <div className="w-full px-5 md:px-24 lg:px-48 py-12 space-y-6 flex flex-col items-center">
         <h2 className="text-3xl font-semibold">دپارتمان های مرکز ابراز</h2>
         <p>دپارتمان های تخصصی ابراز را از این قسمت مشاهده کنید</p>
+        <DepartmentsModal />
         <DepsList initialData={data} initialSearch={search} />
       </div>
     </div>
