@@ -22,8 +22,8 @@ export default function ClinicMap({
   const position: [number, number] = [lat, long];
 
   return (
-    <div className="w-full h-[400px] rounded-lg overflow-hidden">
-      <MapContainer center={position} zoom={15} className="w-full h-full">
+    <div className="w-full h-[400px] rounded-lg overflow-hidden z-0">
+      <MapContainer center={position} zoom={15} className="w-full h-full z-0">
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/">OSM</a>'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

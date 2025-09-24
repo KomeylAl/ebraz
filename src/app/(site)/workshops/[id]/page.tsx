@@ -28,7 +28,7 @@ const Workshop = async ({ params }: WorkshopPageProps) => {
         breadLink="/workshops"
       />
       <div className="w-full px-5 md:px-24 lg:px-48 py-12 space-y-6 flex flex-col items-center">
-        <div className="w-full flex items-start justify-start gap-4">
+        <div className="w-full flex flex-col md:flex-row items-start justify-start gap-4">
           <div className="w-96 h-96 relative overflow-hidden">
             <div
               className={`absolute w-48 h-10 ${

@@ -13,10 +13,11 @@ export default function PsyList({
   initialSearch: string;
 }) {
   const [doctors, setDoctors] = useState(initialData.data || []);
-  const [search, setSearch] = useState(initialSearch);
   const [page, setPage] = useState(initialData.meta.current_page);
   const [lastPage, setLastPage] = useState(initialData.meta.last_page);
   const [loading, setLoading] = useState(false);
+
+  console.log(initialData);
 
   useEffect(() => {
     setDoctors(initialData.data);
@@ -30,7 +31,7 @@ export default function PsyList({
     try {
       const nextPage = page + 1;
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/doctors?page=${nextPage}&search=${search}&sort_direction=asc`
+        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/doctors?page=${nextPage}&sort_direction=asc`
       );
       const data = await res.json();
       setDoctors((prev: any[]) => [...prev, ...data.data]);
@@ -63,10 +64,7 @@ export default function PsyList({
       </div>
 
       {page < lastPage && (
-        <Button
-          onClick={loadMore}
-          disabled={loading}
-        >
+        <Button onClick={loadMore} disabled={loading}>
           {loading ? "در حال بارگذاری..." : "بارگذاری موارد بیشتر"}
         </Button>
       )}

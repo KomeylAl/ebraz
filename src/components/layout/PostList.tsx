@@ -13,7 +13,6 @@ export default function PostsList({
   initialSearch: string;
 }) {
   const [posts, setPosts] = useState(initialData.data || []);
-  const [search, setSearch] = useState(initialSearch);
   const [page, setPage] = useState(initialData.meta.current_page);
   const [lastPage, setLastPage] = useState(initialData.meta.last_page);
   const [loading, setLoading] = useState(false);
@@ -30,7 +29,7 @@ export default function PostsList({
     try {
       const nextPage = page + 1;
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/posts?page=${nextPage}&search=${search}`
+        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/posts?page=${nextPage}`
       );
       const data = await res.json();
       setPosts((prev: any[]) => [...prev, ...data.data]);
