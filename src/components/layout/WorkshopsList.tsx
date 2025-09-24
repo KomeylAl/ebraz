@@ -13,20 +13,9 @@ const WorkshopsList = ({
   initialSearch: string;
 }) => {
   const [workshops, setWorkshops] = useState(initialData.data || []);
-  const [search, setSearch] = useState(initialSearch);
   const [page, setPage] = useState(initialData.meta.current_page);
   const [lastPage, setLastPage] = useState(initialData.meta.last_page);
   const [loading, setLoading] = useState(false);
-
-  const router = useRouter();
-  const searchParams = useSearchParams();
-
-  const handleSearch = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    router.push(`/workshops?search=${encodeURIComponent(search)}`);
-    setLoading(false);
-  };
 
   useEffect(() => {
     setWorkshops(initialData.data);
@@ -40,7 +29,7 @@ const WorkshopsList = ({
     try {
       const nextPage = page + 1;
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/workshops?page=${nextPage}&search=${search}`
+        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/workshops?page=${nextPage}`
       );
       const data = await res.json();
       setWorkshops((prev: any[]) => [...prev, ...data.data]);

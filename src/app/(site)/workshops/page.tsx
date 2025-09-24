@@ -1,6 +1,5 @@
 import Header from "@/components/layout/Header";
 import WorkshopsList from "@/components/layout/WorkshopsList";
-import { headers } from "next/headers";
 import React from "react";
 
 const Workshops = async () => {
