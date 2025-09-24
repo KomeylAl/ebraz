@@ -4,6 +4,7 @@ import logo from "../../../../public/images/logo.png";
 import { BiMapPin, BiMobile, BiPhone } from "react-icons/bi";
 import Header from "@/components/layout/Header";
 import { Metadata } from "next";
+import MapWrapper from "@/components/layout/MapWrapper";
 
 export const metadata: Metadata = {
   title: "درباره و تماس با ما - مرکز جامع مشاوره و رواندرمانی ابراز",
@@ -47,7 +48,7 @@ const About = async () => {
           </div>
           <div className="w-[1px] h-full bg-gray-200" />
           <div className="xl:flex-1 w-full h-[400px] overflow-hidden shadow-lg">
-            {/* <MapWrapper /> */}
+            <MapWrapper lat={data.lat ?? 0} long={data.long ?? 0} />
           </div>
         </div>
       </div>
