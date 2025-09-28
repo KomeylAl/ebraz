@@ -13,6 +13,7 @@ import { PuffLoader } from "react-spinners";
 import { useUser } from "@/context/UserContext";
 import { TbCategory2 } from "react-icons/tb";
 import { IoPricetagOutline } from "react-icons/io5";
+import { SiTestcafe } from "react-icons/si";
 import TransitionLink from "@/components/ui/TransitionLink";
 
 const Navbar = () => {
@@ -34,6 +35,12 @@ const Navbar = () => {
       link: "/admin/appointments",
       access: ["manager", "boss"],
       icon: <SlCalender />,
+    },
+    {
+      title: "ارزیابی ها",
+      link: "/admin/assessments",
+      access: ["manager", "boss"],
+      icon: <SiTestcafe />,
     },
     {
       title: "مراجعان",

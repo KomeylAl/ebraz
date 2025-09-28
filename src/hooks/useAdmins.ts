@@ -41,6 +41,27 @@ export function useAddAdmin(onAddedAdmin: () => void) {
   });
 }
 
+export function useUpdateAdmin(adminId: string, onSuccess: () => void) {
+  return useMutation({
+    mutationFn: async (data: any) => {
+      const res = await fetch(`/api/admins/${adminId}`, {
+        method: "POST",
+        body: JSON.stringify(data),
+      });
+      if (!res.ok) {
+        throw new Error("مشکلی در ویرایش مدیر پیش آمده!");
+      }
+    },
+    onError(error) {
+      toast.error(error.message);
+    },
+    onSuccess: () => {
+      toast.success("مدیر با موفقت ویرایش شد");
+      onSuccess();
+    },
+  });
+}
+
 export function useDeleteAdmin(onDeletedTenant: () => void) {
   return useMutation({
     mutationFn: async (adminId: string) => {

@@ -1,5 +1,8 @@
 import * as yup from "yup";
 
+import { adminSchema } from "./adminsValidations";
+import { assessmentSchema } from "./assessmentsValidations";
+
 export const workshopSchema = yup.object().shape({
   title: yup.string().required("عنوان الزامی است"),
   slug: yup.string().required("اسلاگ الزامی است"),
@@ -88,3 +91,8 @@ export const doctorSchema = yup.object().shape({
   avatar: yup.mixed().nullable(),
   resume: yup.mixed().nullable(),
 });
+
+export {
+  adminSchema,
+  assessmentSchema
+}

@@ -39,7 +39,7 @@ export function Combobox({
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
+      <PopoverTrigger asChild className="z-1000 mt-2">
         <Button
           variant="outline"
           role="combobox"
@@ -52,7 +52,7 @@ export function Combobox({
           <ChevronsUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-full p-0">
+      <PopoverContent className="w-full p-0 z-1000">
         <Command>
           <CommandInput placeholder={searchPlaceholder} />
           <CommandList>

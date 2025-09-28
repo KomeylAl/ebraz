@@ -1,23 +1,22 @@
-import React, { useState } from "react";
+import { useStoreAssessment } from "@/hooks/useAssessments";
+import { assessmentSchema } from "@/validation";
+import { yupResolver } from "@hookform/resolvers/yup";
+import React from "react";
+import { useForm } from "react-hook-form";
 import { Calendar } from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import TimePicker from "react-multi-date-picker/plugins/time_picker";
-import weekends from "react-multi-date-picker/plugins/highlight_weekends";
-import { convertBaseDate, dateConvert } from "@/lib/utils";
-import { Button } from "../ui/button";
-import DateObject from "react-date-object";
 import toast from "react-hot-toast";
-import { Controller, useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { assessmentSchema } from "@/validation";
-import { Input } from "../ui/input";
-import Label from "../common/Label";
-import { useStoreAssessment } from "@/hooks/useAssessments";
+import DateObject from "react-date-object";
+import { convertBaseDate } from "@/lib/utils";
+import Label from "@/components/ui/custom/Label";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
-const OnlineAppointment = () => {
+const StoreAssessmentForm = ({ onSuccess }: { onSuccess: () => void }) => {
   const today = Date.now();
-  const { mutate: storeAssessment, isPending } = useStoreAssessment(() => {});
+  const { mutate: storeAssessment, isPending } = useStoreAssessment(onSuccess);
 
   const {
     register,
@@ -32,7 +31,8 @@ const OnlineAppointment = () => {
     storeAssessment(data);
   };
   return (
-    <div className="w-full">
+    <div className="w-full h-full p-8 space-y-7">
+      <h2 className="text-xl font-semibold">افزودن نوبت ارزیابی اولیه</h2>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="w-full flex flex-col lg:flex-row items-start justify-center gap-6"
@@ -45,6 +45,11 @@ const OnlineAppointment = () => {
             plugins={[<TimePicker hideSeconds />]}
             mapDays={({ date }) => {
               let isWeekend = [6].includes(date.weekDay.index);
+              let props: any = {};
+
+              props.style = {
+                borderRadius: "3px",
+              };
 
               if (isWeekend)
                 return {
@@ -52,8 +57,10 @@ const OnlineAppointment = () => {
                   style: { color: "#ccc" },
                   onClick: () => toast.error("آخر هفته ها غیر فعال هستند"),
                 };
+
+              return props;
             }}
-            className="calendar"
+            className="calendar dark:!bg-gray-700 dark:!border dark:!border-gray-800"
             shadow={false}
             format="YYYY/MM/DD HH:mm:ss"
             value={new DateObject()}
@@ -98,4 +105,4 @@ const OnlineAppointment = () => {
   );
 };
 
-export default OnlineAppointment;
+export default StoreAssessmentForm;

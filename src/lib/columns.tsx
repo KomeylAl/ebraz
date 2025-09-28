@@ -53,10 +53,24 @@ export const clientColumns = [
   {
     header: "پرونده پزشکی",
     accessor: (row: any) => (
-      <Link href={`/admin/doctors/panel/${row.id}`}>
+      <Link href={`/admin/clients/${row.id}`}>
         <IoDocument size={25} className="text-blue-500" />
       </Link>
     ),
+  },
+];
+
+export const assessmentsColumns = [
+  { header: "نام", accessor: "name" },
+  { header: "تلفن", accessor: "phone" },
+  { header: "تاریخ درخواست", accessor: (row: any) => dateConvert(row.date) },
+  { header: "زمان درخواست", accessor: (row: any) => row.time },
+  {
+    header: "وضعیت",
+    accessor: (row: any) =>
+      row.status === "done" ? "انجام شده" : "انجام نشده",
+    cellClassName: (row: any) =>
+      row.status === "done" ? "text-blue-600" : "text-amber-500",
   },
 ];
 

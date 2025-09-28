@@ -8,16 +8,18 @@ export async function POST(
 
   try {
     const token = req.cookies.get("token");
-    const formData = await req.formData();
+    const formData = await req.json();
+    // console.log(JSON.stringify(formData))
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/admins/${id}`,
       {
         method: "POST",
         headers: {
           Accept: "application/json",
+          "Content-type": "application/json",
           Authorization: `Bearer ${token?.value}`,
         },
-        body: formData,
+        body: JSON.stringify(formData),
       }
     );
     if (!response.ok) {
