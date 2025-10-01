@@ -62,7 +62,7 @@ const Navbar = () => {
 
   return (
     <div
-      className={`w-full flex items-center lg:justify-between gap-6 p-4 xl:px-32 lg:py-4 ${
+      className={`w-full flex flex-row-reverse items-center lg:justify-between gap-6 p-4 xl:px-32 lg:py-4 ${
         isScrolled ? "bg-black/35 backdrop-blur-xl" : ""
       } transition-colors duration-200`}
     >
@@ -96,7 +96,7 @@ const Navbar = () => {
       </div>
       <div className="flex items-center gap-2">
         <Image src={logo} alt="لوگو" width={30} height={100} />
-        <p className="font-semibold text-white text-xl">مرکز ابراز</p>
+        <p className="font-semibold text-white text-xl">کلینیک ابراز</p>
       </div>
       <nav>
         <ul className={`w-full hidden lg:flex items-center gap-16 text-white`}>

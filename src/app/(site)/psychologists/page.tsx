@@ -27,9 +27,9 @@ export default async function Psychologists({
   return (
     <div>
       <Header pageTitle="مشاوران" />
-      <div className="w-full px-5 md:px-24 lg:px-48 py-12 space-y-6 flex flex-col items-center">
+      <div className="w-full px-5 md:px-16 lg:px-12 py-12 space-y-6 flex flex-col items-center">
         <h2 className="text-3xl font-semibold">
-          مشاوران مرکز رواندرمانی ابراز
+          مشاوران کلینیک رواندرمانی ابراز
         </h2>
         <p>بهترین متخصصان و رواندرمانگران در مسیر درمان همراه شما هستند.</p>
         <SearchBar />
