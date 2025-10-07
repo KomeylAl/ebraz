@@ -78,7 +78,7 @@ function Table<T>({
   };
 
   return (
-    <div className="w-full overflow-x-auto rounded-2xl shadow-md">
+    <div className="w-full overflow-x-auto rounded-2xl shadow-md relative">
       <table className="w-full table-auto border-collapse">
         <thead className="bg-white dark:bg-gray-700 text-left border-b dark:border-gray-800">
           <tr>

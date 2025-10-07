@@ -2,10 +2,43 @@ import Link from "next/link";
 import { convertPostStatus, convertRole, dateConvert } from "./utils";
 import { MdInsertChart } from "react-icons/md";
 import { IoDocument } from "react-icons/io5";
+import TransitionLink from "@/components/ui/TransitionLink";
+import ClientCard from "@/app/(dashboard)/_components/layout/ClientCard";
+import DoctorCard from "@/app/(dashboard)/_components/layout/DoctorCard";
 
 export const appointmentColumns = [
-  { header: "مراجع", accessor: "client" },
-  { header: "مشاور", accessor: "doctor" },
+  {
+    header: "مراجع",
+    accessor: (row: any) => (
+      <div className="relative inline-block">
+        <TransitionLink
+          className="peer"
+          href={`/admin/clients/${row.client.id}`}
+        >
+          {row.client?.name}
+        </TransitionLink>
+
+        <ClientCard client={row.client} />
+      </div>
+    ),
+    cellClassName: (row: any) => "text-violet-500",
+  },
+  {
+    header: "مشاور",
+    accessor: (row: any) => (
+      <div className="relative inline-block">
+        <TransitionLink
+          className="peer"
+          href={`/admin/doctors/panel/${row.doctor.id}`}
+        >
+          {row.doctor?.name}
+        </TransitionLink>
+
+        <DoctorCard doctor={row.doctor} />
+      </div>
+    ),
+    cellClassName: (row: any) => "text-cyan-500",
+  },
   {
     header: "تاریخ و ساعت",
     accessor: (row: any) => row.time + " - " + dateConvert(row.date),
@@ -61,8 +94,38 @@ export const clientColumns = [
 ];
 
 export const assessmentsColumns = [
-  { header: "نام", accessor: "name" },
-  { header: "تلفن", accessor: "phone" },
+  {
+    header: "مراجع",
+    accessor: (row: any) => (
+      <div className="relative inline-block">
+        <TransitionLink
+          className="peer"
+          href={`/admin/clients/${row.client.id}`}
+        >
+          {row.client?.name}
+        </TransitionLink>
+
+        <ClientCard client={row.client} />
+      </div>
+    ),
+    cellClassName: (row: any) => "text-violet-500",
+  },
+  {
+    header: "مشاور",
+    accessor: (row: any) => (
+      <div className="relative inline-block">
+        <TransitionLink
+          className="peer"
+          href={`/admin/doctors/panel/${row.doctor.id}`}
+        >
+          {row.doctor?.name}
+        </TransitionLink>
+
+        <DoctorCard doctor={row.doctor} />
+      </div>
+    ),
+    cellClassName: (row: any) => "text-cyan-500",
+  },
   { header: "تاریخ درخواست", accessor: (row: any) => dateConvert(row.date) },
   { header: "زمان درخواست", accessor: (row: any) => row.time },
   {

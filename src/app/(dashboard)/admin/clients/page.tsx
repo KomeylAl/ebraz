@@ -1,7 +1,6 @@
 "use client";
 
 import { Modal } from "@/components/common/Modal";
-import { ClientsList } from "../../_components/ClientsList";
 import Header from "../../_components/layout/Header";
 import { useCallback, useState } from "react";
 import { debounce } from "lodash";

@@ -26,6 +26,7 @@ const Assessments = () => {
     pageSize,
     search
   );
+  console.log(data);
   const { mutate: deleteAssessment, isPending: isDeleting } =
     useDeleteAssessment(() => {
       closeDelete();

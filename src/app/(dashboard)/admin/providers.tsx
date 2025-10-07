@@ -12,7 +12,6 @@ export default function Providers({ children }: { children: ReactNode }) {
   const queryClient = new QueryClient({
     queryCache: new QueryCache({
       onError: (error) => {
-        toast.error(error.message);
         console.log(error);
       },
     }),

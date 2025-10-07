@@ -21,6 +21,17 @@ export function useClients(
   });
 }
 
+export function useClient(clientId: string = "") {
+  return useQuery({
+    queryKey: ["client"],
+    queryFn: async () => {
+      const res = await fetch(`/api/clients/${clientId}`);
+      return res.json();
+    },
+    placeholderData: (prev) => prev,
+  });
+}
+
 export function useDeleteClient(onSuccess: () => void) {
   return useMutation({
     mutationFn: async (clientId: string) => {
