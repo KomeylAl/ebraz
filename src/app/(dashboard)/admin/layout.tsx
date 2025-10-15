@@ -7,6 +7,7 @@ import "../../globals.css";
 import { ThemeProvider } from "@/context/ThemeContext";
 import { UserProvider } from "@/context/UserContext";
 import { SidebarProvider } from "@/context/SidebarContext";
+import NotificationToast from "@/components/common/notifications/NotificationToast";
 
 export const metadata: Metadata = {
   title: "پنل مدیریت - کلینیک ابراز",
@@ -29,6 +30,7 @@ export default function AdminLayout({
                 <Sidebar />
 
                 <main className="flex-1 lg:mr-80 overflow-y-auto h-screen dark:bg-gray-900">
+                  <NotificationToast />
                   {children}
                 </main>
 

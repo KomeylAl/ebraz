@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 
-const Tabs = ({ children }: { children: any }) => {
+const Tabs = ({
+  children,
+  className,
+}: {
+  children: any;
+  className?: string;
+}) => {
   const [activeTab, setActiveTab] = useState(() => {
     const defaultChild = children.find((child: any) => child.props.defaultTab);
     return defaultChild ? defaultChild.props.label : children[0].props.label;
@@ -13,7 +19,7 @@ const Tabs = ({ children }: { children: any }) => {
 
   return (
     <div className="w-full mx-auto">
-      <div className="flex w-96">
+      <div className={`${className} flex w-96 overflow-x-auto`}>
         {children.map((child: any) => (
           <button
             key={child.props.label}

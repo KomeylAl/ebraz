@@ -34,3 +34,48 @@ export async function GET(
     );
   }
 }
+
+export async function POST(
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  const { id } = await params;
+  try {
+    const token = req.cookies.get("token")?.value;
+    const formData = await req.formData();
+    // console.log(formData)
+    if (!token)
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/clients/${id}/record`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/json",
+        },
+        body: formData,
+      }
+    );
+
+    if (!response.ok) {
+      const data = await response.json();
+      // console.log(data)
+      return NextResponse.json(
+        { message: `${data ?? "Error saving record"}` },
+        { status: response.status }
+      );
+    }
+
+    const data = await response.json();
+    console.log(data)
+    return NextResponse.json(data, { status: 200 });
+  } catch (error) {
+    console.log(error)
+    return NextResponse.json(
+      { message: `Something went wrong: ${error}` },
+      { status: 500 }
+    );
+  }
+}

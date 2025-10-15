@@ -46,8 +46,6 @@ export async function POST(req: NextRequest) {
 
     // گرفتن FormData
     const formData = await req.formData();
-    console.log(formData)
-
     // فرستادن درخواست به بک‌اند
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/posts`,

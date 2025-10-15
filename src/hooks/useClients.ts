@@ -1,3 +1,4 @@
+import { CLientRecordType } from "@/types/clientsTypes";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
@@ -29,6 +30,34 @@ export function useClient(clientId: string = "") {
       return res.json();
     },
     placeholderData: (prev) => prev,
+  });
+}
+
+export function useSaveClientRecord(onSuccess: () => void) {
+  return useMutation({
+    mutationFn: async ({
+      formData,
+      clientId,
+    }: {
+      formData: any;
+      clientId: string;
+    }) => {
+      const res = await fetch(`/api/clients/${clientId}/record`, {
+        method: "POST",
+        body: formData,
+      });
+      if (!res.ok) {
+        const error = await res.json();
+        throw new Error(`${error?.message ?? "خطا در ذخیره پرونده"}`);
+      }
+    },
+    onError(error) {
+      toast.error(error.message);
+    },
+    onSuccess: () => {
+      toast.success("پرونده با موفقیت ذخیره شد");
+      onSuccess();
+    },
   });
 }
 

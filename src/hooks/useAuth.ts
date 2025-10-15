@@ -41,3 +41,17 @@ export function useLogout() {
     enabled: false,
   });
 }
+
+export function useGetToken() {
+  return useQuery({
+    queryKey: ["token"],
+    queryFn: async () => {
+      const res = await fetch("/api/auth/token");
+      if (res.status !== 200) {
+        toast.error("خطا در دریافت اطلاعات.");
+      }
+      return res.json();
+    },
+    enabled: false,
+  });
+}

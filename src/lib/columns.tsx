@@ -5,6 +5,7 @@ import { IoDocument } from "react-icons/io5";
 import TransitionLink from "@/components/ui/TransitionLink";
 import ClientCard from "@/app/(dashboard)/_components/layout/ClientCard";
 import DoctorCard from "@/app/(dashboard)/_components/layout/DoctorCard";
+import NotificationCard from "@/app/(dashboard)/_components/layout/NotificationCard";
 
 export const appointmentColumns = [
   {
@@ -63,6 +64,23 @@ export const adminColumns = [
   { header: "تلفن", accessor: "phone" },
   { header: "تاریخ تولد", accessor: (row: any) => dateConvert(row.birth_date) },
   { header: "نقش", accessor: (row: any) => convertRole(row.role) },
+];
+
+export const notificationColumns = [
+  {
+    header: "عنوان",
+    accessor: (row: any) => (
+      <div className="relative inline-block">
+        <TransitionLink href="/">{row.title}</TransitionLink>
+
+        <NotificationCard notification={row} />
+      </div>
+    ),
+    cellClassName: (row: any) => "text-cyan-500",
+  },
+  { header: "اولویت", accessor: "priority" },
+  { header: "نوع", accessor: "type" },
+  { header: "خوانده شده", accessor: "" },
 ];
 
 export const doctorColumns = [

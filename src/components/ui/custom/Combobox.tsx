@@ -39,7 +39,7 @@ export function Combobox({
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild className="z-1000 mt-2">
+      <PopoverTrigger asChild className="z-1000">
         <Button
           variant="outline"
           role="combobox"

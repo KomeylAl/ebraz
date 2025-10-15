@@ -10,6 +10,7 @@ import { PuffLoader } from "react-spinners";
 import Image from "next/image";
 import images from "@/lib/images";
 import { Button } from "@/components/ui/button";
+import ClientRecord from "@/app/(dashboard)/_components/tabs/ClientRecord";
 
 interface Params {
   clientId: string;
@@ -71,13 +72,24 @@ const ClientPage = ({ params }: PageProps) => {
                 <h2 className="font-bold text-2xl">
                   پنل مراجع {client && client.data?.name}
                 </h2>
-                <Tabs>
+                <Tabs className="w-auto">
                   <Tab label="اطلاعات شخصی مراجع" defaultTab>
                     <div className="py-4">
                       <ClientInfoTab client={client.data} />
                     </div>
                   </Tab>
                   <Tab label="پرونده پزشکی" defaultTab={false}>
+                    <div className="py-4">
+                      <ClientRecord record={client.data.record} clientId={clientId} />
+                    </div>
+                  </Tab>
+                  <Tab label="نوبت ها">
+                    <div className="py-4"></div>
+                  </Tab>
+                  <Tab label="ارزیابی ها">
+                    <div className="py-4"></div>
+                  </Tab>
+                  <Tab label="پرداخت ها">
                     <div className="py-4"></div>
                   </Tab>
                 </Tabs>

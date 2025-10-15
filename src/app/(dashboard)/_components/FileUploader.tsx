@@ -3,13 +3,15 @@ import { useState } from "react";
 interface FileUploaderProps {
   onFilesSelected: (files: File[]) => void;
   images: any;
-  allowMultiple?: boolean; // Prop برای انتخاب فایل تکی یا چندگانه
+  allowMultiple?: boolean;
+  className?: string;
 }
 
 export default function FileUploader({
   onFilesSelected,
   images,
-  allowMultiple = true, // پیش‌فرض چند فایل را اجازه می‌دهد
+  allowMultiple = true,
+  className,
 }: FileUploaderProps) {
   const [selectedImages, setSelectedImages] = useState<string[]>([]);
 
@@ -29,7 +31,7 @@ export default function FileUploader({
   };
 
   return (
-    <div className="flex items-start mt-4 gap-4">
+    <div className={`flex items-start mt-4 gap-4 ${className}`}>
       <label
         htmlFor="file-input"
         className="w-52 h-52 flex items-center justify-center border-2 border-dashed border-blue-500 rounded-lg bg-gray-50 text-blue-500 cursor-pointer hover:bg-blue-500 hover:text-white transition"

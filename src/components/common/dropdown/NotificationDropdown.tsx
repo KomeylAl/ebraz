@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { Dropdown } from "./Dropdown";
+import NotificationDropdownList from "../notifications/NotificationDropdownList";
 
 export default function NotificationDropdown() {
   const [isOpen, setIsOpen] = useState(false);
@@ -76,6 +77,7 @@ export default function NotificationDropdown() {
             </svg>
           </button>
         </div>
+        <NotificationDropdownList />
       </Dropdown>
     </div>
   );

@@ -14,6 +14,9 @@ import { convertBaseDate, dateConvert } from "@/lib/utils";
 import { adminType } from "@/types";
 import { Combobox } from "@/components/ui/custom/Combobox";
 import { roleOptions } from "@/lib/selectOptions";
+import CustomDatePicker from "@/components/ui/custom/DatePicker";
+import DateObject from "react-date-object";
+import Label from "@/components/common/Label";
 
 const UpdateAdminFrom = ({
   onCloseModal,
@@ -57,7 +60,7 @@ const UpdateAdminFrom = ({
 
       <div className="w-full flex items-center gap-4">
         <div className="w-full">
-          <label>نام و نام خانوادگی</label>
+          <Label>نام و نام خانوادگی</Label>
           <Input
             {...register("name")}
             className="w-full bg-white py-2 rounded-md  px-2 mt-2"
@@ -67,7 +70,7 @@ const UpdateAdminFrom = ({
           )}
         </div>
         <div className="w-full">
-          <label>نقش</label>
+          <Label>نقش</Label>
           <Controller
             name="role"
             control={control}
@@ -89,7 +92,7 @@ const UpdateAdminFrom = ({
 
       <div className="flex gap-3">
         <div className="w-full">
-          <label>تلفن</label>
+          <Label>تلفن</Label>
           <Input
             {...register("phone")}
             className="w-full bg-white py-2 rounded-md  px-2 mt-2"
@@ -99,21 +102,17 @@ const UpdateAdminFrom = ({
           )}
         </div>
         <div className="w-full flex flex-col">
-          <label>تاریخ تولد</label>
-          <DatePicker
-            calendar={persian}
-            locale={fa}
-            format="YYYY-MM-DD"
+          <Label>تاریخ تولد</Label>
+          <CustomDatePicker
             value={dateConvert(birthDate)}
-            onChange={(date: any) => {
+            onChange={(date: DateObject | null) => {
               setBirthDate(date);
-              setValue("birth_date", convertBaseDate(date));
+              setValue("birth_date", convertBaseDate(date ?? new DateObject()));
             }}
-            inputClass="w-full bg-white h-9 px-3 py-1 text-base shadow-xs rounded-md border border-gray-200 dark:border-gray-700 dark:bg-gray-800 px-2 mt-2"
           />
         </div>
         <div className="w-full">
-          <label>رمز عبور</label>
+          <Label>رمز عبور</Label>
           <Input
             {...register("password")}
             className="w-full bg-white py-2 rounded-md  px-2 mt-2"
