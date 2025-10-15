@@ -1,8 +1,8 @@
 import { useStoreAssessment } from "@/hooks/useAssessments";
 import { assessmentSchema } from "@/validation";
 import { yupResolver } from "@hookform/resolvers/yup";
-import React from "react";
-import { useForm } from "react-hook-form";
+import React, { useEffect, useState } from "react";
+import { Controller, useForm } from "react-hook-form";
 import { Calendar } from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
@@ -13,19 +13,40 @@ import { convertBaseDate } from "@/lib/utils";
 import Label from "@/components/ui/custom/Label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { EntityType } from "@/lib/types";
+import axios from "axios";
+import { Combobox } from "@/components/ui/custom/Combobox";
 
 const StoreAssessmentForm = ({ onSuccess }: { onSuccess: () => void }) => {
+  const [doctors, setDoctors] = useState<EntityType[]>([]);
   const today = Date.now();
-  const { mutate: storeAssessment, isPending } = useStoreAssessment(onSuccess);
+  const { mutate: storeAssessment, isPending } = useStoreAssessment(() => onSuccess());
 
   const {
     register,
     handleSubmit,
     setValue,
+    control,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(assessmentSchema),
   });
+
+  useEffect(() => {
+    const getDoctors = async () => {
+      try {
+        const response = await axios.get(`/api/doctors?page=1&pageSize=100`);
+        const entities = response.data.data.map((item: any) => ({
+          label: item.name,
+          value: item.id.toString(),
+        }));
+        setDoctors(entities);
+      } catch (err: any) {
+        toast.error(err.message);
+      }
+    };
+    getDoctors();
+  }, []);
 
   const onSubmit = (data: any) => {
     storeAssessment(data);
@@ -77,25 +98,52 @@ const StoreAssessmentForm = ({ onSuccess }: { onSuccess: () => void }) => {
           <div className="w-full flex flex-col items-start space-y-2">
             <Label>نام و نام خانوادگی</Label>
             <Input
-              {...register("name")}
+              {...register("client.name")}
               placeholder="مثلا: علی احمدی"
               className="bg-white"
             />
-            {errors.name && (
-              <p className="text-red-500 text-sm">{errors.name.message}</p>
+            {errors.client?.name && (
+              <p className="text-red-500 text-sm">
+                {errors.client.name.message}
+              </p>
             )}
           </div>
           <div className="w-full flex flex-col items-start space-y-2">
             <Label>شماره تماس</Label>
             <Input
-              {...register("phone")}
+              {...register("client.phone")}
               placeholder="مثلا: 09123456789"
               className="bg-white"
             />
-            {errors.phone && (
-              <p className="text-red-500 text-sm">{errors.phone.message}</p>
+            {errors.client?.phone && (
+              <p className="text-red-500 text-sm">
+                {errors.client.phone.message}
+              </p>
             )}
           </div>
+          {doctors && (
+            <div className="">
+              <label>مشاور</label>
+              <Controller
+                name="doctor_id"
+                control={control}
+                render={({ field }) => (
+                  <Combobox
+                    data={doctors}
+                    placeholder="انتخاب مشاور"
+                    searchPlaceholder="جستجو..."
+                    value={field.value}
+                    onChange={field.onChange}
+                  />
+                )}
+              />
+              {errors.doctor_id && (
+                <p className="text-sm text-red-500 mt-1">
+                  {errors.doctor_id.message}
+                </p>
+              )}
+            </div>
+          )}
           <Button type="submit" disabled={isPending}>
             {isPending ? "در حال ثبت" : "ثبت نوبت"}
           </Button>

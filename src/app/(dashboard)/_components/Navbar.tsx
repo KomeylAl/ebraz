@@ -9,6 +9,7 @@ import { IoPerson } from "react-icons/io5";
 import { BiEnvelope } from "react-icons/bi";
 import { LuCircleHelp } from "react-icons/lu";
 import { GrArticle } from "react-icons/gr";
+import { LuBell } from "react-icons/lu";
 import { PuffLoader } from "react-spinners";
 import { useUser } from "@/context/UserContext";
 import { TbCategory2 } from "react-icons/tb";
@@ -61,6 +62,12 @@ const Navbar = () => {
       icon: <MdPayment />,
     },
     {
+      title: "اعلانات",
+      link: "/admin/notifications",
+      access: ["manager", "boss"],
+      icon: <LuBell />,
+    },
+    {
       title: "پنل پیامک",
       link: "/admin/sms-panel",
       access: ["manager", "boss"],
@@ -101,6 +108,12 @@ const Navbar = () => {
       link: "/dashboard/workshops",
       access: ["author"],
       icon: <MdClass />,
+    },
+    {
+      title: "اعلانات",
+      link: "/dashboard/notifications",
+      access: ["author"],
+      icon: <LuBell />,
     },
     {
       title: "درباره",

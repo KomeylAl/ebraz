@@ -73,3 +73,63 @@ export function convertPostStatus(status: string) {
   }
   return output;
 }
+
+export function convertNotifStatus(status: string) {
+  let output: string = "";
+  switch (status) {
+    case "pending":
+      output = "در حال ارسال";
+      break;
+    case "sent":
+      output = "ارسال شده";
+      break;
+    case "failed":
+      output = "خطا";
+      break;
+    default:
+      output = "";
+      break;
+  }
+  return output;
+}
+
+export function convertNotifPriority(priority: string) {
+  let output: string = "";
+  switch (priority) {
+    case "low":
+      output = "پایین";
+      break;
+    case "medium":
+      output = "متوسط";
+      break;
+    case "high":
+      output = "بالا";
+      break;
+    default:
+      output = "";
+      break;
+  }
+  return output;
+}
+
+export function convertNotifType(type: string) {
+  let output: string = "";
+  switch (type) {
+    case "system":
+      output = "سیستم";
+      break;
+    case "appointment":
+      output = "نوبت";
+      break;
+    case "reminder":
+      output = "یادآوری";
+      break;
+    case "message":
+      output = "پیام";
+      break;
+    default:
+      output = "";
+      break;
+  }
+  return output;
+}

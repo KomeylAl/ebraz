@@ -211,3 +211,31 @@ export function useDeleteDoctor(onDeletedTenant: () => void) {
     },
   });
 }
+
+export function useSaveDoctorsPassword(onSuccess: () => void) {
+  return useMutation({
+    mutationFn: async ({
+      doctorId,
+      password,
+    }: {
+      doctorId: string;
+      password: string;
+    }) => {
+      const res = await fetch(`/api/doctors/${doctorId}/password`, {
+        method: "POST",
+        body: JSON.stringify({ password }),
+      });
+      if (!res.ok) {
+        const error = await res.json();
+        throw new Error(`${error?.message ?? "خطا در ذخیره رمز عبور!"}`);
+      }
+    },
+    onError(error) {
+      toast.error(error.message);
+    },
+    onSuccess: () => {
+      toast.success("رمز عبور با موفقیت ذخیره شد");
+      onSuccess();
+    },
+  });
+}

@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import TransitionLink from "../ui/TransitionLink";
 
 const Hero = () => {
   return (
@@ -16,6 +17,14 @@ const Hero = () => {
             <span className="text-beige">دکتر علی محرابی</span>، متخصص روانشناسی
             بالینی و عضو هیئت علمی دانشگاه اصفهان
           </p>
+          <div className="w-full flex items-center justify-center">
+            <TransitionLink
+              href="/appointment#assessment"
+              className="text-center text-beige py-3 rounded-md border border-beige cursor-pointer hover:bg-beige hover:text-black transition duration-200 max-w-[408px]"
+            >
+              دریافت نوبت ارزیابی اولیه
+            </TransitionLink>
+          </div>
           <div className="flex flex-col md:flex-row items-center justify-center gap-10 w-full">
             <Link
               href="/appointment"

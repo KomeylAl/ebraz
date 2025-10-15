@@ -9,7 +9,6 @@ export const amountStatusOptions = [
 ];
 
 export const apiOptions = (list: any): Array<Object> => {
-  console.log(list)
   const options: any = [];
   list.map((doctor: any) => {
     options.push({

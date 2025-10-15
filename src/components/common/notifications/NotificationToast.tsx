@@ -15,18 +15,11 @@ export default function NotificationToast() {
       if (!res.ok) throw new Error("Fetch failed");
       const data = await res.json();
 
-      // فرض می‌کنیم API token را در data.access_token برمی‌گردونه
       const realToken = data.access_token ?? data;
-      // حالا که token داریم، Echo را initialize کنیم
       const echo = initializeEcho(realToken);
-
-      echo.connector.pusher.connection.bind("connected", () =>
-        console.log("connected")
-      );
 
       const channel = echo.private("Admins");
       channel.listen(".NotificationCreated", (data: any) => {
-        console.log("📢 Notification:", data);
         const notif: ToastNotification = {
           id: data.id,
           title: data.title ?? "نوتیف جدید",

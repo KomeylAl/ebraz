@@ -26,7 +26,6 @@ const Assessments = () => {
     pageSize,
     search
   );
-  console.log(data);
   const { mutate: deleteAssessment, isPending: isDeleting } =
     useDeleteAssessment(() => {
       closeDelete();
@@ -114,7 +113,12 @@ const Assessments = () => {
         className="max-w-[700px] bg-white"
         showCloseButton={false}
       >
-        <StoreAssessmentForm onSuccess={() => refetch()} />
+        <StoreAssessmentForm
+          onSuccess={() => {
+            closeModal();
+            refetch();
+          }}
+        />
       </Modal>
     </div>
   );

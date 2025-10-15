@@ -4,6 +4,7 @@ import DoctorSevenDays from "@/app/(dashboard)/_components/DoctorSevenDays";
 import DoctorThirtyDays from "@/app/(dashboard)/_components/DoctorThirtyDays";
 import Header from "@/app/(dashboard)/_components/layout/Header";
 import { Tab, Tabs } from "@/app/(dashboard)/_components/Tabs";
+import DoctorInfo from "@/app/(dashboard)/_components/tabs/DoctorInfo";
 import WithRole from "@/app/(dashboard)/_components/WithRole";
 import { useSendTodaySms, useSendTomorrowSms } from "@/hooks/useDoctors";
 import React from "react";
@@ -18,14 +19,10 @@ interface PageProps {
 
 const DoctorPanel = ({ params }: PageProps) => {
   const { doctorId } = React.use<Params>(params);
-  const {
-    isLoading: todaySmsLoading,
-    refetch: sendTodaySms,
-  } = useSendTodaySms(doctorId);
-  const {
-    isLoading: tomorrowSmsLoading,
-    refetch: sendTomorrowSms,
-  } = useSendTomorrowSms(doctorId);
+  const { isLoading: todaySmsLoading, refetch: sendTodaySms } =
+    useSendTodaySms(doctorId);
+  const { isLoading: tomorrowSmsLoading, refetch: sendTomorrowSms } =
+    useSendTomorrowSms(doctorId);
 
   return (
     <div className="w-full h-full flex flex-col">
@@ -68,6 +65,11 @@ const DoctorPanel = ({ params }: PageProps) => {
                 <Tab label="نوبت های سی روز گذشته" defaultTab={false}>
                   <div className="py-4">
                     <DoctorThirtyDays doctorId={doctorId} />
+                  </div>
+                </Tab>
+                <Tab label="اطلاعات مشاور" defaultTab={false}>
+                  <div className="py-4">
+                    <DoctorInfo doctor={{}} doctorId={doctorId} />
                   </div>
                 </Tab>
               </Tabs>

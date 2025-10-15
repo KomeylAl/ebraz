@@ -74,8 +74,8 @@ export async function POST(req: NextRequest) {
     }
 
     await sendSingleSms(
-      `کلینیک ابراز\n${formData.name} عزیز\nنوبت شما با موفقیت ثبت شد. همکاران ما به زودی با شما تماس خواهند گرفت.`,
-      formData.phone
+      `کلینیک ابراز\n${formData.client.name} عزیز\nنوبت شما با موفقیت ثبت شد. همکاران ما به زودی با شما تماس خواهند گرفت.`,
+      formData.client.phone
     );
 
     const data = await response.json();

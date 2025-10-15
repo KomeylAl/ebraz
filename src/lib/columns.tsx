@@ -1,11 +1,22 @@
 import Link from "next/link";
-import { convertPostStatus, convertRole, dateConvert } from "./utils";
-import { MdInsertChart } from "react-icons/md";
+import {
+  convertBaseDate,
+  convertNotifPriority,
+  convertNotifStatus,
+  convertNotifType,
+  convertPostStatus,
+  convertRole,
+  dateConvert,
+} from "./utils";
+import { MdInsertChart, MdMarkChatRead } from "react-icons/md";
 import { IoDocument } from "react-icons/io5";
+import { IoCheckmarkCircleSharp } from "react-icons/io5";
 import TransitionLink from "@/components/ui/TransitionLink";
 import ClientCard from "@/app/(dashboard)/_components/layout/ClientCard";
 import DoctorCard from "@/app/(dashboard)/_components/layout/DoctorCard";
 import NotificationCard from "@/app/(dashboard)/_components/layout/NotificationCard";
+import { Button } from "@/components/ui/button";
+import { PuffLoader } from "react-spinners";
 
 export const appointmentColumns = [
   {
@@ -66,21 +77,90 @@ export const adminColumns = [
   { header: "نقش", accessor: (row: any) => convertRole(row.role) },
 ];
 
-export const notificationColumns = [
+export const AllNotificationsColumns = [
   {
     header: "عنوان",
     accessor: (row: any) => (
       <div className="relative inline-block">
-        <TransitionLink href="/">{row.title}</TransitionLink>
+        <p className="peer">{row.title}</p>
 
         <NotificationCard notification={row} />
       </div>
     ),
-    cellClassName: (row: any) => "text-cyan-500",
+    cellClassName: (row: any) => "text-violet-500",
   },
-  { header: "اولویت", accessor: "priority" },
-  { header: "نوع", accessor: "type" },
-  { header: "خوانده شده", accessor: "" },
+  {
+    header: "اولویت",
+    accessor: (row: any) => convertNotifPriority(row.priority),
+    cellClassName: (row: any) =>
+      `${
+        row.status === "high"
+          ? "text-rose-500"
+          : row.status === "medium"
+          ? "text-amber-500"
+          : "text-cyan-500"
+      }`,
+  },
+  { header: "وضعیت", accessor: (row: any) => convertNotifStatus(row.status) },
+  {
+    header: "نوع",
+    accessor: (row: any) => convertNotifType(row.type),
+  },
+  {
+    header: "زمان",
+    accessor: (row: any) => dateConvert(row.created_at),
+  },
+];
+
+export const unreadNotificationColumns = (
+  isPending: boolean = false,
+  loadingId: string | null = null,
+  mutationFn: (notifId: string) => void
+) => [
+  {
+    header: "عنوان",
+    accessor: (row: any) => (
+      <div className="relative inline-block">
+        <p className="peer">{row.title}</p>
+
+        <NotificationCard notification={row} />
+      </div>
+    ),
+    cellClassName: (row: any) => "text-violet-500",
+  },
+  {
+    header: "اولویت",
+    accessor: (row: any) => convertNotifPriority(row.priority),
+    cellClassName: (row: any) =>
+      `${
+        row.status === "high"
+          ? "text-rose-500"
+          : row.status === "medium"
+          ? "text-amber-500"
+          : "text-cyan-500"
+      }`,
+  },
+  { header: "وضعیت", accessor: (row: any) => convertNotifStatus(row.status) },
+  { header: "نوع", accessor: (row: any) => convertNotifType(row.type) },
+  {
+    header: "علامت گذاری به عنوان خوانده شده",
+    accessor: (item: any) => (
+      <button
+        disabled={isPending}
+        onClick={() => mutationFn(item.id)}
+        className="flex items-center w-full h-full"
+      >
+        {loadingId !== item.id ? (
+          <IoCheckmarkCircleSharp
+            className="text-blue-500 text-center"
+            size={20}
+          />
+        ) : (
+          <PuffLoader color="#3b82f6" size={20} />
+        )}
+      </button>
+    ),
+  },
 ];
 
 export const doctorColumns = [
