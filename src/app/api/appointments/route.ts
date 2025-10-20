@@ -7,10 +7,12 @@ export async function GET(req: NextRequest) {
   const pageSize = params.get("pageSize") || 10;
   const search = params.get("search") || "";
   const date = params.get("date") || "";
+  const clientId = params.get("clientId") || "";
+  console.log(clientId)
 
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/appointments?page=${page}&per_page=${pageSize}&search=${search}&date=${date}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/appointments?page=${page}&per_page=${pageSize}&search=${search}&date=${date}&client_id=${clientId}`,
       {
         method: "GET",
         headers: {

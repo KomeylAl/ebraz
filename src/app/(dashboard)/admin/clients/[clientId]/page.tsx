@@ -11,6 +11,9 @@ import Image from "next/image";
 import images from "@/lib/images";
 import { Button } from "@/components/ui/button";
 import ClientRecord from "@/app/(dashboard)/_components/tabs/ClientRecord";
+import ClientPaymentsTab from "@/app/(dashboard)/_components/tabs/ClientPaymentsTab";
+import ClientAppointmentsTab from "@/app/(dashboard)/_components/tabs/ClientAppointmentsTab";
+import ClientAssessmentsTab from "@/app/(dashboard)/_components/tabs/ClientAssessmentsTab";
 
 interface Params {
   clientId: string;
@@ -73,24 +76,33 @@ const ClientPage = ({ params }: PageProps) => {
                   پنل مراجع {client && client.data?.name}
                 </h2>
                 <Tabs className="w-auto">
-                  <Tab label="اطلاعات شخصی مراجع" defaultTab>
+                  <Tab label="اطلاعات شخصی" defaultTab>
                     <div className="py-4">
                       <ClientInfoTab client={client.data} />
                     </div>
                   </Tab>
                   <Tab label="پرونده پزشکی" defaultTab={false}>
                     <div className="py-4">
-                      <ClientRecord record={client.data.record} clientId={clientId} />
+                      <ClientRecord
+                        record={client.data.record}
+                        clientId={clientId}
+                      />
                     </div>
                   </Tab>
                   <Tab label="نوبت ها">
-                    <div className="py-4"></div>
+                    <div className="py-4">
+                      <ClientAppointmentsTab clientId={clientId} />
+                    </div>
                   </Tab>
                   <Tab label="ارزیابی ها">
-                    <div className="py-4"></div>
+                    <div className="py-4">
+                      <ClientAssessmentsTab clientId={clientId} />
+                    </div>
                   </Tab>
                   <Tab label="پرداخت ها">
-                    <div className="py-4"></div>
+                    <div className="py-4">
+                      <ClientPaymentsTab clientId={clientId} />
+                    </div>
                   </Tab>
                 </Tabs>
               </div>

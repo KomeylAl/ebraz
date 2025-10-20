@@ -4,13 +4,15 @@ import toast from "react-hot-toast";
 export function useAssessments(
   page: number = 0,
   pageSize: number = 10,
-  search: string = ""
+  search: string = "",
+  date: string = "",
+  clientId: string = ""
 ) {
   return useQuery({
-    queryKey: ["assessments", page, pageSize, search],
+    queryKey: ["assessments", page, pageSize, search, date, clientId],
     queryFn: async () => {
       const res = await fetch(
-        `/api/assessments?page=${page}&size=${pageSize}&search=${search}`
+        `/api/assessments?page=${page}&size=${pageSize}&search=${search}&date=${date}&clientId=${clientId}`
       );
       if (res.status !== 200) {
         toast.error("خطا در دریافت اطلاعات");

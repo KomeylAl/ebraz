@@ -1,6 +1,5 @@
 import Link from "next/link";
 import {
-  convertBaseDate,
   convertNotifPriority,
   convertNotifStatus,
   convertNotifType,
@@ -8,14 +7,13 @@ import {
   convertRole,
   dateConvert,
 } from "./utils";
-import { MdInsertChart, MdMarkChatRead } from "react-icons/md";
+import { MdInsertChart } from "react-icons/md";
 import { IoDocument } from "react-icons/io5";
 import { IoCheckmarkCircleSharp } from "react-icons/io5";
 import TransitionLink from "@/components/ui/TransitionLink";
 import ClientCard from "@/app/(dashboard)/_components/layout/ClientCard";
 import DoctorCard from "@/app/(dashboard)/_components/layout/DoctorCard";
 import NotificationCard from "@/app/(dashboard)/_components/layout/NotificationCard";
-import { Button } from "@/components/ui/button";
 import { PuffLoader } from "react-spinners";
 
 export const appointmentColumns = [
@@ -94,9 +92,9 @@ export const AllNotificationsColumns = [
     accessor: (row: any) => convertNotifPriority(row.priority),
     cellClassName: (row: any) =>
       `${
-        row.status === "high"
+        row.priority === "high"
           ? "text-rose-500"
-          : row.status === "medium"
+          : row.priority === "medium"
           ? "text-amber-500"
           : "text-cyan-500"
       }`,
@@ -133,9 +131,9 @@ export const unreadNotificationColumns = (
     accessor: (row: any) => convertNotifPriority(row.priority),
     cellClassName: (row: any) =>
       `${
-        row.status === "high"
+        row.priority === "high"
           ? "text-rose-500"
-          : row.status === "medium"
+          : row.priority === "medium"
           ? "text-amber-500"
           : "text-cyan-500"
       }`,
@@ -182,10 +180,10 @@ export const clientColumns = [
   { header: "تلفن", accessor: "phone" },
   { header: "تاریخ تولد", accessor: (row: any) => dateConvert(row.birth_date) },
   {
-    header: "پرونده پزشکی",
+    header: "پنل مراجع",
     accessor: (row: any) => (
       <Link href={`/admin/clients/${row.id}`}>
-        <IoDocument size={25} className="text-blue-500" />
+        <MdInsertChart size={25} className="text-blue-500" />
       </Link>
     ),
   },
@@ -282,8 +280,8 @@ export const departmentColumns = [
 ];
 
 export const paymentColumns = [
-  { header: "مراجع", accessor: (item: any) => item.referral.client },
-  { header: "مشاور", accessor: (item: any) => item.referral.doctor },
+  { header: "مراجع", accessor: (item: any) => item.referral.client.name },
+  { header: "مشاور", accessor: (item: any) => item.referral.doctor.name },
   {
     header: "تاریخ مراجعه",
     accessor: (item: any) => dateConvert(item.referral.date),

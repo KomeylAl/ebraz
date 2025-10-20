@@ -15,9 +15,6 @@ const Payments = () => {
   const [pageSize, setPageSize] = useState(10);
   const [search, setSearch] = useState("");
 
-  const [clientId, setClientId] = useState(0);
-  const [client, setClient] = useState<any>({});
-
   const { data, isLoading, error, refetch } = usePayments(
     page,
     pageSize,
@@ -41,7 +38,7 @@ const Payments = () => {
       <div className="w-full flex flex-col p-12">
         <div className="w-full h-full space-y-6">
           <div className="flex items-center justify-between">
-            <h2 className="font-bold text-2xl">مراجعان</h2>
+            <h2 className="font-bold text-2xl">پرداخت ها</h2>
             <Link
               href="/admin/invoices"
               className="px-12 py-2 bg-blue-600 rounded-md text-white text-center cursor-pointer"
