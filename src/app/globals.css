@@ -30,13 +30,13 @@ html {
 }
 
 .hero {
-  background: url(../../public/images/hero2.webp);
+  background: url(../../public/images/hero3.jpg);
   background-size: cover;
 }
 
 footer {
-  background: url(../../public/images/hero1.webp);
-  background-position: center;
+  background: url(../../public/images/hero4.jpg);
+  background-position: top;
   background-size: cover;
 }
 

@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { HiMenuAlt4 } from "react-icons/hi";
@@ -62,7 +61,7 @@ const Navbar = () => {
 
   return (
     <div
-      className={`w-full flex flex-row-reverse items-center lg:justify-between gap-6 p-4 xl:px-32 lg:py-4 ${
+      className={`w-full flex lg:flex-row-reverse items-center lg:justify-between gap-6 p-4 xl:px-32 lg:py-4 ${
         isScrolled ? "bg-black/35 backdrop-blur-xl" : ""
       } transition-colors duration-200`}
     >

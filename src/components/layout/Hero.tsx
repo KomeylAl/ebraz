@@ -5,7 +5,7 @@ import TransitionLink from "../ui/TransitionLink";
 const Hero = () => {
   return (
     <section className="min-h-screen w-full hero">
-      <div className="w-full min-h-screen bg-black/75 flex flex-col items-center justify-between pt-24 pb-10 backdrop-blur-sm">
+      <div className="w-full min-h-screen bg-black/75 flex flex-col items-center justify-between pt-24 pb-10">
         <p></p>
         <div className="space-y-10 px-8">
           <h1 className="text-white text-2xl lg:text-[70px] font-semibold text-center leading-14">
@@ -20,9 +20,9 @@ const Hero = () => {
           <div className="w-full flex items-center justify-center">
             <TransitionLink
               href="/appointment#assessment"
-              className="text-center text-beige py-3 rounded-md border border-beige cursor-pointer hover:bg-beige hover:text-black transition duration-200 max-w-[408px]"
+              className="text-center text-beige py-3 rounded-md border border-beige cursor-pointer hover:bg-beige hover:text-black transition duration-200 w-46 lg:w-[408px]"
             >
-              دریافت نوبت ارزیابی اولیه
+              دریافت نوبت ارزیابی اولیه رایگان
             </TransitionLink>
           </div>
           <div className="flex flex-col md:flex-row items-center justify-center gap-10 w-full">
