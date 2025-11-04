@@ -109,20 +109,20 @@ const DoctorProfile = async ({ params }: DoctorProfileProps) => {
               alt={doctor.name}
               width={400}
               height={400}
-              className="rounded-2xl shadow-md object-cover"
+              className="rounded-md shadow-md object-cover"
               sizes="(max-width: 768px) 100vw, 400px"
             />
           </div>
 
           <div className="w-full lg:w-2/3 space-y-4">
-            <div className="bg-white/30 border border-niceblue-200 rounded-xl shadow p-6 space-y-3">
+            <div className="bg-white/30 border border-niceblue-200 rounded-md shadow p-6 space-y-3">
               <h2 className="text-xl">عنوان</h2>
               <p className="text-xl font-semibold mb-2 text-niceblue-primary">
                 {resume?.title ?? "—"}
               </p>
             </div>
 
-            <div className="w-full h-64 bg-white/30 border border-niceblue-200 rounded-xl shadow p-4">
+            <div className="min-h-64 bg-white/30 border border-niceblue-200 rounded-md shadow p-4">
               <h2 className="text-xl font-semibold mb-2 flex items-center gap-2">
                 <User className="w-5 h-5 text-primary" />
                 معرفی
@@ -136,14 +136,14 @@ const DoctorProfile = async ({ params }: DoctorProfileProps) => {
 
         {/* Specialization & Skills */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="bg-white/30 border border-niceblue-200 rounded-xl shadow p-6">
+          <div className="bg-white/30 border border-niceblue-200 rounded-md shadow p-6">
             <h2 className="text-xl font-semibold mb-2">تخصص اصلی</h2>
             <p className="text-niceblue-primary">
               {resume?.specialization ?? "—"}
             </p>
           </div>
 
-          <div className="bg-white/30 border border-niceblue-200 rounded-xl shadow p-6">
+          <div className="bg-white/30 border border-niceblue-200 rounded-md shadow p-6">
             <h2 className="text-xl font-semibold mb-3">مهارت‌ها</h2>
             <div className="flex flex-wrap gap-2">
               {skills?.length > 0 ? (
@@ -164,7 +164,7 @@ const DoctorProfile = async ({ params }: DoctorProfileProps) => {
         </div>
 
         {/* Education */}
-        <div className="bg-white/30 border border-niceblue-200 rounded-xl shadow p-6">
+        <div className="bg-white/30 border border-niceblue-200 rounded-md shadow p-6">
           <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
             <GraduationCap className="w-5 h-5" />
             تحصیلات
@@ -183,7 +183,7 @@ const DoctorProfile = async ({ params }: DoctorProfileProps) => {
         </div>
 
         {/* Experience */}
-        <div className="bg-white/30 border border-niceblue-200 rounded-xl shadow p-6">
+        <div className="bg-white/30 border border-niceblue-200 rounded-md shadow p-6">
           <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
             <Briefcase className="w-5 h-5 text-primary" />
             سوابق کاری
@@ -202,7 +202,7 @@ const DoctorProfile = async ({ params }: DoctorProfileProps) => {
         </div>
 
         {/* Social Links */}
-        <div className="bg-white/30 border border-niceblue-200 rounded-xl shadow p-6">
+        <div className="bg-white/30 border border-niceblue-200 rounded-md shadow p-6">
           <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
             <LinkIcon className="w-5 h-5 text-primary" />
             شبکه‌های اجتماعی
