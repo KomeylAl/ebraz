@@ -3,11 +3,13 @@
 import DoctorSevenDays from "@/app/(dashboard)/_components/DoctorSevenDays";
 import DoctorThirtyDays from "@/app/(dashboard)/_components/DoctorThirtyDays";
 import Header from "@/app/(dashboard)/_components/layout/Header";
-import { Tab, Tabs } from "@/app/(dashboard)/_components/Tabs";
+// import { Tab, Tabs } from "@/app/(dashboard)/_components/Tabs";
 import DoctorInfo from "@/app/(dashboard)/_components/tabs/DoctorInfo";
 import WithRole from "@/app/(dashboard)/_components/WithRole";
-import { useSendTodaySms, useSendTomorrowSms } from "@/hooks/useDoctors";
+import { useGetDoctor, useSendTodaySms, useSendTomorrowSms } from "@/hooks/useDoctors";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import React from "react";
+import DoctorResumeTab from "@/app/(dashboard)/_components/tabs/DoctorResumeTab";
 
 interface Params {
   doctorId: string;
@@ -56,22 +58,25 @@ const DoctorPanel = ({ params }: PageProps) => {
               </div>
             </div>
             <div className="mt-12 flex-1">
-              <Tabs>
-                <Tab label="نوبت های هفت روز گذشته" defaultTab>
-                  <div className="py-4">
-                    <DoctorSevenDays doctorId={doctorId} />
-                  </div>
-                </Tab>
-                <Tab label="نوبت های سی روز گذشته" defaultTab={false}>
-                  <div className="py-4">
-                    <DoctorThirtyDays doctorId={doctorId} />
-                  </div>
-                </Tab>
-                <Tab label="اطلاعات مشاور" defaultTab={false}>
-                  <div className="py-4">
-                    <DoctorInfo doctor={{}} doctorId={doctorId} />
-                  </div>
-                </Tab>
+              <Tabs defaultValue="sevenDays" className="w-full overflow-x-auto">
+                <TabsList className="gap-4">
+                  <TabsTrigger value="sevenDays">نوبت های هفت روز گذشته</TabsTrigger>
+                  <TabsTrigger value="thirtyDays">نوبت های سی روز گذشته</TabsTrigger>
+                  <TabsTrigger value="info">اطلاعات مشاور</TabsTrigger>
+                  <TabsTrigger value="resume">رزومه</TabsTrigger>
+                </TabsList>
+                <TabsContent value="sevenDays" className="w-full">
+                  <DoctorSevenDays doctorId={doctorId} />
+                </TabsContent>
+                <TabsContent value="thirtyDays" className="w-full">
+                  <DoctorThirtyDays doctorId={doctorId} />
+                </TabsContent>
+                <TabsContent value="info" className="w-full">
+                  <DoctorInfo doctor={{}} doctorId={doctorId} />
+                </TabsContent>
+                <TabsContent value="resume" className="w-full">
+                  <DoctorResumeTab doctorId={doctorId}/>
+                </TabsContent>
               </Tabs>
             </div>
           </div>

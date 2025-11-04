@@ -11,7 +11,7 @@ const Header = ({ pageTitle, bread, breadLink }: HeaderProps) => {
   return (
     <div className="w-full h-80 hero">
       <div className="w-full h-80 pt-24 bg-black/75 backdrop-blur-sm flex flex-col items-center justify-center space-y-5">
-        <h1 className="text-3xl text-shelfish font-bold">{pageTitle}</h1>
+        <h1 className="text-3xl text-niceblue-300 font-bold">{pageTitle}</h1>
         <p className="text-shelfish">
           <Link href="/" className="hover:text-beige transition duration-300">خانه</Link>{" "}
           {breadLink && <Link href={breadLink}>/ {bread}</Link>} / {pageTitle}

@@ -8,6 +8,10 @@
   --color-secodary: #66d2ce;
   --color-shelfish: #eaeaea;
   --color-beige: #e3d2c3;
+  --color-niceblue-100: #DAE6E8;
+  --color-niceblue-200: #D1DCE2;
+  --color-niceblue-300: #C0D3DC;
+  --color-niceblue-primary: #466879;
 }
 
 @layer base {

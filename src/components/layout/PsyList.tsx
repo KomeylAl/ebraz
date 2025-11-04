@@ -54,6 +54,7 @@ export default function PsyList({
         {doctors.map((item: any) => (
           <PsyItem
             key={item.id}
+            id={item.id}
             name={item.name}
             image={item.avatar}
             resume={item.resume}

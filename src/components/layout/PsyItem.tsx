@@ -4,14 +4,12 @@ import React from "react";
 import { MdOutlinePerson } from "react-icons/md";
 import { useModal } from "@/hooks/useModal";
 import { Modal } from "../common/Modal";
-import Label from "../common/Label";
-import Input from "../common/Input";
-import Button from "../ui/custom/Button";
 import { CiTimer } from "react-icons/ci";
-import { PiNewspaperThin } from "react-icons/pi";
 import Image from "next/image";
+import TransitionLink from "../ui/TransitionLink";
 
 interface PsyItemProps {
+  id: string;
   name: string;
   image: string;
   resume: string;
@@ -19,7 +17,7 @@ interface PsyItemProps {
   days: string;
 }
 
-const PsyItem = ({ name, image, resume, departments, days }: PsyItemProps) => {
+const PsyItem = ({ id, name, image, resume, departments, days }: PsyItemProps) => {
   const { isOpen, openModal, closeModal } = useModal();
   const {
     isOpen: timesOpen,
@@ -63,12 +61,6 @@ const PsyItem = ({ name, image, resume, departments, days }: PsyItemProps) => {
       </div>
       <div className="w-full flex items-center gap-2">
         <button
-          onClick={resumeOpenModal}
-          className="h-10 w-10 border border-black rounded-md cursor-pointer flex items-center justify-center text-black hover:bg-black hover:text-shelfish transition duration-300"
-        >
-          <PiNewspaperThin size={25} />
-        </button>
-        <button
           onClick={timesOpenModal}
           className="h-10 w-10 border border-black rounded-md cursor-pointer flex items-center justify-center text-black hover:bg-black hover:text-shelfish transition duration-300"
         >
@@ -81,6 +73,12 @@ const PsyItem = ({ name, image, resume, departments, days }: PsyItemProps) => {
           دریافت نوبت
         </button>
       </div>
+      <TransitionLink
+          href={`/psychologists/${id}`}
+          className="w-full flex items-center justify-center px-4 h-10 hover:bg-primary border border-primary text-primary hover:text-shelfish rounded-md transition duration-300 cursor-pointer "
+        >
+          رزومه مشاور
+        </TransitionLink>
 
       <Modal
         showCloseButton={false}

@@ -14,6 +14,7 @@ import ClientRecord from "@/app/(dashboard)/_components/tabs/ClientRecord";
 import ClientPaymentsTab from "@/app/(dashboard)/_components/tabs/ClientPaymentsTab";
 import ClientAppointmentsTab from "@/app/(dashboard)/_components/tabs/ClientAppointmentsTab";
 import ClientAssessmentsTab from "@/app/(dashboard)/_components/tabs/ClientAssessmentsTab";
+import ErrorComponent from "@/components/layout/ErrorComponent";
 
 interface Params {
   clientId: string;
@@ -107,21 +108,7 @@ const ClientPage = ({ params }: PageProps) => {
                 </Tabs>
               </div>
             )}
-            {error && (
-              <div className="w-full h-full flex flex-col items-center justify-center gap-3">
-                <Image
-                  src={images.error}
-                  alt="error image"
-                  width={200}
-                  height={200}
-                />
-                <p className="text-center">
-                  متاسفیم. ظاهرا در دریافت اطلاعات مشکلی پیش اومده.
-                  <br /> لطفا دوباره امتحان کنین یا اینترنتتون رو بررسی کنین.
-                </p>
-                <Button onClick={() => refetch()}>تلاش دوباره</Button>
-              </div>
-            )}
+            {error && <ErrorComponent refetch={refetch} />}
           </div>
         </div>
       </WithRole>

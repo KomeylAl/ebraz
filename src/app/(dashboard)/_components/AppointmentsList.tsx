@@ -90,12 +90,12 @@ export const AppinmentsList = () => {
 
         {baseData && (
           <Table
-            data={baseData.data}
+            data={baseData?.data ?? []}
             columns={appointmentColumns}
-            currentPage={baseData.meta.current_page}
-            pageSize={baseData.meta.per_page}
+            currentPage={baseData?.meta.current_page ?? 1}
+            pageSize={baseData?.meta.per_page ?? 10}
             showActions
-            totalItems={baseData.meta.total}
+            totalItems={baseData?.meta.total ?? 0}
             onPageChange={(newPage) => {
               setPage(newPage);
             }}
