@@ -1,4 +1,5 @@
 import { sendSingleSms } from "@/lib/smsHandlre";
+import { dateConvert } from "@/lib/utils";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
@@ -78,6 +79,15 @@ export async function POST(req: NextRequest) {
     await sendSingleSms(
       `کلینیک ابراز\n${formData.client.name} عزیز\nنوبت شما با موفقیت ثبت شد. همکاران ما به زودی با شما تماس خواهند گرفت.`,
       formData.client.phone
+    );
+
+    await sendSingleSms(
+      `ثبت ارزیابی جدید\n${formData.client.name}  با شماره ${
+        formData.client.phone
+      } برای تاریخ ${dateConvert(formData.date)} ساعت ${
+        formData.time
+      } درخواست ارزیابی ثبت کرده است.`,
+      "09228728245"
     );
 
     const data = await response.json();
