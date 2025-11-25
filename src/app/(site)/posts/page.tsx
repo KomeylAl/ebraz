@@ -3,7 +3,7 @@ import PostsList from "@/components/layout/PostList";
 import SearchBar from "@/components/layout/SearchBar";
 import Link from "next/link";
 
-const Departments = async ({
+const Posts = async ({
   searchParams,
 }: {
   searchParams: {
@@ -34,7 +34,7 @@ const Departments = async ({
   const latestPosts = await latestPostsRes.json();
   return (
     <div>
-      <Header pageTitle="وبلاگ" />
+      <Header pageTitle="مجله ابراز" />
       <div className="w-full px-5 md:px-10 3xl:px-24 py-12 space-y-6 flex flex-col items-center">
         <div className="w-full flex flex-col lg:flex-row items-start gap-6">
           <div className="w-full md:w-96 space-y-6 md:sticky md:top-28">
@@ -79,4 +79,4 @@ const Departments = async ({
   );
 };
 
-export default Departments;
+export default Posts;

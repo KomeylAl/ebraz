@@ -61,12 +61,6 @@ const PsyItem = ({ id, name, image, resume, departments, days }: PsyItemProps) =
       </div>
       <div className="w-full flex items-center gap-2">
         <button
-          onClick={timesOpenModal}
-          className="h-10 w-10 border border-black rounded-md cursor-pointer flex items-center justify-center text-black hover:bg-black hover:text-shelfish transition duration-300"
-        >
-          <CiTimer size={25} />
-        </button>
-        <button
           onClick={openModal}
           className="flex-1 px-4 h-10 hover:bg-primary border border-primary text-primary hover:text-shelfish rounded-md transition duration-300 cursor-pointer "
         >
@@ -100,37 +94,6 @@ const PsyItem = ({ id, name, image, resume, departments, days }: PsyItemProps) =
               <p className="text-lg">و دریافت نوبت به صورت تلفنی.</p>
             </div>
           </div>
-        </div>
-      </Modal>
-      <Modal
-        isOpen={timesOpen}
-        onClose={timesCloseModal}
-        showCloseButton={false}
-        className="max-w-[700px] m-4"
-      >
-        <div className="no-scrollbar relative w-full max-w-[700px] overflow-y-auto rounded-3xl bg-white p-4 dark:bg-gray-900 lg:p-11">
-          <h4 className="mb-2 text-2xl font-semibold text-gray-800 dark:text-white/90">
-            روز های حضور {name}
-          </h4>
-          <p>{days}</p>
-        </div>
-      </Modal>
-      <Modal
-        isOpen={resumeOpen}
-        onClose={resumeCloseModal}
-        showCloseButton={false}
-        className="max-w-[700px] m-4"
-      >
-        <div className="no-scrollbar relative w-full max-w-[700px] overflow-y-auto rounded-3xl bg-white p-4 dark:bg-gray-900 lg:p-11">
-          <h4 className="mb-2 text-2xl font-semibold text-gray-800 dark:text-white/90">
-            رزومه {name}
-          </h4>
-          <iframe
-            src={resume}
-            width="100%"
-            height="600px"
-            className="border rounded-lg"
-          />
         </div>
       </Modal>
     </div>

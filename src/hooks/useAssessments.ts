@@ -60,7 +60,7 @@ export function useStoreAssessment(onSuccess: () => void) {
       return json;
     },
     onSuccess: () => {
-      toast.success("نویت با موفقیت ثبت شد");
+      toast.success("نوبت با موفقیت ثبت شد");
       onSuccess();
     },
     onError: (error) => {

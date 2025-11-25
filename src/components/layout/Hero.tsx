@@ -5,7 +5,7 @@ import TransitionLink from "../ui/TransitionLink";
 const Hero = () => {
   return (
     <section className="min-h-screen w-full hero">
-      <div className="w-full min-h-screen bg-black/75 flex flex-col items-center justify-between pt-24 pb-10">
+      <div className="w-full min-h-screen bg-black/75 backdrop-blur-lg flex flex-col items-center justify-between pt-24 pb-10">
         <p></p>
         <div className="space-y-10 px-8">
           <h1 className="text-white text-2xl lg:text-[70px] font-semibold text-center leading-14">

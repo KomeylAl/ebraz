@@ -23,7 +23,7 @@ const Appointment = () => {
           <div className="w-12 h-12 bg-black/85 rounded-full flex items-center justify-center text-beige text-2xl font-semibold mt-6">
             2
           </div>
-          <p className="text-lg">دریافت نوبت ارزیابی اولیه به صورت آنلاین</p>
+          <p className="text-lg">دریافت نوبت ارزیابی اولیه رایگان</p>
           <OnlineAppointment />
         </div>
       </div>

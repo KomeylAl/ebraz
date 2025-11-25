@@ -1,9 +1,8 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import PsyItem from "@/components/layout/PsyItem";
 import { PuffLoader } from "react-spinners";
-import { Button } from "../ui/button";
 
 export default function PsyList({
   initialData,
@@ -17,7 +16,7 @@ export default function PsyList({
   const [lastPage, setLastPage] = useState(initialData.meta.last_page);
   const [loading, setLoading] = useState(false);
 
-  console.log(initialData);
+  const loaderRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     setDoctors(initialData.data);
@@ -27,6 +26,8 @@ export default function PsyList({
   }, [initialData]);
 
   const loadMore = async () => {
+    if (loading || page >= lastPage) return;
+
     setLoading(true);
     try {
       const nextPage = page + 1;
@@ -43,6 +44,27 @@ export default function PsyList({
       setLoading(false);
     }
   };
+
+  // Intersection Observer برای تشخیص رسیدن به انتهای صفحه
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const target = entries[0];
+        if (target.isIntersecting) {
+          loadMore();
+        }
+      },
+      { threshold: 1 }
+    );
+
+    if (loaderRef.current) {
+      observer.observe(loaderRef.current);
+    }
+
+    return () => {
+      if (loaderRef.current) observer.unobserve(loaderRef.current);
+    };
+  }, [loaderRef, page, lastPage, loading]);
 
   return (
     <div className="w-full flex flex-col items-center gap-6">
@@ -64,13 +86,13 @@ export default function PsyList({
         ))}
       </div>
 
-      {page < lastPage && (
-        <Button onClick={loadMore} disabled={loading}>
-          {loading ? "در حال بارگذاری..." : "بارگذاری موارد بیشتر"}
-        </Button>
-      )}
+      {/* Trigger for infinite scroll */}
+      <div ref={loaderRef} className="h-10 w-full"></div>
 
-      {loading && <PuffLoader color="#3b82f6" size={45} />}
+      {loading && (<div className="flex flex-col items-center justify-center gap-3">
+        <PuffLoader color="#3b82f6" size={45} />
+        <p>در حال بارگزاری موارد بیشتر...</p>
+      </div>)}
     </div>
   );
 }
