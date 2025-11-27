@@ -58,36 +58,8 @@ const OnlineAppointment = () => {
         onSubmit={handleSubmit(onSubmit)}
         className="w-full flex flex-col lg:flex-row items-start justify-center gap-6"
       >
-        <div className="w-full flex flex-col items-start gap-2">
-          <Calendar
-            calendar={persian}
-            locale={persian_fa}
-            minDate={today}
-            plugins={[<TimePicker hideSeconds />]}
-            mapDays={({ date }) => {
-              let isWeekend = [6].includes(date.weekDay.index);
-
-              if (isWeekend)
-                return {
-                  disabled: true,
-                  style: { color: "#ccc" },
-                  onClick: () => toast.error("آخر هفته ها غیر فعال هستند"),
-                };
-            }}
-            className="calendar"
-            shadow={false}
-            format="YYYY/MM/DD HH:mm:ss"
-            value={new DateObject()}
-            onChange={(selectedDate) => {
-              setValue("date", convertBaseDate(selectedDate!));
-              setValue("time", `${selectedDate!.hour}:${selectedDate!.minute}`);
-            }}
-          />
-          {errors.date && (
-            <p className="text-red-500 text-sm">{errors.date.message}</p>
-          )}
-        </div>
-        <div className="w-full flex flex-col items-start gap-4">
+        <div className="w-full md:w-2/3 flex flex-col items-start gap-4">
+        <p>لطفا نام و نام خانوادگی و شماره تلفن همراه خود را ثبت کرده و منتظر تماس همکاران ما بمانید. با تشکر.</p>
           <div className="w-full flex flex-col items-start space-y-2">
             <Label>نام و نام خانوادگی</Label>
             <Input
@@ -114,29 +86,6 @@ const OnlineAppointment = () => {
               </p>
             )}
           </div>
-          {doctors && (
-            <div className="flex flex-col items-start w-full">
-              <Label>مشاور</Label>
-              <Controller
-                name="doctor_id"
-                control={control}
-                render={({ field }) => (
-                  <Combobox
-                    data={doctors}
-                    placeholder="انتخاب مشاور"
-                    searchPlaceholder="جستجو..."
-                    value={field.value}
-                    onChange={field.onChange}
-                  />
-                )}
-              />
-              {errors.doctor_id && (
-                <p className="text-sm text-red-500 mt-1">
-                  {errors.doctor_id.message}
-                </p>
-              )}
-            </div>
-          )}
           <Button type="submit" disabled={isPending}>
             {isPending ? "در حال ثبت" : "ثبت نوبت"}
           </Button>

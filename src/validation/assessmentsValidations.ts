@@ -5,8 +5,8 @@ export const assessmentSchema = yup.object().shape({
     name: yup.string().required("نام الزامی است"),
     phone: yup.string().required("تلفن الزامی است"),
   }),
-  doctor_id: yup.string().required("انتخاب مشاور الزامی است"),
-  date: yup.string().required("تاریخ الزامی است"),
-  time: yup.string().required("ساعت الزامی است"),
+  doctor_id: yup.string().optional(),
+  date: yup.string().optional(),
+  time: yup.string().optional(),
   status: yup.string().optional().default("pending"),
 });
