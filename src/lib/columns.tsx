@@ -209,7 +209,7 @@ export const assessmentsColumns = [
   {
     header: "مشاور",
     accessor: (row: any) => (
-      <div className="relative inline-block">
+      row?.doctor ? (<div className="relative inline-block">
         <TransitionLink
           className="peer"
           href={`/admin/doctors/panel/${row.doctor.id}`}
@@ -218,12 +218,12 @@ export const assessmentsColumns = [
         </TransitionLink>
 
         <DoctorCard doctor={row.doctor} />
-      </div>
+      </div>) : <p>انتخاب نشده</p>
     ),
     cellClassName: (row: any) => "text-cyan-500",
   },
-  { header: "تاریخ درخواست", accessor: (row: any) => dateConvert(row.date) },
-  { header: "زمان درخواست", accessor: (row: any) => row.time },
+  { header: "تاریخ", accessor: (row: any) => dateConvert(row.date) },
+  { header: "زمان", accessor: (row: any) => row.time },
   {
     header: "وضعیت",
     accessor: (row: any) =>
