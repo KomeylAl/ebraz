@@ -16,6 +16,7 @@ import { TbCategory2 } from "react-icons/tb";
 import { IoPricetagOutline } from "react-icons/io5";
 import { SiTestcafe } from "react-icons/si";
 import TransitionLink from "@/components/ui/TransitionLink";
+import { Bell, CalendarCheck, CalendarFold, CreditCard, LayoutDashboard, List, Mail, PersonStanding, Settings, TestTube, UserRound, Users } from "lucide-react";
 
 const Navbar = () => {
   const links = [
@@ -23,7 +24,7 @@ const Navbar = () => {
       title: "داشبورد",
       link: "/admin",
       access: ["manager", "boss"],
-      icon: <MdDashboard />,
+      icon: <LayoutDashboard />,
     },
     {
       title: "داشبورد محتوا",
@@ -35,49 +36,49 @@ const Navbar = () => {
       title: "نوبت ها",
       link: "/admin/appointments",
       access: ["manager", "boss"],
-      icon: <SlCalender />,
+      icon: <CalendarCheck />,
     },
     {
       title: "ارزیابی ها",
       link: "/admin/assessments",
       access: ["manager", "boss"],
-      icon: <SiTestcafe />,
+      icon: <CalendarFold />,
     },
     {
       title: "مراجعان",
       link: "/admin/clients",
       access: ["manager", "boss"],
-      icon: <FiList />,
+      icon: <List />,
     },
     {
       title: "مشاورین",
       link: "/admin/doctors",
       access: ["manager", "boss"],
-      icon: <IoPerson />,
+      icon: <UserRound />,
     },
     {
       title: "پرداخت ها",
       link: "/admin/payments",
       access: ["manager", "boss"],
-      icon: <MdPayment />,
+      icon: <CreditCard />,
     },
     {
       title: "اعلانات",
       link: "/admin/notifications",
       access: ["manager", "boss"],
-      icon: <LuBell />,
+      icon: <Bell />,
     },
     {
       title: "پنل پیامک",
       link: "/admin/sms-panel",
       access: ["manager", "boss"],
-      icon: <BiEnvelope />,
+      icon: <Mail />,
     },
     {
       title: "مدیران سایت",
       link: "/admin/admins",
       access: ["boss"],
-      icon: <FiList />,
+      icon: <Users />,
     },
     {
       title: "دپارتمان ها",
@@ -120,6 +121,12 @@ const Navbar = () => {
       link: "/dashboard/about",
       access: ["author"],
       icon: <LuCircleHelp />,
+    },
+    {
+      title: "تنظیمات",
+      link: "/admin/settings",
+      access: ["boss", "manager"],
+      icon: <Settings />,
     },
   ];
 

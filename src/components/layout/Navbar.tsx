@@ -13,7 +13,6 @@ import workshop from "../../../public/images/in1.jpg";
 import blog from "../../../public/images/blog.webp";
 import appointment from "../../../public/images/appointment.webp";
 
-// داده‌های مگامنو
 const megaMenuData: any = {
   appointment: {
     title: "دریافت نوبت",
