@@ -1,56 +1,122 @@
 "use client";
 
-import React from "react";
 import Header from "../../_components/layout/Header";
 import {
   Accordion,
-  AccordionContent,
   AccordionItem,
   AccordionTrigger,
+  AccordionContent,
 } from "@/components/ui/accordion";
-import { ArrowLeft } from "lucide-react";
-import { useBackupDoctors } from "@/hooks/useBackup";
-import { PuffLoader } from "react-spinners";
-import BackupButton from "../../_components/BackupButton";
 
-const Settings = () => {
-  const { mutate: backupDoctors, isPending: doctorsPending } =
-    useBackupDoctors();
+import BackupRestoreSection from "../../_components/BackupRestoreSection";
+
+import {
+  useBackupDoctors,
+  useBackupDoctorResumes,
+  useBackupClients,
+  useBackupPosts,
+  useBackupCategoties,
+  useBackupTags,
+  useBackupWorkshops,
+  useBackupAbout,
+  useBackupAdmins,
+} from "@/hooks/useBackup";
+
+import {
+  useRestoreDoctors,
+  useRestoreDoctorResumes,
+  useRestoreClients,
+  useRestorePosts,
+  useRestoreCategories,
+  useRestoreTags,
+  useRestoreWorkshops,
+  useRestoreAbout,
+  useRestoreAdmins,
+} from "@/hooks/useRestore";
+
+export default function Settings() {
   return (
     <div className="w-full h-full flex flex-col">
       <Header searchFn={() => {}} isShowSearch={false} />
-      <div className="w-full flex flex-col p-12">
-        <div className="w-full h-full space-y-6">
-          <div className="flex items-center justify-between">
-            <h2 className="font-bold text-2xl">تنظیمات</h2>
-          </div>
-          <div className="w-full h-full flex items-start justify-between gap-4">
-            <div className="w-full space-y-3">
-              <h2>تهیه نسخه پشتیبان از اطلاعات</h2>
-              <Accordion type="multiple">
-                <AccordionItem value="item-1">
-                  <AccordionTrigger className="px-3">
-                    {" "}
-                    رواندرمانگران
-                  </AccordionTrigger>
-                  <AccordionContent className="mt-2 bg-white dark:bg-gray-800 rounded-lg p-3 space-y-2">
-                    <BackupButton
-                      text="تهیه پشتیبان از رواندرمانگران"
-                      isLoading={doctorsPending}
-                      backupFn={backupDoctors}
-                    />
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
-            </div>
-            <div className="w-full space-y-3">
-              <h2>تنظیمات اعلانات</h2>
-            </div>
-          </div>
-        </div>
+
+      <div className="p-12 space-y-6">
+        <h2 className="font-bold text-2xl">تنظیمات</h2>
+
+        <Accordion type="multiple" className="space-y-4">
+          {/* رواندرمانگران */}
+          <AccordionItem value="doctors">
+            <AccordionTrigger>رواندرمانگران</AccordionTrigger>
+            <AccordionContent className="space-y-4">
+              <BackupRestoreSection
+                title="رواندرمانگران"
+                backupHook={useBackupDoctors}
+                restoreHook={useRestoreDoctors}
+              />
+              <BackupRestoreSection
+                title="رزومه رواندرمانگران"
+                backupHook={useBackupDoctorResumes}
+                restoreHook={useRestoreDoctorResumes}
+              />
+            </AccordionContent>
+          </AccordionItem>
+
+          {/* مراجعان */}
+          <AccordionItem value="clients">
+            <AccordionTrigger>مراجعان</AccordionTrigger>
+            <AccordionContent className="space-y-4">
+              <BackupRestoreSection
+                title="مراجعان"
+                backupHook={useBackupClients}
+                restoreHook={useRestoreClients}
+              />
+            </AccordionContent>
+          </AccordionItem>
+
+          {/* محتوا */}
+          <AccordionItem value="content">
+            <AccordionTrigger>محتوا</AccordionTrigger>
+            <AccordionContent className="space-y-4">
+              <BackupRestoreSection
+                title="مقالات"
+                backupHook={useBackupPosts}
+                restoreHook={useRestorePosts}
+              />
+              <BackupRestoreSection
+                title="دسته‌بندی‌ها"
+                backupHook={useBackupCategoties}
+                restoreHook={useRestoreCategories}
+              />
+              <BackupRestoreSection
+                title="برچسب‌ها"
+                backupHook={useBackupTags}
+                restoreHook={useRestoreTags}
+              />
+              <BackupRestoreSection
+                title="کارگاه‌ها"
+                backupHook={useBackupWorkshops}
+                restoreHook={useRestoreWorkshops}
+              />
+              <BackupRestoreSection
+                title="درباره‌ی مرکز"
+                backupHook={useBackupAbout}
+                restoreHook={useRestoreAbout}
+              />
+            </AccordionContent>
+          </AccordionItem>
+
+          {/* مدیران */}
+          <AccordionItem value="admins">
+            <AccordionTrigger>مدیران</AccordionTrigger>
+            <AccordionContent className="space-y-4">
+              <BackupRestoreSection
+                title="مدیران"
+                backupHook={useBackupAdmins}
+                restoreHook={useRestoreAdmins}
+              />
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
       </div>
     </div>
   );
-};
-
-export default Settings;
+}

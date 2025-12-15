@@ -33,6 +33,8 @@ export async function generateMetadata({
     const doctorData = await response.json();
     const doctor = doctorData?.data;
 
+    console.log(doctor)
+
     return {
       title: `${doctor?.name ?? "مشاور"} - کلینیک ابراز`,
       description:

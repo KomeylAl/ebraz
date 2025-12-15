@@ -26,6 +26,9 @@ const DoctorPanel = ({ params }: PageProps) => {
   const { isLoading: tomorrowSmsLoading, refetch: sendTomorrowSms } =
     useSendTomorrowSms(doctorId);
 
+  const { data } = useGetDoctor(doctorId);
+  console.log(data)
+
   return (
     <div className="w-full h-full flex flex-col">
       <Header searchFn={() => {}} isShowSearch={false} />

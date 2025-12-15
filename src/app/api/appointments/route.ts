@@ -8,7 +8,6 @@ export async function GET(req: NextRequest) {
   const search = params.get("search") || "";
   const date = params.get("date") || "";
   const clientId = params.get("clientId") || "";
-  console.log(clientId)
 
   try {
     const response = await fetch(
@@ -22,6 +21,8 @@ export async function GET(req: NextRequest) {
       }
     );
     if (!response.ok) {
+      const error = await response.json();
+      console.log(error);
       return NextResponse.json(
         { message: "Error getting admins" },
         { status: response.status }
@@ -32,6 +33,7 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json(data, { status: 200 });
   } catch (error) {
+    console.log(error)
     return NextResponse.json(
       { message: "Something went wrong" },
       { status: 500 }

@@ -39,6 +39,8 @@ export async function POST(
         { status: response.status }
       );
     }
+    const data = await response.json()
+    console.log(data)
 
     return NextResponse.json({ message: "OK" }, { status: 201 });
   } catch (error) {

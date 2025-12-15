@@ -2,11 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
   const token = req.cookies.get("token");
-  const params = req.nextUrl.searchParams;
 
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/backup/doctors`,
+      `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/backup/about`,
       {
         method: "GET",
         headers: {
@@ -19,7 +18,7 @@ export async function GET(req: NextRequest) {
       const data = await response.json();
       console.log(data);
       return NextResponse.json(
-        { message: "Error backing up doctors" },
+        { message: "Error backing up about" },
         { status: response.status }
       );
     }

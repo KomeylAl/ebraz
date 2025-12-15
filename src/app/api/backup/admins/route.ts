@@ -6,7 +6,7 @@ export async function GET(req: NextRequest) {
 
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/backup/doctors`,
+      `${process.env.NEXT_PUBLIC_BACKEND_API_URL}api/backup/admins`,
       {
         method: "GET",
         headers: {
@@ -19,7 +19,7 @@ export async function GET(req: NextRequest) {
       const data = await response.json();
       console.log(data);
       return NextResponse.json(
-        { message: "Error backing up doctors" },
+        { message: "Error backing up admins" },
         { status: response.status }
       );
     }
