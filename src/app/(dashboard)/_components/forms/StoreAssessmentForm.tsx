@@ -132,7 +132,7 @@ const StoreAssessmentForm = ({ onSuccess }: { onSuccess: () => void }) => {
                     data={doctors}
                     placeholder="انتخاب مشاور"
                     searchPlaceholder="جستجو..."
-                    value={field.value}
+                    value={field?.value ?? ""}
                     onChange={field.onChange}
                   />
                 )}

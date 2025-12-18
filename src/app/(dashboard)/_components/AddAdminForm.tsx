@@ -2,7 +2,7 @@
 
 import { useAddAdmin } from "@/hooks/useAdmins";
 import { roleOptions } from "@/lib/selectOptions";
-import React, { useState } from "react";
+import { useState } from "react";
 import toast from "react-hot-toast";
 import ReactSelect from "react-select";
 import DatePicker from "react-multi-date-picker";

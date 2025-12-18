@@ -36,7 +36,7 @@ const Hero = () => {
               href="/psychologists"
               className="text-center text-beige py-3 rounded-md border border-beige cursor-pointer hover:bg-beige hover:text-black transition duration-200 w-46"
             >
-              مشاوران
+              روان‌درمانگران
             </Link>
           </div>
         </div>

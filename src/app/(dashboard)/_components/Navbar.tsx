@@ -1,12 +1,8 @@
 "use client";
 
 import { MdClass, MdDashboard, MdPayment } from "react-icons/md";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FiList } from "react-icons/fi";
-import { SlCalender } from "react-icons/sl";
-import { IoPerson } from "react-icons/io5";
-import { BiEnvelope } from "react-icons/bi";
 import { LuCircleHelp } from "react-icons/lu";
 import { GrArticle } from "react-icons/gr";
 import { LuBell } from "react-icons/lu";
@@ -14,7 +10,6 @@ import { PuffLoader } from "react-spinners";
 import { useUser } from "@/context/UserContext";
 import { TbCategory2 } from "react-icons/tb";
 import { IoPricetagOutline } from "react-icons/io5";
-import { SiTestcafe } from "react-icons/si";
 import TransitionLink from "@/components/ui/TransitionLink";
 import { Bell, CalendarCheck, CalendarFold, CreditCard, LayoutDashboard, List, Mail, PersonStanding, Settings, TestTube, UserRound, Users } from "lucide-react";
 

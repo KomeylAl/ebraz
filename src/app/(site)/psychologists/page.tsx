@@ -26,10 +26,10 @@ export default async function Psychologists({
   const data = await res.json();
   return (
     <div>
-      <Header pageTitle="مشاوران" />
+      <Header pageTitle="روان‌درمانگران" />
       <div className="w-full px-5 md:px-16 lg:px-12 py-12 space-y-6 flex flex-col items-center">
         <h2 className="text-3xl font-semibold">
-          مشاوران کلینیک رواندرمانی ابراز
+          روان‌درمانگران کلینیک رواندرمانی ابراز
         </h2>
         <p>بهترین متخصصان و رواندرمانگران در مسیر درمان همراه شما هستند.</p>
         <SearchBar />

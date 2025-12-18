@@ -1,6 +1,12 @@
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
-import { GraduationCap, Briefcase, Link as LinkIcon, User } from "lucide-react";
+import {
+  GraduationCap,
+  Briefcase,
+  Link as LinkIcon,
+  User,
+  FileText,
+} from "lucide-react";
 import Header from "@/components/layout/Header";
 import { FaLinkedinIn } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
@@ -32,8 +38,6 @@ export async function generateMetadata({
     if (!response.ok) throw new Error("Doctor not found");
     const doctorData = await response.json();
     const doctor = doctorData?.data;
-
-    console.log(doctor)
 
     return {
       title: `${doctor?.name ?? "مشاور"} - کلینیک ابراز`,
@@ -78,13 +82,14 @@ const DoctorProfile = async ({ params }: DoctorProfileProps) => {
   const educations = resume?.educations ?? [];
   const experiences = resume?.experiences ?? [];
   const social = resume?.social_links ?? {};
+  const resources = resume?.resources ?? [];
 
   return (
     <div className="bg-niceblue-50 min-h-screen">
       {/* Header */}
       <Header
         pageTitle={doctor.name}
-        bread="مشاورین"
+        bread="روان‌درمانگران"
         breadLink="/psychologists"
       />
 
@@ -236,6 +241,29 @@ const DoctorProfile = async ({ params }: DoctorProfileProps) => {
               <p className="text-gray-500">سابقه کاری ثبت نشده است.</p>
             )}{" "}
           </div>
+          <section className="bg-white/30 border border-gray-300 rounded-md p-6">
+            <h3 className="text-lg font-bold mb-2">منابع پیشنهادی درمانگر</h3>
+
+            <ul className="space-y-2">
+              {resources.map((r: any) => (
+                <li key={r.id} className="flex items-start gap-2">
+                  {r.type === "link" ? <LinkIcon /> : <FileText />}
+                  <div>
+                    <a
+                      href={r.url}
+                      target="_blank"
+                      className="text-blue-600 underline"
+                    >
+                      {r.title}
+                    </a>
+                    {r.description && (
+                      <p className="text-sm text-gray-500">{r.description}</p>
+                    )}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </section>
         </div>
       </div>
     </div>
